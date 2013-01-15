@@ -30,7 +30,6 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QProgressDialog>
-#include <QProgressBar>
 #include <QStringList>
 #include <QGraphicsPixmapItem>
 
