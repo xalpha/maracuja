@@ -19,45 +19,62 @@
 //                                                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-
-#pragma once
-
 ///
-/// \file    MSImage.hpp
-/// \class   MSImage
+/// \file    Channel.cpp
+/// \class   Channel
 ///
 /// \package maracuja
 /// \version 0.1.0
 ///
-/// \brief   base class for image segmentation
-///
-/// \details this is base container for multispectral images
+/// \brief   base class for channel's characteristics memorization
 ///
 /// \author  Alexandru Duliu, Anne-Claire Morvan
 /// \date    Jan 15, 2013
 ///
 
 
-#include <maracuja/util.hpp>
-#include <maracuja/Spectrum.hpp>
 #include <maracuja/Channel.hpp>
 
 
 namespace maracuja
 {
 
-    class MSImage
+    Channel::Channel()
     {
-        public:
-            MSImage();
-            virtual ~MSImage();
-            int getChannelsNumber();
-            std::vector<Channel> getChannels();
-            Channel getChannel(int channelIdx);
-            cimg_library::CImg<uint8_t> convolute(Spectrum spectrum);
 
-        protected:
-            std::vector<Channel> m_channels;
-    };
+    }
+
+
+    Channel::~Channel() {
+        // TODO Auto-generated destructor stub
+    }
+
+
+    int Channel::getId()
+    {
+        return this->m_id;
+    }
+
+    Spectrum Channel::getFilter()
+    {
+        return this->m_filter;
+    }
+
+    Spectrum Channel::getSensor()
+    {
+        return this->m_sensor;
+    }
+
+    cimg_library::CImg<uint8_t> Channel::getImg()
+    {
+        return this->m_image;
+    }
+
+    std::string Channel::getName()
+    {
+        return this->m_name;
+    }
+
+
 
 } // end namespace maracuja

@@ -30,8 +30,8 @@
 ///
 /// \details this is base container for multispectral images
 ///
-/// \author  Alexandru Duliu
-/// \date    Jan 5, 2013
+/// \author  Alexandru Duliu, Anne-Claire Morvan
+/// \date    Jan 15, 2013
 ///
 
 
@@ -41,14 +41,54 @@
 namespace maracuja
 {
 
-MSImage::MSImage()
-{
+    MSImage::MSImage()
+    {
 
-}
+    }
 
 
-MSImage::~MSImage() {
-    // TODO Auto-generated destructor stub
-}
+    MSImage::~MSImage() {
+        // TODO Auto-generated destructor stub
+    }
+
+    int MSImage::getChannelsNumber()
+    {
+        return ( (int) (this->m_channels).size());
+    }
+
+    std::vector<Channel> MSImage::getChannels()
+    {
+        return this->m_channels;
+    }
+
+    Channel MSImage::getChannel(int channelIdx)
+    {
+        return (this->getChannels())[channelIdx];
+    }
+
+    cimg_library::CImg<uint8_t> MSImage::convolute(Spectrum spectrum)
+    {
+        // calculation of the multiplicative coefficient for each channel for the considered spectrum
+        std::vector<double> coeffs(this->getChannelsNumber());
+        for (unsigned idx = 0; idx < this->getChannelsNumber(); idx++)
+        {
+            double dp;
+            Eigen::VectorXd spectralData = spectrum.getData();
+            Eigen::VectorXd filter_i = (this->m_channels)[idx].getFilter().getData();
+            coeffs[idx] = spectralData.adjoint()*(filter_i);
+        }
+
+        // multiplication of the images by the previously calculated coefficients
+        cimg_library::CImg<uint8_t> resultImage;
+        // the next line is the initialization at the good size!
+        resultImage = coeffs[0]*((this->m_channels)[0].getImg());
+        for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
+        {
+            resultImage = resultImage + coeffs[idx]*((this->m_channels)[idx].getImg());
+        }
+
+        return resultImage;
+    }
+
 
 } // end namespace maracuja

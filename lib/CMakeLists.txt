@@ -34,9 +34,13 @@ include( MaracujaConfig.cmake )
 # add the include files
 list( APPEND Maracuja_INC
     include/maracuja/MSImage.hpp
+    include/maracuja/Spectrum.hpp
+    include/maracuja/Channel.hpp
     include/maracuja/util.hpp )
 list( APPEND Maracuja_SRC
-    src/MSImage.cpp )
+    src/MSImage.cpp
+    src/Spectrum.cpp
+    src/Channel.cpp )
 
 # external dependencies of maracuja
 list( APPEND Maracuja_EXTERN_INC extern/cimg/CImg.h )

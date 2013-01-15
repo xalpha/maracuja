@@ -23,15 +23,15 @@
 #pragma once
 
 ///
-/// \file    MSImage.hpp
-/// \class   MSImage
+/// \file    Spectrum.hpp
+/// \class   Spectrum
 ///
 /// \package maracuja
 /// \version 0.1.0
 ///
-/// \brief   base class for image segmentation
+/// \brief   base class for spectrum segmentation
 ///
-/// \details this is base container for multispectral images
+/// \details this is base container for curve values
 ///
 /// \author  Alexandru Duliu, Anne-Claire Morvan
 /// \date    Jan 15, 2013
@@ -39,25 +39,24 @@
 
 
 #include <maracuja/util.hpp>
-#include <maracuja/Spectrum.hpp>
-#include <maracuja/Channel.hpp>
 
 
 namespace maracuja
 {
 
-    class MSImage
-    {
-        public:
-            MSImage();
-            virtual ~MSImage();
-            int getChannelsNumber();
-            std::vector<Channel> getChannels();
-            Channel getChannel(int channelIdx);
-            cimg_library::CImg<uint8_t> convolute(Spectrum spectrum);
+class Spectrum
+{
+public:
+    Spectrum();
+    virtual ~Spectrum();
+    double getStart();
+    double getEnd();
+    Eigen::VectorXd getData();
 
-        protected:
-            std::vector<Channel> m_channels;
-    };
+protected:
+    double m_start; /// begin wavelength of the spectrum definition
+    double m_end; /// begin wavelength of the spectrum definition
+    Eigen::VectorXd m_data; /// values of the function through the spectrum
+};
 
 } // end namespace maracuja

@@ -44,6 +44,7 @@
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
+// #include <Eigen/Dense>
 
 #define cimg_display 0
 #include <CImg.h>
