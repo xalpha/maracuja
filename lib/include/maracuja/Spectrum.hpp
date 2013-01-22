@@ -52,6 +52,7 @@ public:
     double getStart();
     double getEnd();
     Eigen::VectorXd getData();
+    Eigen::VectorXd multiplicateSpectrum(double coeff);
 
 protected:
     double m_start; /// begin wavelength of the spectrum definition

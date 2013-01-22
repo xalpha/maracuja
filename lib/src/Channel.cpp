@@ -75,6 +75,42 @@ namespace maracuja
         return this->m_name;
     }
 
+    double Channel::lossCalculation()
+    {
+        // this function returns a multiplicative coefficient,
+        // which compensate the loss due to the filter
+        // and the loss due to the sensitivity
+
+        double coeff = 1; // out put of the function
+
+        // compensation of the loss, which comes from the filter's use
+        double max = this->m_filter.getData().maxCoeff();
+        if (max != 0)
+        {
+            coeff = coeff/max;
+        }
+
+        // compensation of the loss, which comes from the camera sensitivity
+        double coeff_tmp = this->m_filter.getData().adjoint()*(this->m_sensor.getData());
+        if (coeff_tmp != 0)
+        {
+            double sum_filter = this->m_filter.getData().sum();
+            coeff_tmp = sum_filter/coeff_tmp;
+        } // coeff_tmp = sum(filter's values) / dot product(filter's values and sensitivity's values)
+
+        coeff = coeff * coeff_tmp;
+        return coeff;
+    }
+
+    cimg_library::CImg<uint8_t> Channel::lossCompensation(double compensationCoeff)
+    {
+        cimg_library::CImg<uint8_t> compensatedImg;
+        compensatedImg = compensationCoeff * this->m_image;
+        return compensatedImg;
+        //this->m_image *= compensationCoeff;
+    }
+
+
 
 
 } // end namespace maracuja

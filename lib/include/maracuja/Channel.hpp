@@ -52,6 +52,8 @@ public:
     Spectrum getSensor();
     cimg_library::CImg<uint8_t> getImg();
     std::string getName();
+    double lossCalculation();
+    cimg_library::CImg<uint8_t> lossCompensation(double compensationCoeff);
 
 protected:
     int m_id; /// channel id

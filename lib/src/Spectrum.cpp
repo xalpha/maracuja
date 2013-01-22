@@ -65,5 +65,11 @@ namespace maracuja
         return this->m_data;
     }
 
+    Eigen::VectorXd Spectrum::multiplicateSpectrum(double coeff)
+    {
+        Eigen::VectorXd result;
+        result = coeff * this->m_data;
+        return result;
+    }
 
 } // end namespace maracuja

@@ -54,7 +54,10 @@ namespace maracuja
             int getChannelsNumber();
             std::vector<Channel> getChannels();
             Channel getChannel(int channelIdx);
+            std::vector<double> coefficientsCalculation(Spectrum spectrum);
             cimg_library::CImg<uint8_t> convolute(Spectrum spectrum);
+            std::vector<std::vector<double>> initialization(std::vector<Spectrum> spectrums);
+            cimg_library::CImg<uint8_t> imageReconstruction(std::vector<std::vector<double>> reconstructionCoeffs, unsigned channelIdx);
 
         protected:
             std::vector<Channel> m_channels;
