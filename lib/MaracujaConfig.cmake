@@ -72,6 +72,7 @@ set( Maracuja_LIBRARY ${Maracuja_TARGET} CACHE INTERNAL "the maracuja lib" )
 set( Maracuja_INCLUDE_DIRS
     ${Maracuja_INCLUDE_DIR}
     ${Maracuja_DIR}/extern/cimg
+    ${Maracuja_DIR}/extern/tinyxml2
     ${EIGEN3_INCLUDE_DIR} CACHE INTERNAL "all include directories maracuja needs" )
 
 # link libraries

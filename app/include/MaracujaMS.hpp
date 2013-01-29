@@ -28,7 +28,8 @@
 #include <QDialog>
 #include <QMainWindow>
 
-
+#include <maracuja/util.hpp>
+#include <maracuja/MSImage.hpp>
 
 namespace Ui {
     class MaracujaMS;
@@ -42,13 +43,21 @@ class MaracujaMS : public QMainWindow
 public:
     explicit MaracujaMS(QWidget *parent = 0);
     ~MaracujaMS();
+    void updateComboBox();
 
 public slots:
     void on_loadImage();
     void on_addChannel();
 
+    //protected
+
 protected:
     // ui
     Ui::MaracujaMS *ui;
+
+    cimg_library::CImg<uint8_t> m_tempImage;
+    maracuja::MSImage m_MSImages;
+
+
 };
 

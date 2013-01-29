@@ -56,6 +56,18 @@ MaracujaMS::~MaracujaMS()
     delete ui;
 }
 
+void MaracujaMS::updateComboBox()
+{
+    ui->channel_choice->clear();
+    QStringList nameList;
+    for (unsigned idx = 0; idx < m_MSImages.getChannelsNumber(); idx ++)
+    {
+        nameList << QString(m_MSImages.getChannel(idx).getName().c_str());
+    }
+    const QStringList choiceList = nameList;
+    ui->channel_choice->addItems(choiceList);
+}
+
 
 void MaracujaMS::on_loadImage()
 {
@@ -66,27 +78,33 @@ void MaracujaMS::on_loadImage()
         if( imagePath.size() > 0 )
         {
             // load image
-            cimg_library::CImg<uint8_t> image;
-            image.load( imagePath.c_str() );
-
-            // convert image to Qt
-            QImage imageQt( image.width(), image.height(), QImage::Format_RGB888 );
-            for( int y=0; y<image.height(); y++ )
+//            cimg_library::CImg<uint8_t> image;
+            m_tempImage.load( imagePath.c_str() );
+            unsigned writeIdx = 0;
+            while (QString(m_MSImages.getChannel(writeIdx).getName().c_str()) != ui->channel_choice->currentText() && writeIdx < m_MSImages.getChannelsNumber())
             {
-                for( int x=0; x<image.width(); x++ )
-                {
-                    QColor col( image(x,y,0,0),
-                                image(x,y,0,1),
-                                image(x,y,0,2) );
-                    imageQt.setPixel( x, y, col.rgb() );
-                }
+                writeIdx++;
             }
+            m_MSImages.getChannel(writeIdx).setImage(m_tempImage);
 
-            // set the images
-            ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
-            ui->view->xAxis->setRange(0, imageQt.width() );
-            ui->view->yAxis->setRange(0, imageQt.height() );
-            ui->view->replot();
+//            // convert image to Qt
+//            QImage imageQt( image.width(), image.height(), QImage::Format_RGB888 );
+//            for( int y=0; y<image.height(); y++ )
+//            {
+//                for( int x=0; x<image.width(); x++ )
+//                {
+//                    QColor col( image(x,y,0,0),
+//                                image(x,y,0,1),
+//                                image(x,y,0,2) );
+//                    imageQt.setPixel( x, y, col.rgb() );
+//                }
+//            }
+
+//            // set the images
+//            ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
+//            ui->view->xAxis->setRange(0, imageQt.width() );
+//            ui->view->yAxis->setRange(0, imageQt.height() );
+//            ui->view->replot();
         }
 
     }
@@ -149,10 +167,12 @@ void MaracujaMS::on_addChannel()
         }
         sensitSpectrum.setValues(startVal, endVal, sensitivity);
 
-        //maracuja::Channel FChannel;
-        //FChannel.setValues(10, F10Spectrum, SensitSpectrum, "Filter 10");
-        //imageTest.addChannel(F10Channel);
+        // add the channel to the m_MSImages
+        maracuja::Channel tempChannel;
+        tempChannel.setValues(filterId, filterSpectrum, sensitSpectrum, filterName);
+        this->m_MSImages.addChannel(tempChannel);
 
+        this->updateComboBox();
 
     }
     catch( std::exception &e )
