@@ -43,8 +43,11 @@ list( APPEND Maracuja_SRC
     src/Channel.cpp )
 
 # external dependencies of maracuja
-list( APPEND Maracuja_EXTERN_INC extern/cimg/CImg.h )
-list( APPEND Maracuja_EXTERN_SRC )
+list( APPEND Maracuja_EXTERN_INC
+    extern/cimg/CImg.h
+    extern/tinyxml2/tinyxml2.h )
+list( APPEND Maracuja_EXTERN_SRC
+    extern/tinyxml2/tinyxml2.cpp )
 
 # set include directories
 include_directories( ${Maracuja_INCLUDE_DIRS} )
