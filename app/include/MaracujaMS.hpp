@@ -45,6 +45,7 @@ public:
 
 public slots:
     void on_loadImage();
+    void on_addChannel();
 
 protected:
     // ui

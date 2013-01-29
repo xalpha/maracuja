@@ -80,7 +80,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox"/>
+            <widget class="QSpinBox" name="filter_id"/>
            </item>
            <item row="5" column="0">
             <widget class="QLabel" name="label_3">
@@ -90,7 +90,7 @@
             </widget>
            </item>
            <item row="5" column="1">
-            <widget class="QLineEdit" name="lineEdit_2"/>
+            <widget class="QLineEdit" name="filter_values"/>
            </item>
            <item row="3" column="0">
             <widget class="QLabel" name="label_4">
@@ -100,7 +100,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+            <widget class="QDoubleSpinBox" name="filter_begin"/>
            </item>
            <item row="4" column="0">
             <widget class="QLabel" name="label_5">
@@ -110,7 +110,7 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+            <widget class="QDoubleSpinBox" name="filter_end"/>
            </item>
            <item row="6" column="0">
             <widget class="QLabel" name="label_6">
@@ -120,7 +120,7 @@
             </widget>
            </item>
            <item row="6" column="1">
-            <widget class="QLineEdit" name="lineEdit_3"/>
+            <widget class="QLineEdit" name="filter_sensit"/>
            </item>
           </layout>
          </widget>
