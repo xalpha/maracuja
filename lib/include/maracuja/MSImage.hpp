@@ -42,6 +42,8 @@
 #include <maracuja/Spectrum.hpp>
 #include <maracuja/Channel.hpp>
 
+#include <tinyxml2.h>
+
 
 namespace maracuja
 {
@@ -56,8 +58,14 @@ namespace maracuja
             Channel getChannel(int channelIdx);
             std::vector<double> coefficientsCalculation(Spectrum spectrum);
             cimg_library::CImg<uint8_t> convolute(Spectrum spectrum);
-            std::vector<std::vector<double>> initialization(std::vector<Spectrum> spectrums);
-            cimg_library::CImg<uint8_t> imageReconstruction(std::vector<std::vector<double>> reconstructionCoeffs, unsigned channelIdx);
+            std::vector<std::vector<double> > initialization(std::vector<Spectrum> spectrums);
+            cimg_library::CImg<uint8_t> imageReconstruction(std::vector<std::vector<double> > reconstructionCoeffs, unsigned channelIdx);
+
+            void load( const std::string& filename );
+            void save( const std::string& filename );
+
+    protected:
+            std::string getElementValue( tinyxml2::XMLNode* node, std::string name );
 
         protected:
             std::vector<Channel> m_channels;

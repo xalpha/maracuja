@@ -48,11 +48,20 @@ class Spectrum
 {
 public:
     Spectrum();
+    Spectrum( const Spectrum& spec );
+    Spectrum( double start, double end, const Eigen::VectorXd& data  );
+    Spectrum( double start, double end, const std::vector<double>& data  );
     virtual ~Spectrum();
+
+    void operator =( const Spectrum& spec );
+
     double getStart();
     double getEnd();
     Eigen::VectorXd getData();
     Eigen::VectorXd multiplicateSpectrum(double coeff);
+
+protected:
+    Eigen::VectorXd toEigen( const std::vector<double>& vec );
 
 protected:
     double m_start; /// begin wavelength of the spectrum definition

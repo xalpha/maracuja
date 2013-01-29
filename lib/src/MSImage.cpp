@@ -104,9 +104,9 @@ namespace maracuja
         return resultImage;
     }
 
-    std::vector<std::vector<double>> MSImage::initialization(std::vector<Spectrum> spectrums)
+    std::vector<std::vector<double> > MSImage::initialization(std::vector<Spectrum> spectrums)
     {
-        std::vector<std::vector<double>> allCoeffs(spectrums.size());
+        std::vector<std::vector<double> > allCoeffs(spectrums.size());
         for (unsigned idx = 0; idx < spectrums.size(); idx++)
         {
             allCoeffs[idx] = this->coefficientsCalculation(spectrums[idx]);
@@ -169,7 +169,7 @@ namespace maracuja
 
     }
 
-    cimg_library::CImg<uint8_t> MSImage::imageReconstruction(std::vector<std::vector<double>> reconstructionCoeffs, unsigned channelIdx)
+    cimg_library::CImg<uint8_t> MSImage::imageReconstruction(std::vector<std::vector<double> > reconstructionCoeffs, unsigned channelIdx)
     {
         if (channelIdx < reconstructionCoeffs.size())
         {
@@ -183,6 +183,82 @@ namespace maracuja
 
             return resultImage;
         }
+    }
+
+
+    void MSImage::load( const std::string& filename )
+    {
+        // load the document
+        tinyxml2::XMLDocument doc;
+        int loadStatus = doc.LoadFile( filename.c_str() );
+        if( tinyxml2::XML_SUCCESS != loadStatus )
+            throw std::runtime_error( "MSImage::load: " + std::string( doc.GetErrorStr1() ) );
+
+        // get the root
+        tinyxml2::XMLNode* root = doc.FirstChildElement( "MultispectralImage" );
+        if( root == 0 )
+            throw std::runtime_error( "MSImage::load: root node not found." );
+
+        // get the channels
+        tinyxml2::XMLNode* channels = root->FirstChildElement( "Channels" );
+        if( channels == 0 )
+            throw std::runtime_error( "MSImage::load: no channels." );
+
+        // run over all the cameras
+        m_channels.clear();
+        for( tinyxml2::XMLNode* chPtr=channels->FirstChildElement( "Channel" ); chPtr != 0; chPtr = chPtr->NextSiblingElement( "Channel" ) )
+        {
+            Channel ch;
+            int id;
+            std::string name, imageFilename;
+            double fs, fe, ss, se;
+            std::vector<double> fd, sd;
+
+            // get channel id & name
+            str2scalar( getElementValue( chPtr, "Id" ), id);
+            name = getElementValue( chPtr, "Name" );
+
+            // get channel filter
+            tinyxml2::XMLNode* filterNode = chPtr->FirstChildElement( "Filter" );
+            str2scalar( getElementValue( filterNode, "Start" ), fs);
+            str2scalar( getElementValue( filterNode, "End" ), fe );
+            str2vector( getElementValue( filterNode, "Data" ), fd );
+            Spectrum filter( fs, fe, fd );
+
+            // get channel sensor
+            tinyxml2::XMLNode* sensorNode = chPtr->FirstChildElement( "Sensor" );
+            str2scalar( getElementValue( sensorNode, "Start" ), ss);
+            str2scalar( getElementValue( sensorNode, "End" ), se );
+            str2vector( getElementValue( sensorNode, "Data" ), sd );
+            Spectrum sensor( ss, se, sd );
+
+            // get the image
+            imageFilename = getElementValue( chPtr, "Image" );
+            std::shared_ptr< cimg_library::CImg<uint8_t> > image( new cimg_library::CImg<uint8_t>() );
+            image->load( imageFilename.c_str() );
+
+            // add the image
+            m_channels.push_back( Channel( id, name, filter, sensor, image ) );
+        }
+    }
+
+
+    void MSImage::save( const std::string& filename )
+    {
+        // TODO
+    }
+
+
+    std::string MSImage::getElementValue( tinyxml2::XMLNode* node, std::string name )
+    {
+        tinyxml2::XMLNode* childTag = node->FirstChildElement( name.c_str() );
+        if( childTag != 0 )
+        {
+            tinyxml2::XMLNode* childText = childTag->FirstChild();
+            if( childText != 0 )
+                return std::string( childText->Value() );
+        }
+        return std::string();
     }
 
 } // end namespace maracuja

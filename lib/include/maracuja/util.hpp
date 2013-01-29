@@ -40,6 +40,7 @@
 #include <cmath>
 #include <memory>
 #include <vector>
+#include <stdexcept>
 #include <stdint.h>
 
 #include <Eigen/Core>
@@ -51,6 +52,32 @@
 
 namespace maracuja
 {
+
+
+template <typename T>
+inline void str2scalar( std::string str, T& result )
+{
+    std::stringstream ss;
+    ss << str;
+    ss.seekg( 0, std::ios::beg );
+    ss >> result;
+}
+
+
+template <typename T>
+inline void str2vector( const std::string& str, std::vector<T>& result )
+{
+    std::stringstream ss;
+    ss << str;
+    ss.seekg( 0, std::ios::beg );
+    while( !ss.eof() )
+    {
+        T tmp;
+        ss >> tmp;
+        result.push_back( tmp );
+    }
+    result.pop_back();
+}
 
 } // end namespace maracuja
 

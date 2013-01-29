@@ -45,8 +45,38 @@ namespace maracuja
     }
 
 
+    Spectrum::Spectrum( const Spectrum& spec )
+    {
+        *this = spec;
+    }
+
+
+    Spectrum::Spectrum( double start, double end, const Eigen::VectorXd& data  )
+    {
+        m_start = start;
+        m_end = end;
+        m_data = data;
+    }
+
+
+    Spectrum::Spectrum( double start, double end, const std::vector<double>& data  )
+    {
+        m_start = start;
+        m_end = end;
+        m_data = toEigen( data );
+    }
+
+
     Spectrum::~Spectrum() {
         // TODO Auto-generated destructor stub
+    }
+
+
+    void Spectrum::operator =( const Spectrum& spec )
+    {
+        m_start = spec.m_start;
+        m_end = spec.m_end;
+        m_data = spec.m_data;
     }
 
 
@@ -69,6 +99,16 @@ namespace maracuja
     {
         Eigen::VectorXd result;
         result = coeff * this->m_data;
+        return result;
+    }
+
+
+    Eigen::VectorXd Spectrum::toEigen( const std::vector<double>& vec )
+    {
+        Eigen::VectorXd result = Eigen::VectorXd::Zero(vec.size());
+        for( size_t i=0; i<vec.size(); i++ )
+            result(i) = vec[i];
+
         return result;
     }
 
