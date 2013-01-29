@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>425</width>
-    <height>511</height>
+    <width>830</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -44,10 +44,23 @@
      <number>7</number>
     </property>
     <item>
-     <widget class="QCustomPlot" name="view" native="true"/>
+     <widget class="QCustomPlot" name="view" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -70,7 +83,14 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="filter_name"/>
+            <widget class="QLineEdit" name="filter_name">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_2">
@@ -90,7 +110,14 @@
             </widget>
            </item>
            <item row="5" column="1">
-            <widget class="QLineEdit" name="filter_values"/>
+            <widget class="QLineEdit" name="filter_values">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
            <item row="3" column="0">
             <widget class="QLabel" name="label_4">
@@ -120,7 +147,14 @@
             </widget>
            </item>
            <item row="6" column="1">
-            <widget class="QLineEdit" name="filter_sensit"/>
+            <widget class="QLineEdit" name="filter_sensit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

@@ -205,7 +205,7 @@ namespace maracuja
         if( channels == 0 )
             throw std::runtime_error( "MSImage::load: no channels." );
 
-        // run over all the cameras
+        // run over all the channels
         m_channels.clear();
         for( tinyxml2::XMLNode* chPtr=channels->FirstChildElement( "Channel" ); chPtr != 0; chPtr = chPtr->NextSiblingElement( "Channel" ) )
         {
@@ -246,7 +246,43 @@ namespace maracuja
 
     void MSImage::save( const std::string& filename )
     {
-        // TODO
+        // init stuff
+        tinyxml2::XMLDocument doc;
+        std::string baseFilename = filename.substr( 0, filename.find_last_of('.') );
+
+        // add root
+        tinyxml2::XMLNode* root = doc.InsertEndChild( doc.NewElement( "MultispectralImage" ) );
+
+        // run over the channels
+        tinyxml2::XMLNode* channels = root->InsertEndChild( doc.NewElement( "Channels" ) );
+        for( auto chIt=m_channels.begin(); chIt != m_channels.end(); chIt++ )
+        {
+            // init channel
+            tinyxml2::XMLNode* channel = channels->InsertEndChild( doc.NewElement( "Channel" ) );
+
+            // add channel id & name
+            appendTextElement( doc, *channel, std::string("Id"), toString(chIt->getId() ) );
+            appendTextElement( doc, *channel, std::string("Name"), chIt->getName() );
+
+            // add the filter
+            tinyxml2::XMLNode* filter = channel->InsertEndChild( doc.NewElement( "Filter" ) );
+            appendTextElement( doc, *filter, std::string("Start"), toString( chIt->getFilter().getStart() ) );
+            appendTextElement( doc, *filter, std::string("End"), toString( chIt->getFilter().getEnd() ) );
+            appendTextElement( doc, *filter, std::string("Data"), toString( chIt->getFilter().getData() ) );
+
+            // add the sensor
+            tinyxml2::XMLNode* sensor = channel->InsertEndChild( doc.NewElement( "Sensor" ) );
+            appendTextElement( doc, *sensor, std::string("Start"), toString( chIt->getSensor().getStart() ) );
+            appendTextElement( doc, *sensor, std::string("End"), toString( chIt->getSensor().getEnd() ) );
+            appendTextElement( doc, *sensor, std::string("Data"), toString( chIt->getSensor().getData() ) );
+
+            // save the image
+            std::string channelFilename = baseFilename + "-" + toString(chIt->getId()) + ".png";
+            chIt->getImg().save( channelFilename.c_str() );
+        }
+
+        // wrap up
+        doc.SaveFile( filename.c_str() );
     }
 
 
@@ -260,6 +296,16 @@ namespace maracuja
                 return std::string( childText->Value() );
         }
         return std::string();
+    }
+
+
+    void MSImage::appendTextElement( tinyxml2::XMLDocument& doc,
+                                     tinyxml2::XMLNode& node,
+                                     std::string name,
+                                     std::string val )
+    {
+        tinyxml2::XMLNode* tmp = node.InsertEndChild( doc.NewElement( name.c_str() ) );
+        tmp->InsertEndChild( doc.NewText( val.c_str() ));
     }
 
 } // end namespace maracuja

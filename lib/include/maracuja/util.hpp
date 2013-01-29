@@ -43,9 +43,10 @@
 #include <stdexcept>
 #include <stdint.h>
 
+// Eigen (with custom IO format)
+#define EIGEN_DEFAULT_IO_FORMAT Eigen::IOFormat(StreamPrecision, DontAlignCols, " ", " ", "", "", "", " ")
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-// #include <Eigen/Dense>
 
 #define cimg_display 0
 #include <CImg.h>
@@ -77,6 +78,37 @@ inline void str2vector( const std::string& str, std::vector<T>& result )
         result.push_back( tmp );
     }
     result.pop_back();
+}
+
+
+template <typename T>
+inline std::string toString( const T val )
+{
+    std::stringstream ss;
+    ss << val;
+
+    return ss.str();
+}
+
+
+template <typename T>
+inline std::string toString( const Eigen::Matrix<T,Eigen::Dynamic,1>& vec )
+{
+    std::stringstream ss;
+    ss << vec;
+
+    return ss.str();
+}
+
+
+template <typename T>
+inline std::string toString( const std::vector<T>& vec )
+{
+    std::stringstream ss;
+    for( size_t i=0; i<vec.size(); i++ )
+        ss << vec[i] << " ";
+
+    return ss.str();
 }
 
 } // end namespace maracuja

@@ -113,7 +113,7 @@ namespace maracuja
 
     void Channel::loadImage(cimg_library::CImg<uint8_t> image)
     {
-        this->m_image = image;
+        *(this->m_image) = image;
     }
 
     double Channel::lossCalculation()
