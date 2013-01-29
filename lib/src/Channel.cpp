@@ -45,8 +45,36 @@ namespace maracuja
     }
 
 
+    Channel::Channel( const Channel& ch )
+    {
+        *this = ch;
+    }
+
+
+    Channel::Channel( int id, const std::string& name,
+                      const Spectrum& filter, const Spectrum& sensor,
+                      std::shared_ptr< cimg_library::CImg<uint8_t> > image )
+    {
+        m_id = id;
+        m_name = name;
+        m_filter = filter;
+        m_sensor = sensor;
+        m_image = image;
+    }
+
+
     Channel::~Channel() {
         // TODO Auto-generated destructor stub
+    }
+
+
+    void Channel::operator =( const Channel& ch )
+    {
+        m_id = ch.m_id;
+        m_name = ch.m_name;
+        m_filter = ch.m_filter;
+        m_sensor = ch.m_sensor;
+        m_image = ch.m_image;
     }
 
 
@@ -55,24 +83,24 @@ namespace maracuja
         return this->m_id;
     }
 
-    Spectrum Channel::getFilter()
+    std::string& Channel::getName()
+    {
+        return this->m_name;
+    }
+
+    Spectrum& Channel::getFilter()
     {
         return this->m_filter;
     }
 
-    Spectrum Channel::getSensor()
+    Spectrum& Channel::getSensor()
     {
         return this->m_sensor;
     }
 
-    cimg_library::CImg<uint8_t> Channel::getImg()
+    cimg_library::CImg<uint8_t>& Channel::getImg()
     {
-        return this->m_image;
-    }
-
-    std::string Channel::getName()
-    {
-        return this->m_name;
+        return *m_image;
     }
 
     void Channel::setValues(double id, Spectrum filter, Spectrum sensor, std::string name)
@@ -118,12 +146,10 @@ namespace maracuja
     cimg_library::CImg<uint8_t> Channel::lossCompensation(double compensationCoeff)
     {
         cimg_library::CImg<uint8_t> compensatedImg;
-        compensatedImg = compensationCoeff * this->m_image;
+        compensatedImg = compensationCoeff * (*m_image);
         return compensatedImg;
         //this->m_image *= compensationCoeff;
     }
-
-
 
 
 } // end namespace maracuja

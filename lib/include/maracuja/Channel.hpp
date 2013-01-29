@@ -36,6 +36,8 @@
 ///
 
 
+#include <memory>
+
 #include <maracuja/util.hpp>
 #include <maracuja/Spectrum.hpp>
 
@@ -46,23 +48,33 @@ class Channel
 {
 public:
     Channel();
+    Channel( const Channel& ch );
+    Channel( int id, const std::string& name,
+             const Spectrum& filter, const Spectrum& sensor,
+             std::shared_ptr< cimg_library::CImg<uint8_t> > image );
+
     virtual ~Channel();
+
+    void operator =( const Channel& ch );
+
     int getId();
-    Spectrum getFilter();
-    Spectrum getSensor();
-    cimg_library::CImg<uint8_t> getImg();
-    std::string getName();
+    std::string& getName();
+    Spectrum& getFilter();
+    Spectrum& getSensor();
+    cimg_library::CImg<uint8_t>& getImg();
     void setValues(double id, Spectrum filter, Spectrum sensor, std::string name);
     void loadImage(cimg_library::CImg<uint8_t> image);
+
     double lossCalculation();
     cimg_library::CImg<uint8_t> lossCompensation(double compensationCoeff);
 
 protected:
     int m_id; /// channel id
+    std::string m_name; /// channel name
     Spectrum m_filter; /// trasmission spectra of the filter
     Spectrum m_sensor; /// sensitivity spectra of the sensor
-    cimg_library::CImg<uint8_t> m_image;
-    std::string m_name; /// channel name
+    std::shared_ptr< cimg_library::CImg<uint8_t> > m_image;
+
 };
 
 } // end namespace maracuja
