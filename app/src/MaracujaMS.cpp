@@ -44,7 +44,7 @@ MaracujaMS::MaracujaMS(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect( ui->load_image, SIGNAL(clicked(bool)), this, SLOT(on_loadImage(void)) );
+    connect( ui->filter_load_image, SIGNAL(clicked(bool)), this, SLOT(on_loadImage(void)) );
 }
 
 
@@ -58,13 +58,13 @@ void MaracujaMS::on_loadImage()
 {
     try
     {
-        QString imagePath = QFileDialog::getOpenFileName(this, "Load Image", ".", "Images (*.bmp *.png *.xpm *.jpg *.tif *.tiff)");
+        std::string imagePath = QFileDialog::getOpenFileName(this, "Load Image", ".", "Images (*.bmp *.png *.xpm *.jpg *.tif *.tiff)").toStdString();
 
         if( imagePath.size() > 0 )
         {
             // load image
             cimg_library::CImg<uint8_t> image;
-            image.load( imagePath.toStdString().c_str() );
+            image.load( imagePath.c_str() );
 
             // convert image to Qt
             QImage imageQt( image.width(), image.height(), QImage::Format_RGB888 );

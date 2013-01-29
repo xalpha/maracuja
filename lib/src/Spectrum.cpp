@@ -49,6 +49,12 @@ namespace maracuja
         // TODO Auto-generated destructor stub
     }
 
+    void Spectrum::setValues(double startVal, double endVal, Eigen::VectorXd data)
+    {
+        this->m_start = startVal;
+        this->m_end = endVal;
+        this->m_data = data;
+    }
 
     double Spectrum::getStart()
     {

@@ -49,6 +49,7 @@ class Spectrum
 public:
     Spectrum();
     virtual ~Spectrum();
+    void setValues(double startVal, double endVal, Eigen::VectorXd data);
     double getStart();
     double getEnd();
     Eigen::VectorXd getData();

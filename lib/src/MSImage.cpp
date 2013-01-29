@@ -66,6 +66,16 @@ namespace maracuja
         return (this->getChannels())[channelIdx];
     }
 
+    void MSImage::init()
+    {
+        this->m_channels.resize(0);
+    }
+
+    void MSImage::addChannel(Channel channel)
+    {
+        this->m_channels.push_back(channel);
+    }
+
     std::vector<double> MSImage::coefficientsCalculation(Spectrum spectrum)
     {
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
@@ -112,57 +122,48 @@ namespace maracuja
             allCoeffs[idx] = this->coefficientsCalculation(spectrums[idx]);
         }
 
-        // white balance for a "white signal" (1 for every wavelength)
-        if (spectrums.size() == 3)
+    // white balance for a "white signal" (1 for every wavelength)
+
+        // calculation of the theoretical value for each channel
+        std::vector<double> spectralValues(this->getChannelsNumber());
+        Eigen::VectorXd spectrumTmp;
+        for (unsigned idx = 0; idx < this->getChannelsNumber(); idx++)
+        {
+            spectrumTmp = this->getChannel(idx).getFilter().getData(); // filter's values
+            for (unsigned wavelengthIdx = 0; wavelengthIdx < spectrumTmp.size(); wavelengthIdx++)
+            {
+                spectrumTmp(wavelengthIdx) = spectrumTmp(wavelengthIdx) * this->getChannel(idx).getSensor().getData()(wavelengthIdx);
+            }
+            spectralValues[idx] = spectrumTmp.sum();
+        }
+
+
+        std::vector<double> expected_RGB(spectrums.size());
+        std::vector<double> whiteBalanceCoeffs(spectrums.size());
+        std::vector<double> reconstructedRGB(spectrums.size());
+        double correctionCoeff;
+
+        for (unsigned RGBidx = 0; RGBidx < spectrums.size(); RGBidx++)
         {
             // calculation of the expected RGB values and the white balance coefficients
-            std::vector<double> expected_RGB(3);
-            std::vector<double> whiteBalanceCoeffs(3);
-            for (unsigned idx = 0; idx < 3; idx++)
+            expected_RGB[RGBidx] = spectrums[RGBidx].getData().sum();
+            if (expected_RGB[RGBidx] != 0)
             {
-                expected_RGB[idx] = spectrums[idx].getData().sum();
-                if (expected_RGB[idx] != 0)
-                {
-                    whiteBalanceCoeffs[idx] = 255/expected_RGB[idx];
-                }
-            }
-
-            // calculation of the theoretical value for each channel
-            std::vector<double> spectralValues(this->getChannelsNumber());
-            Eigen::VectorXd spectrumTmp;
-            for (unsigned idx = 0; idx < this->getChannelsNumber(); idx++)
-            {
-                spectrumTmp = this->getChannel(idx).getFilter().getData(); // filter's values
-                for (unsigned wavelengthIdx = 0; wavelengthIdx < spectrumTmp.size(); wavelengthIdx++)
-                {
-                    spectrumTmp(wavelengthIdx) = spectrumTmp(wavelengthIdx) * this->getChannel(idx).getSensor().getData()(wavelengthIdx);
-                }
-                spectralValues[idx] = spectrumTmp.sum();
+                whiteBalanceCoeffs[RGBidx] = 255/expected_RGB[RGBidx];
             }
 
             // calculation of the RGB values that we reconstruct with the coefficients
-            std::vector<double> reconstructedRGB(3);
-            for (unsigned RGBidx = 0; RGBidx < 3; RGBidx++)
+            for (unsigned channelIdx = 0; channelIdx < this->getChannelsNumber(); channelIdx++)
             {
-                for (unsigned channelIdx = 0; channelIdx < this->getChannelsNumber(); channelIdx++)
-                {
-                    reconstructedRGB[RGBidx] = reconstructedRGB[RGBidx] + allCoeffs[RGBidx][channelIdx] * spectralValues[channelIdx];
-                }
+                reconstructedRGB[RGBidx] = reconstructedRGB[RGBidx] + allCoeffs[RGBidx][channelIdx] * spectralValues[channelIdx];
             }
-
-
 
             // white balance and RGB loss compensation
-            double correctionCoeff;
-            for (unsigned RGBidx = 0; RGBidx < 3; RGBidx++)
+            correctionCoeff = whiteBalanceCoeffs[RGBidx] * expected_RGB[RGBidx] / reconstructedRGB[RGBidx];
+            for (unsigned channelIdx = 0; channelIdx < this->getChannelsNumber(); channelIdx++)
             {
-                correctionCoeff = whiteBalanceCoeffs[RGBidx] * expected_RGB[RGBidx] / reconstructedRGB[RGBidx];
-                for (unsigned channelIdx = 0; channelIdx < this->getChannelsNumber(); channelIdx++)
-                {
-                    allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff;
-                }
+                allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff;
             }
-
         }
 
         return allCoeffs;

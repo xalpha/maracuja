@@ -75,6 +75,19 @@ namespace maracuja
         return this->m_name;
     }
 
+    void Channel::setValues(double id, Spectrum filter, Spectrum sensor, std::string name)
+    {
+        this->m_id = id;
+        this->m_filter = filter;
+        this->m_sensor = sensor;
+        this->m_name = name;
+    }
+
+    void Channel::loadImage(cimg_library::CImg<uint8_t> image)
+    {
+        this->m_image = image;
+    }
+
     double Channel::lossCalculation()
     {
         // this function returns a multiplicative coefficient,
