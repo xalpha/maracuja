@@ -98,9 +98,9 @@ namespace maracuja
         return this->m_sensor;
     }
 
-    cimg_library::CImg<uint8_t>& Channel::getImg()
+    std::shared_ptr< cimg_library::CImg<uint8_t> > Channel::getImg()
     {
-        return *m_image;
+        return m_image;
     }
 
     void Channel::setValues(double id, Spectrum filter, Spectrum sensor, std::string name)
@@ -109,6 +109,7 @@ namespace maracuja
         this->m_filter = filter;
         this->m_sensor = sensor;
         this->m_name = name;
+        this->m_image = NULL;
     }
 
     void Channel::setImage(cimg_library::CImg<uint8_t> image)

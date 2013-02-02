@@ -49,7 +49,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -149,6 +149,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="default_channels">
+          <property name="text">
+           <string>Set the default filters</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
@@ -218,7 +225,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="calculation_button">
              <property name="text">
               <string>Calculation</string>
              </property>

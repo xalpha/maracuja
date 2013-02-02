@@ -46,8 +46,11 @@ public:
     void updateComboBox();
 
 public slots:
-    void on_loadImage();
     void on_addChannel();
+    void on_addDefaultChannels();
+    void on_loadImage();
+    void on_showImage();
+    void on_calculation();
 
     //protected
 

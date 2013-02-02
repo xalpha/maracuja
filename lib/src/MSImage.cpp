@@ -78,9 +78,7 @@ namespace maracuja
 
     void MSImage::setImage(unsigned channelIdx, cimg_library::CImg<uint8_t> imageToAdd)
     {
-        this->m_channels[channelIdx];
         this->m_channels[channelIdx].setImage(imageToAdd);
-        0;
     }
 
     std::vector<double> MSImage::coefficientsCalculation(Spectrum spectrum)
@@ -112,11 +110,11 @@ namespace maracuja
         // multiplication of the images by the previously calculated coefficients
         cimg_library::CImg<uint8_t> resultImage;
         // the next line is the initialization at the good size!
-        resultImage = coeffs[0]*((this->m_channels)[0].getImg());
-        for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
-        {
-            resultImage = resultImage + coeffs[idx]*((this->m_channels)[idx].getImg());
-        }
+//        resultImage = coeffs[0]*((this->m_channels)[0].getImg());
+//        for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
+//        {
+//            resultImage = resultImage + coeffs[idx]*((this->m_channels)[idx].getImg());
+//        }
 
         return resultImage;
     }
@@ -182,12 +180,12 @@ namespace maracuja
         if (channelIdx < reconstructionCoeffs.size())
         {
             cimg_library::CImg<uint8_t> resultImage;
-            // the next line is the initialization at the good size!
-            resultImage = reconstructionCoeffs[channelIdx][0]*((this->m_channels)[0].getImg());
-            for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
-            {
-                resultImage = resultImage + reconstructionCoeffs[channelIdx][idx]*((this->m_channels)[idx].getImg());
-            }
+//            // the next line is the initialization at the good size!
+//            resultImage = reconstructionCoeffs[channelIdx][0]*((this->m_channels)[0].getImg());
+//            for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
+//            {
+//                resultImage = resultImage + reconstructionCoeffs[channelIdx][idx]*((this->m_channels)[idx].getImg());
+//            }
 
             return resultImage;
         }
