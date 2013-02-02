@@ -79,13 +79,14 @@ void MaracujaMS::on_loadImage()
         {
             // load image
 //            cimg_library::CImg<uint8_t> image;
+//            image.load( imagePath.c_str() );
             m_tempImage.load( imagePath.c_str() );
             unsigned writeIdx = 0;
             while (QString(m_MSImages.getChannel(writeIdx).getName().c_str()) != ui->channel_choice->currentText() && writeIdx < m_MSImages.getChannelsNumber())
             {
                 writeIdx++;
             }
-            m_MSImages.getChannel(writeIdx).setImage(m_tempImage);
+            m_MSImages.setImage(writeIdx, m_tempImage);
 
 //            // convert image to Qt
 //            QImage imageQt( image.width(), image.height(), QImage::Format_RGB888 );

@@ -76,6 +76,13 @@ namespace maracuja
         this->m_channels.push_back(channel);
     }
 
+    void MSImage::setImage(unsigned channelIdx, cimg_library::CImg<uint8_t> imageToAdd)
+    {
+        this->m_channels[channelIdx];
+        this->m_channels[channelIdx].setImage(imageToAdd);
+        0;
+    }
+
     std::vector<double> MSImage::coefficientsCalculation(Spectrum spectrum)
     {
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
