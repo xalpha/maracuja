@@ -76,6 +76,11 @@ namespace maracuja
         this->m_channels.push_back(channel);
     }
 
+    void MSImage::setImage(unsigned channelIdx, cimg_library::CImg<uint8_t> imageToAdd)
+    {
+        this->m_channels[channelIdx].setImage(imageToAdd);
+    }
+
     std::vector<double> MSImage::coefficientsCalculation(Spectrum spectrum)
     {
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
@@ -105,11 +110,11 @@ namespace maracuja
         // multiplication of the images by the previously calculated coefficients
         cimg_library::CImg<uint8_t> resultImage;
         // the next line is the initialization at the good size!
-        resultImage = coeffs[0]*((this->m_channels)[0].getImg());
-        for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
-        {
-            resultImage = resultImage + coeffs[idx]*((this->m_channels)[idx].getImg());
-        }
+//        resultImage = coeffs[0]*((this->m_channels)[0].getImg());
+//        for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
+//        {
+//            resultImage = resultImage + coeffs[idx]*((this->m_channels)[idx].getImg());
+//        }
 
         return resultImage;
     }
@@ -175,12 +180,12 @@ namespace maracuja
         if (channelIdx < reconstructionCoeffs.size())
         {
             cimg_library::CImg<uint8_t> resultImage;
-            // the next line is the initialization at the good size!
-            resultImage = reconstructionCoeffs[channelIdx][0]*((this->m_channels)[0].getImg());
-            for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
-            {
-                resultImage = resultImage + reconstructionCoeffs[channelIdx][idx]*((this->m_channels)[idx].getImg());
-            }
+//            // the next line is the initialization at the good size!
+//            resultImage = reconstructionCoeffs[channelIdx][0]*((this->m_channels)[0].getImg());
+//            for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
+//            {
+//                resultImage = resultImage + reconstructionCoeffs[channelIdx][idx]*((this->m_channels)[idx].getImg());
+//            }
 
             return resultImage;
         }
