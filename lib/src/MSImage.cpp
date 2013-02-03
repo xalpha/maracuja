@@ -260,30 +260,30 @@ namespace maracuja
 
         // run over the channels
         tinyxml2::XMLNode* channels = root->InsertEndChild( doc.NewElement( "Channels" ) );
-        for( auto chIt=m_channels.begin(); chIt != m_channels.end(); chIt++ )
+        for( size_t i=0; i<m_channels.size(); i++ )
         {
             // init channel
             tinyxml2::XMLNode* channel = channels->InsertEndChild( doc.NewElement( "Channel" ) );
 
             // add channel id & name
-            appendTextElement( doc, *channel, std::string("Id"), toString(chIt->getId() ) );
-            appendTextElement( doc, *channel, std::string("Name"), chIt->getName() );
+            appendTextElement( doc, *channel, std::string("Id"), toString(m_channels[i].getId() ) );
+            appendTextElement( doc, *channel, std::string("Name"), m_channels[i].getName() );
 
             // add the filter
             tinyxml2::XMLNode* filter = channel->InsertEndChild( doc.NewElement( "Filter" ) );
-            appendTextElement( doc, *filter, std::string("Start"), toString( chIt->getFilter().getStart() ) );
-            appendTextElement( doc, *filter, std::string("End"), toString( chIt->getFilter().getEnd() ) );
-            appendTextElement( doc, *filter, std::string("Data"), toString( chIt->getFilter().getData() ) );
+            appendTextElement( doc, *filter, std::string("Start"), toString( m_channels[i].getFilter().getStart() ) );
+            appendTextElement( doc, *filter, std::string("End"), toString( m_channels[i].getFilter().getEnd() ) );
+            appendTextElement( doc, *filter, std::string("Data"), toString( m_channels[i].getFilter().getData() ) );
 
             // add the sensor
             tinyxml2::XMLNode* sensor = channel->InsertEndChild( doc.NewElement( "Sensor" ) );
-            appendTextElement( doc, *sensor, std::string("Start"), toString( chIt->getSensor().getStart() ) );
-            appendTextElement( doc, *sensor, std::string("End"), toString( chIt->getSensor().getEnd() ) );
-            appendTextElement( doc, *sensor, std::string("Data"), toString( chIt->getSensor().getData() ) );
+            appendTextElement( doc, *sensor, std::string("Start"), toString( m_channels[i].getSensor().getStart() ) );
+            appendTextElement( doc, *sensor, std::string("End"), toString( m_channels[i].getSensor().getEnd() ) );
+            appendTextElement( doc, *sensor, std::string("Data"), toString( m_channels[i].getSensor().getData() ) );
 
             // save the image
-            std::string channelFilename = baseFilename + "-" + toString(chIt->getId()) + ".png";
-            chIt->getImg().save( channelFilename.c_str() );
+            std::string channelFilename = baseFilename + "-" + toString(m_channels[i].getId()) + ".png";
+            m_channels[i].getImg()->save( channelFilename.c_str() );
         }
 
         // wrap up
