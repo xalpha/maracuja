@@ -64,7 +64,7 @@ public:
 //    cimg_library::CImg<uint8_t>* getImg();
     std::shared_ptr< cimg_library::CImg<uint8_t> > getImg();
     void setValues(double id, Spectrum filter, Spectrum sensor, std::string name);
-    void setImage(cimg_library::CImg<uint8_t> image);
+    void setImage(std::shared_ptr<cimg_library::CImg<uint8_t> > image);
 
     double lossCalculation();
     cimg_library::CImg<uint8_t> lossCompensation(double compensationCoeff);

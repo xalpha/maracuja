@@ -57,8 +57,6 @@ public slots:
 protected:
     // ui
     Ui::MaracujaMS *ui;
-
-    cimg_library::CImg<uint8_t> m_tempImage;
     maracuja::MSImage m_MSImages;
 
 

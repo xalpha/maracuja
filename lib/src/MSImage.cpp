@@ -76,7 +76,7 @@ namespace maracuja
         this->m_channels.push_back(channel);
     }
 
-    void MSImage::setImage(unsigned channelIdx, cimg_library::CImg<uint8_t> imageToAdd)
+    void MSImage::setImage(unsigned channelIdx, std::shared_ptr<cimg_library::CImg<uint8_t> > imageToAdd)
     {
         this->m_channels[channelIdx].setImage(imageToAdd);
     }

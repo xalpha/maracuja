@@ -252,15 +252,14 @@ void MaracujaMS::on_loadImage()
             if( imagePath.size() > 0 )
             {
                 // load image
-    //            cimg_library::CImg<uint8_t> image;
-    //            image.load( imagePath.c_str() );
-                m_tempImage.load( imagePath.c_str() );
+                std::shared_ptr<cimg_library::CImg<uint8_t> > image( new cimg_library::CImg<uint8_t> );
+                image->load( imagePath.c_str() );
                 unsigned writeIdx = 0;
                 while (QString(m_MSImages.getChannel(writeIdx).getName().c_str()) != ui->channel_choice->currentText() && writeIdx < m_MSImages.getChannelsNumber())
                 {
                     writeIdx++;
                 }
-                m_MSImages.setImage(writeIdx, m_tempImage);
+                m_MSImages.setImage(writeIdx, image);
             }
         }
         else
@@ -381,7 +380,7 @@ void MaracujaMS::on_calculation()
                 RGB.push_back(GSpectrum);
                 RGB.push_back(BSpectrum);
 
-                std::vector<std::vector<double>> coeffs;
+                std::vector<std::vector<double> > coeffs;
                 coeffs = m_MSImages.initialization(RGB);
             }
         }

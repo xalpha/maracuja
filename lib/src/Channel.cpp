@@ -112,9 +112,9 @@ namespace maracuja
         this->m_image = NULL;
     }
 
-    void Channel::setImage(cimg_library::CImg<uint8_t> image)
+    void Channel::setImage(std::shared_ptr<cimg_library::CImg<uint8_t> > image)
     {
-        *(this->m_image) = image;
+        this->m_image = image;
     }
 
     double Channel::lossCalculation()
