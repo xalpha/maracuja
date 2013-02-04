@@ -193,6 +193,23 @@ namespace maracuja
     }
 
 
+    cimg_library::CImg<uint8_t> MSImage::reconstruct( const std::vector<maracuja::Spectrum>& spectra )
+    {
+        // init stuff
+        std::vector<std::vector<double> > coeffs = initialization(spectra);
+        cimg_library::CImg<uint8_t> result( m_channels[0].getImg()->width(),
+                                            m_channels[0].getImg()->height(),
+                                            1, spectra.size(), 0 );
+
+        // reconstruct the image
+        for( int c=0; c<result.spectrum(); c++ )
+            for( size_t i=0; i<m_channels.size(); i++ )
+                result.get_shared_channel(c) += coeffs[c][i] * *(m_channels[i].getImg());
+
+        return result;
+    }
+
+
     void MSImage::load( const std::string& filename )
     {
         // load the document

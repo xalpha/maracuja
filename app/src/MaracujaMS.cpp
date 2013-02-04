@@ -298,22 +298,9 @@ void MaracujaMS::on_showImage()
             }
             else
             {
-                // load image
-                cimg_library::CImg<uint8_t> image;
-                image = *(m_MSImage.getChannel(readIdx).getImg());
-
                 // convert image to Qt
-                QImage imageQt( image.width(), image.height(), QImage::Format_RGB888 );
-                for( int y=0; y<image.height(); y++ )
-                {
-                    for( int x=0; x<image.width(); x++ )
-                    {
-                        QColor col( image(x,y,0,0),
-                                    image(x,y,0,0),
-                                    image(x,y,0,0) );
-                        imageQt.setPixel( x, y, col.rgb() );
-                    }
-                }
+                QImage imageQt;
+                cimg2qimg( *(m_MSImage.getChannel(readIdx).getImg()), imageQt );
 
                 // set the image
                 ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
@@ -386,39 +373,12 @@ void MaracujaMS::on_calculation()
                 RGB.push_back(GSpectrum);
                 RGB.push_back(BSpectrum);
 
-                std::vector<std::vector<double> > coeffs;
-                coeffs = m_MSImage.initialization(RGB);
+                // compute reconstruct the RGB image
+                cimg_library::CImg<uint8_t> imageRGB = m_MSImage.reconstruct( RGB );
 
-                std::vector< cimg_library::CImg<uint8_t> > images(coeffs[0].size());
-                for (unsigned idx = 0; idx < images.size(); idx++)
-                {
-                    images[idx] = *(m_MSImages.getChannel(idx).getImg());
-                }
-
-                double R_value;
-                double G_value;
-                double B_value;
                 // convert image to Qt
-                QImage imageQt( images[0].width(), images[0].height(), QImage::Format_RGB888 );
-                for( int y = 0; y < images[0].height(); y++ )
-                {
-                    for( int x = 0; x < images[0].width(); x++ )
-                    {
-                        R_value = 0;
-                        G_value = 0;
-                        B_value = 0;
-                        for (unsigned idx = 0; idx < images.size(); idx++)
-                        {
-                            R_value = R_value + coeffs[0][idx] * images[idx](x,y,0,0);
-                            G_value = G_value + coeffs[1][idx] * images[idx](x,y,0,0);
-                            B_value = B_value + coeffs[2][idx] * images[idx](x,y,0,0);
-                        }
-                        QColor col( R_value,
-                                    G_value,
-                                    B_value );
-                        imageQt.setPixel( x, y, col.rgb() );
-                    }
-                }
+                QImage imageQt;
+                cimg2qimg( imageRGB, imageQt );
 
                 // set the image
                 ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
@@ -473,5 +433,22 @@ void MaracujaMS::on_saveMS()
         ui->statusBar->showMessage( QString( e.what() ), 5000 );
         std::cerr << e.what() << std::endl;
         QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
+}
+
+
+void MaracujaMS::cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst )
+{
+    // convert image to Qt
+    dst = QImage( src.width(), src.height(), QImage::Format_RGB888 );
+    for( int y=0; y<src.height(); y++ )
+    {
+        for( int x=0; x<src.width(); x++ )
+        {
+            QColor col( src(x,y,0,0),
+                        src(x,y,0,1),
+                        src(x,y,0,2) );
+            dst.setPixel( x, y, col.rgb() );
+        }
     }
 }

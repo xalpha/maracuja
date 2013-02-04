@@ -64,6 +64,8 @@ namespace maracuja
             std::vector<std::vector<double> > initialization(std::vector<Spectrum> spectrums);
             cimg_library::CImg<uint8_t> imageReconstruction(std::vector<std::vector<double> > reconstructionCoeffs, unsigned channelIdx);
 
+            cimg_library::CImg<uint8_t> reconstruct( const std::vector<maracuja::Spectrum>& spectra );
+
             void load( const std::string& filename );
             void save( const std::string& filename );
 

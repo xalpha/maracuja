@@ -54,7 +54,8 @@ public slots:
     void on_loadMS();
     void on_saveMS();
 
-    //protected
+protected:
+    void cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst );
 
 protected:
     // ui
