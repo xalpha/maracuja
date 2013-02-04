@@ -414,10 +414,12 @@ void MaracujaMS::on_calculation()
                     }
                 }
 
+                m_imageQt = imageQt;
+
                 // set the image
-                ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
-                ui->view->xAxis->setRange(0, imageQt.width() );
-                ui->view->yAxis->setRange(0, imageQt.height() );
+                ui->view->setAxisBackground(QPixmap::fromImage(m_imageQt), true, Qt::IgnoreAspectRatio );
+                ui->view->xAxis->setRange(0, m_imageQt.width() );
+                ui->view->yAxis->setRange(0, m_imageQt.height() );
                 ui->view->replot();
             }
         }
@@ -428,4 +430,9 @@ void MaracujaMS::on_calculation()
         std::cerr << e.what() << std::endl;
         QMessageBox::critical(this, "Error", QString( e.what() ) );
     }
+}
+
+void MaracujaMS::on_saveRGB()
+{
+    m_imageQt.save("imageRGB.png");
 }

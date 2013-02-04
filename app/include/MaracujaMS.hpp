@@ -51,6 +51,7 @@ public slots:
     void on_loadImage();
     void on_showImage();
     void on_calculation();
+    void on_saveRGB();
 
     //protected
 
@@ -58,6 +59,7 @@ protected:
     // ui
     Ui::MaracujaMS *ui;
     maracuja::MSImage m_MSImages;
+    QImage m_imageQt;
 
 
 };

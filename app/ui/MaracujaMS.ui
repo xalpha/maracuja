@@ -62,7 +62,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -262,6 +262,13 @@
             <widget class="QPushButton" name="calculation_button">
              <property name="text">
               <string>Calculation</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="saveRGB">
+             <property name="text">
+              <string>Save RGB picture</string>
              </property>
             </widget>
            </item>
