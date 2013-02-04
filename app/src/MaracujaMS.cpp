@@ -52,6 +52,7 @@ MaracujaMS::MaracujaMS(QWidget *parent) :
     connect( ui->filter_load_image, SIGNAL(clicked(bool)), this, SLOT(on_loadImage(void)) );
     connect( ui->filter_show_image, SIGNAL(clicked(bool)), this, SLOT(on_showImage(void)) );
     connect( ui->calculation_button, SIGNAL(clicked(bool)), this, SLOT(on_calculation(void)) );
+    connect( ui->saveRGB, SIGNAL(clicked(bool)), this, SLOT(on_saveRGB(void)) );
     connect( ui->load_ms, SIGNAL(clicked(bool)), this, SLOT(on_loadMS(void)) );
     connect( ui->save_ms, SIGNAL(clicked(bool)), this, SLOT(on_saveMS(void)) );
 }
@@ -374,18 +375,16 @@ void MaracujaMS::on_calculation()
                 RGB.push_back(BSpectrum);
 
                 // compute reconstruct the RGB image
-                cimg_library::CImg<uint8_t> imageRGB = m_MSImage.reconstruct( RGB );
+                m_imageRGB = m_MSImage.reconstruct( RGB );
 
                 // convert image to Qt
                 QImage imageQt;
-                cimg2qimg( imageRGB, imageQt );
-
-                m_imageQt = imageQt;
+                cimg2qimg( m_imageRGB, imageQt );
 
                 // set the image
-                ui->view->setAxisBackground(QPixmap::fromImage(m_imageQt), true, Qt::IgnoreAspectRatio );
-                ui->view->xAxis->setRange(0, m_imageQt.width() );
-                ui->view->yAxis->setRange(0, m_imageQt.height() );
+                ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
+                ui->view->xAxis->setRange(0, imageQt.width() );
+                ui->view->yAxis->setRange(0, imageQt.height() );
                 ui->view->replot();
             }
         }
@@ -401,11 +400,24 @@ void MaracujaMS::on_calculation()
 
 void MaracujaMS::on_saveRGB()
 {
-//    QString format("png");
-//    m_imageQt.save("imageRGB.png", format.toAscii(), -1);
-    m_imageQt.save("imageRGB.png");
+    try
+    {
+        std::string filename = QFileDialog::getSaveFileName(this, "Save RGB Image", m_lastDir.c_str(), "Images (*.bmp *.png *.xpm *.jpg *.tif *.tiff)").toStdString();
+        if( filename.size() > 0 )
+            m_imageRGB.save( filename.c_str() );
+
+        // update the last dir
+        m_lastDir = filename.substr( 0, filename.find_last_of('/') );
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
 
 }
+
 
 void MaracujaMS::on_loadMS()
 {
@@ -451,16 +463,14 @@ void MaracujaMS::on_saveMS()
 
 void MaracujaMS::cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst )
 {
-    // convert image to Qt
-    dst = QImage( src.width(), src.height(), QImage::Format_RGB888 );
-    for( int y=0; y<src.height(); y++ )
+    if( src.spectrum() == 3 )
     {
-        for( int x=0; x<src.width(); x++ )
-        {
-            QColor col( src(x,y,0,0),
-                        src(x,y,0,1),
-                        src(x,y,0,2) );
-            dst.setPixel( x, y, col.rgb() );
-        }
+        dst = QImage(src.width(), src.height(), QImage::Format_RGB888);
+        cimg_forXY( src, x, y )
+            {
+               dst.setPixel( x, y, qRgb(src( x, y, 0 ), src( x, y, 1 ), src( x, y, 2 ) ) );
+            }
     }
+    else
+        dst = QImage( src.data(), src.width(), src.height(), QImage::Format_Indexed8 );
 }
