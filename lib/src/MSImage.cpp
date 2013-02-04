@@ -193,9 +193,27 @@ namespace maracuja
     }
 
 
+    cimg_library::CImg<uint8_t> MSImage::reconstruct( const std::vector<maracuja::Spectrum>& spectra )
+    {
+        // init stuff
+        std::vector<std::vector<double> > coeffs = initialization(spectra);
+        cimg_library::CImg<uint8_t> result( m_channels[0].getImg()->width(),
+                                            m_channels[0].getImg()->height(),
+                                            1, spectra.size(), 0 );
+
+        // reconstruct the image
+        for( int c=0; c<result.spectrum(); c++ )
+            for( size_t i=0; i<m_channels.size(); i++ )
+                result.get_shared_channel(c) += coeffs[c][i] * *(m_channels[i].getImg());
+
+        return result;
+    }
+
+
     void MSImage::load( const std::string& filename )
     {
         // load the document
+        std::string directory = filename.substr( 0, filename.find_last_of('/')+1 );
         tinyxml2::XMLDocument doc;
         int loadStatus = doc.LoadFile( filename.c_str() );
         if( tinyxml2::XML_SUCCESS != loadStatus )
@@ -241,6 +259,7 @@ namespace maracuja
 
             // get the image
             imageFilename = getElementValue( chPtr, "Image" );
+            imageFilename = directory + imageFilename;
             std::shared_ptr< cimg_library::CImg<uint8_t> > image( new cimg_library::CImg<uint8_t>() );
             image->load( imageFilename.c_str() );
 
@@ -283,12 +302,13 @@ namespace maracuja
             appendTextElement( doc, *sensor, std::string("Data"), toString( m_channels[i].getSensor().getData() ) );
 
             // save the image
-            std::string channelFilename = baseFilename + "-" + toString(m_channels[i].getId()) + ".png";
-            m_channels[i].getImg()->save( channelFilename.c_str() );
+            std::string channelFilename = baseFilename + "-" + toString( m_channels[i].getId()) + ".png";
+            m_channels[i].getImg()->save_png( channelFilename.c_str() );
+            appendTextElement( doc, *channel, std::string("Image"), channelFilename.substr( channelFilename.find_last_of('/')+1, channelFilename.size()-1 ) );
         }
 
         // wrap up
-        doc.SaveFile( filename.c_str() );
+        doc.SaveFile( (filename.substr( 0, filename.find_last_of('.') ) + ".msx").c_str() );
     }
 
 

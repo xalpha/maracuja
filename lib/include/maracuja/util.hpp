@@ -111,6 +111,7 @@ inline std::string toString( const std::vector<T>& vec )
     return ss.str();
 }
 
+
 } // end namespace maracuja
 
 

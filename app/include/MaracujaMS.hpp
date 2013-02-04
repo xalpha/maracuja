@@ -52,15 +52,20 @@ public slots:
     void on_showImage();
     void on_calculation();
     void on_saveRGB();
+    void on_loadMS();
+    void on_saveMS();
 
-    //protected
+protected:
+    void cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst );
 
 protected:
     // ui
     Ui::MaracujaMS *ui;
-    maracuja::MSImage m_MSImages;
-    QImage m_imageQt;
 
+    // data
+    std::string m_lastDir;
+    maracuja::MSImage m_MSImage;
+    QImage m_imageQt;
 
 };
 
