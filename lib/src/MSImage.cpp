@@ -167,7 +167,8 @@ namespace maracuja
             correctionCoeff = whiteBalanceCoeffs[RGBidx] * expected_RGB[RGBidx] / reconstructedRGB[RGBidx];
             for (unsigned channelIdx = 0; channelIdx < this->getChannelsNumber(); channelIdx++)
             {
-                allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff;
+//                allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff; // if the white balance is not already done in the picture
+                allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff * spectralValues[channelIdx] / 255;
             }
         }
 

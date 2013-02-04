@@ -303,8 +303,8 @@ void MaracujaMS::on_showImage()
                     for( int x=0; x<image.width(); x++ )
                     {
                         QColor col( image(x,y,0,0),
-                                    image(x,y,0,1),
-                                    image(x,y,0,2) );
+                                    image(x,y,0,0),
+                                    image(x,y,0,0) );
                         imageQt.setPixel( x, y, col.rgb() );
                     }
                 }
@@ -382,6 +382,43 @@ void MaracujaMS::on_calculation()
 
                 std::vector<std::vector<double> > coeffs;
                 coeffs = m_MSImages.initialization(RGB);
+
+                std::vector< cimg_library::CImg<uint8_t> > images(coeffs[0].size());
+                for (unsigned idx = 0; idx < images.size(); idx++)
+                {
+                    images[idx] = *(m_MSImages.getChannel(idx).getImg());
+                }
+
+                double R_value;
+                double G_value;
+                double B_value;
+                // convert image to Qt
+                QImage imageQt( images[0].width(), images[0].height(), QImage::Format_RGB888 );
+                for( int y = 0; y < images[0].height(); y++ )
+                {
+                    for( int x = 0; x < images[0].width(); x++ )
+                    {
+                        R_value = 0;
+                        G_value = 0;
+                        B_value = 0;
+                        for (unsigned idx = 0; idx < images.size(); idx++)
+                        {
+                            R_value = R_value + coeffs[0][idx] * images[idx](x,y,0,0);
+                            G_value = G_value + coeffs[1][idx] * images[idx](x,y,0,0);
+                            B_value = B_value + coeffs[2][idx] * images[idx](x,y,0,0);
+                        }
+                        QColor col( R_value,
+                                    G_value,
+                                    B_value );
+                        imageQt.setPixel( x, y, col.rgb() );
+                    }
+                }
+
+                // set the image
+                ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
+                ui->view->xAxis->setRange(0, imageQt.width() );
+                ui->view->yAxis->setRange(0, imageQt.height() );
+                ui->view->replot();
             }
         }
     }
