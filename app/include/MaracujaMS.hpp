@@ -51,13 +51,18 @@ public slots:
     void on_loadImage();
     void on_showImage();
     void on_calculation();
+    void on_loadMS();
+    void on_saveMS();
 
     //protected
 
 protected:
     // ui
     Ui::MaracujaMS *ui;
-    maracuja::MSImage m_MSImages;
+
+    // data
+    std::string m_lastDir;
+    maracuja::MSImage m_MSImage;
 
 
 };
