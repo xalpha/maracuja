@@ -182,7 +182,7 @@ namespace maracuja
         // reconstruct the image
         for( int c=0; c<result.spectrum(); c++ )
             for( size_t i=0; i<m_channels.size(); i++ )
-                result.get_shared_channel(c) += coeffs[c][i] * *(m_channels[i].img());
+                result.get_shared_channel(c) += coeffs[c][i] * m_channels[i].img();
 
         return result;
     }
