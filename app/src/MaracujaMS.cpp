@@ -145,7 +145,7 @@ void MaracujaMS::on_addDefaultChannels()
 {
     try
     {
-        m_MSImage.init();
+        m_MSImage.clear();
 
         // Sensitivity
         Eigen::VectorXd Sensitivity(551);
@@ -375,7 +375,7 @@ void MaracujaMS::on_calculation()
                 RGB.push_back(BSpectrum);
 
                 // compute reconstruct the RGB image
-                m_imageRGB = m_MSImage.reconstruct( RGB );
+                m_imageRGB = m_MSImage.convolute( RGB );
 
                 // convert image to Qt
                 QImage imageQt;

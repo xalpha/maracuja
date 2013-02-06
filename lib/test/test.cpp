@@ -6,7 +6,7 @@
 maracuja::MSImage initImage()
 {
     maracuja::MSImage imageMS;
-    imageMS.init();
+    imageMS.clear();
 
     // Sensitivity
     Eigen::VectorXd Sensitivity(551);
@@ -152,7 +152,7 @@ void toRGB( const std::string& filename )
     RGB.push_back(BSpectrum);
 
     // convert to RGB and save
-    cimg_library::CImg<uint8_t> imgRGB = img.reconstruct( RGB );
+    cimg_library::CImg<uint8_t> imgRGB = img.convolute( RGB );
     imgRGB.save_png( (baseFilename + "-RGB.png").c_str() );
 }
 

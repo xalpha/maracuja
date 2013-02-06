@@ -57,14 +57,14 @@ namespace maracuja
             const std::vector<Channel>& channels() const;
             std::vector<Channel>& channels();
 
-            void init();
+            void clear();
             void addChannel( const Channel& channel);
             void setImage(unsigned channelIdx, std::shared_ptr<cimg_library::CImg<uint8_t> > imageToAdd);
-            std::vector<double> coefficientsCalculation(const Spectrum &spectrum);
+            std::vector<double> computeCoefficients(const Spectrum &spectrum);
             cimg_library::CImg<uint8_t> convolute( const Spectrum& spectrum);
             std::vector<std::vector<double> > initialization(const std::vector<maracuja::Spectrum> &spectrums);
 
-            cimg_library::CImg<uint8_t> reconstruct( const std::vector<maracuja::Spectrum>& spectra );
+            cimg_library::CImg<uint8_t> convolute( const std::vector<maracuja::Spectrum>& spectra );
 
             void load( const std::string& filename );
             void save( const std::string& filename );

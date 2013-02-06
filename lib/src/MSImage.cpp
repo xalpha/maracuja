@@ -61,7 +61,7 @@ namespace maracuja
         return this->m_channels;
     }
 
-    void MSImage::init()
+    void MSImage::clear()
     {
         this->m_channels.resize(0);
     }
@@ -76,7 +76,7 @@ namespace maracuja
         this->m_channels[channelIdx].setImage(imageToAdd);
     }
 
-    std::vector<double> MSImage::coefficientsCalculation( const Spectrum& spectrum)
+    std::vector<double> MSImage::computeCoefficients( const Spectrum& spectrum)
     {
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
         std::vector<double> coeffs(m_channels.size());
@@ -100,7 +100,7 @@ namespace maracuja
     {
          // calculation of the multiplicative coefficient for each channel for the considered spectrum
         std::vector<double> coeffs(0);
-        coeffs = this->coefficientsCalculation(spectrum);
+        coeffs = this->computeCoefficients(spectrum);
 
         // multiplication of the images by the previously calculated coefficients
         cimg_library::CImg<uint8_t> resultImage;
@@ -116,11 +116,10 @@ namespace maracuja
 
     std::vector<std::vector<double> > MSImage::initialization( const std::vector<Spectrum>& spectrums)
     {
+        // init the coefficients
         std::vector<std::vector<double> > allCoeffs(spectrums.size());
         for (unsigned idx = 0; idx < spectrums.size(); idx++)
-        {
-            allCoeffs[idx] = this->coefficientsCalculation(spectrums[idx]);
-        }
+            allCoeffs[idx] = computeCoefficients(spectrums[idx]);
 
     // white balance for a "white signal" (1 for every wavelength)
 
@@ -171,7 +170,7 @@ namespace maracuja
     }
 
 
-    cimg_library::CImg<uint8_t> MSImage::reconstruct( const std::vector<maracuja::Spectrum>& spectra )
+    cimg_library::CImg<uint8_t> MSImage::convolute( const std::vector<maracuja::Spectrum>& spectra )
     {
         // init stuff
         std::vector<std::vector<double> > coeffs = initialization(spectra);
