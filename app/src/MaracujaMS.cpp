@@ -127,7 +127,7 @@ void MaracujaMS::on_addChannel()
 
         // add the channel to the m_MSImages
         maracuja::Channel tempChannel;
-        tempChannel.setValues(filterId, filterSpectrum, sensitSpectrum, filterName);
+        tempChannel.set(filterId, filterSpectrum, sensitSpectrum, filterName);
         this->m_MSImage.addChannel(tempChannel);
 
         this->updateComboBox();
@@ -159,7 +159,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F1Spectrum;
         F1Spectrum.set(400, 950, Filter1);
         maracuja::Channel F1Channel;
-        F1Channel.setValues(0, F1Spectrum, SensitSpectrum, "Filter 0: 400nm");
+        F1Channel.set(0, F1Spectrum, SensitSpectrum, "Filter 0: 400nm");
         m_MSImage.addChannel(F1Channel);
 
         Eigen::VectorXd Filter2(551);
@@ -167,7 +167,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F2Spectrum;
         F2Spectrum.set(400, 950, Filter2);
         maracuja::Channel F2Channel;
-        F2Channel.setValues(1, F2Spectrum, SensitSpectrum, "Filter 1: 450nm");
+        F2Channel.set(1, F2Spectrum, SensitSpectrum, "Filter 1: 450nm");
         m_MSImage.addChannel(F2Channel);
 
         Eigen::VectorXd Filter3(551);
@@ -175,7 +175,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F3Spectrum;
         F3Spectrum.set(400, 950, Filter3);
         maracuja::Channel F3Channel;
-        F3Channel.setValues(2, F3Spectrum, SensitSpectrum, "Filter 2: 500nm");
+        F3Channel.set(2, F3Spectrum, SensitSpectrum, "Filter 2: 500nm");
         m_MSImage.addChannel(F3Channel);
 
         Eigen::VectorXd Filter4(551);
@@ -183,7 +183,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F4Spectrum;
         F4Spectrum.set(400, 950, Filter4);
         maracuja::Channel F4Channel;
-        F4Channel.setValues(3, F4Spectrum, SensitSpectrum, "Filter 3: 550nm");
+        F4Channel.set(3, F4Spectrum, SensitSpectrum, "Filter 3: 550nm");
         m_MSImage.addChannel(F4Channel);
 
         Eigen::VectorXd Filter5(551);
@@ -191,7 +191,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F5Spectrum;
         F5Spectrum.set(400, 950, Filter5);
         maracuja::Channel F5Channel;
-        F5Channel.setValues(4, F5Spectrum, SensitSpectrum, "Filter 4: 600nm");
+        F5Channel.set(4, F5Spectrum, SensitSpectrum, "Filter 4: 600nm");
         m_MSImage.addChannel(F5Channel);
 
         Eigen::VectorXd Filter6(551);
@@ -199,7 +199,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F6Spectrum;
         F6Spectrum.set(400, 950, Filter6);
         maracuja::Channel F6Channel;
-        F6Channel.setValues(5, F6Spectrum, SensitSpectrum, "Filter 5: 650nm");
+        F6Channel.set(5, F6Spectrum, SensitSpectrum, "Filter 5: 650nm");
         m_MSImage.addChannel(F6Channel);
 
         Eigen::VectorXd Filter7(551);
@@ -207,7 +207,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F7Spectrum;
         F7Spectrum.set(400, 950, Filter7);
         maracuja::Channel F7Channel;
-        F7Channel.setValues(6, F7Spectrum, SensitSpectrum, "Filter 6: 700nm");
+        F7Channel.set(6, F7Spectrum, SensitSpectrum, "Filter 6: 700nm");
         m_MSImage.addChannel(F7Channel);
 
         Eigen::VectorXd Filter8(551);
@@ -215,7 +215,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F8Spectrum;
         F8Spectrum.set(400, 950, Filter8);
         maracuja::Channel F8Channel;
-        F8Channel.setValues(7, F8Spectrum, SensitSpectrum, "Filter 7: 750nm");
+        F8Channel.set(7, F8Spectrum, SensitSpectrum, "Filter 7: 750nm");
         m_MSImage.addChannel(F8Channel);
 
         Eigen::VectorXd Filter9(551);
@@ -223,7 +223,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F9Spectrum;
         F9Spectrum.set(400, 950, Filter9);
         maracuja::Channel F9Channel;
-        F9Channel.setValues(8, F9Spectrum, SensitSpectrum, "Filter 8: 800nm");
+        F9Channel.set(8, F9Spectrum, SensitSpectrum, "Filter 8: 800nm");
         m_MSImage.addChannel(F9Channel);
 
         Eigen::VectorXd Filter10(551);
@@ -231,7 +231,7 @@ void MaracujaMS::on_addDefaultChannels()
         maracuja::Spectrum F10Spectrum;
         F10Spectrum.set(400, 950, Filter10);
         maracuja::Channel F10Channel;
-        F10Channel.setValues(9, F10Spectrum, SensitSpectrum, "Filter 9: 880nm");
+        F10Channel.set(9, F10Spectrum, SensitSpectrum, "Filter 9: 880nm");
         m_MSImage.addChannel(F10Channel);
 
         this->updateComboBox();
