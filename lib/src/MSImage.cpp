@@ -66,7 +66,7 @@ namespace maracuja
         this->m_channels.resize(0);
     }
 
-    void MSImage::addChannel(Channel channel)
+    void MSImage::addChannel( const Channel& channel)
     {
         this->m_channels.push_back(channel);
     }
@@ -76,7 +76,7 @@ namespace maracuja
         this->m_channels[channelIdx].setImage(imageToAdd);
     }
 
-    std::vector<double> MSImage::coefficientsCalculation(Spectrum spectrum)
+    std::vector<double> MSImage::coefficientsCalculation( const Spectrum& spectrum)
     {
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
         std::vector<double> coeffs(m_channels.size());
@@ -96,7 +96,7 @@ namespace maracuja
         return coeffs;
     }
 
-    cimg_library::CImg<uint8_t> MSImage::convolute(Spectrum spectrum)
+    cimg_library::CImg<uint8_t> MSImage::convolute(const Spectrum &spectrum)
     {
          // calculation of the multiplicative coefficient for each channel for the considered spectrum
         std::vector<double> coeffs(0);
@@ -114,7 +114,7 @@ namespace maracuja
         return resultImage;
     }
 
-    std::vector<std::vector<double> > MSImage::initialization(std::vector<Spectrum> spectrums)
+    std::vector<std::vector<double> > MSImage::initialization( const std::vector<Spectrum>& spectrums)
     {
         std::vector<std::vector<double> > allCoeffs(spectrums.size());
         for (unsigned idx = 0; idx < spectrums.size(); idx++)
