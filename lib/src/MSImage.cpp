@@ -51,19 +51,14 @@ namespace maracuja
         // TODO Auto-generated destructor stub
     }
 
-    int MSImage::getChannelsNumber()
-    {
-        return ( (int) (this->m_channels).size());
-    }
-
-    std::vector<Channel> MSImage::getChannels()
+    const std::vector<Channel>& MSImage::channels() const
     {
         return this->m_channels;
     }
 
-    Channel MSImage::getChannel(int channelIdx)
+    std::vector<Channel>& MSImage::channels()
     {
-        return (this->getChannels())[channelIdx];
+        return this->m_channels;
     }
 
     void MSImage::init()
@@ -84,16 +79,16 @@ namespace maracuja
     std::vector<double> MSImage::coefficientsCalculation(Spectrum spectrum)
     {
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
-        std::vector<double> coeffs(this->getChannelsNumber());
+        std::vector<double> coeffs(m_channels.size());
         double compensationCoeff;
-        for (unsigned idx = 0; idx < this->getChannelsNumber(); idx++)
+        for (unsigned idx = 0; idx < m_channels.size(); idx++)
         {
             double dp;
-            Eigen::VectorXd spectralData = spectrum.getData();
-            Eigen::VectorXd filter_i = this->getChannel(idx).getFilter().getData();
+            Eigen::VectorXd spectralData = spectrum.data();
+            Eigen::VectorXd filter_i = m_channels[idx].filter().data();
             coeffs[idx] = spectralData.adjoint()*(filter_i);
             coeffs[idx] = coeffs[idx]/filter_i.sum();
-            compensationCoeff = this->getChannel(idx).lossCalculation();
+            compensationCoeff = m_channels[idx].lossCalculation();
             // compensation of the losses due to the filter and the camera sensitivity for each channel
             coeffs[idx] = coeffs[idx] * compensationCoeff;
         }
@@ -130,14 +125,14 @@ namespace maracuja
     // white balance for a "white signal" (1 for every wavelength)
 
         // calculation of the theoretical value for each channel
-        std::vector<double> spectralValues(this->getChannelsNumber());
+        std::vector<double> spectralValues(m_channels.size());
         Eigen::VectorXd spectrumTmp;
-        for (unsigned idx = 0; idx < this->getChannelsNumber(); idx++)
+        for (unsigned idx = 0; idx < m_channels.size(); idx++)
         {
-            spectrumTmp = this->getChannel(idx).getFilter().getData(); // filter's values
+            spectrumTmp = m_channels[idx].filter().data(); // filter's values
             for (unsigned wavelengthIdx = 0; wavelengthIdx < spectrumTmp.size(); wavelengthIdx++)
             {
-                spectrumTmp(wavelengthIdx) = spectrumTmp(wavelengthIdx) * this->getChannel(idx).getSensor().getData()(wavelengthIdx);
+                spectrumTmp(wavelengthIdx) = spectrumTmp(wavelengthIdx) * m_channels[idx].sensor().data()(wavelengthIdx);
             }
             spectralValues[idx] = spectrumTmp.sum();
         }
@@ -148,48 +143,31 @@ namespace maracuja
         std::vector<double> reconstructedRGB(spectrums.size());
         double correctionCoeff;
 
-        for (unsigned RGBidx = 0; RGBidx < spectrums.size(); RGBidx++)
+        for (unsigned spectrumIdx = 0; spectrumIdx < spectrums.size(); spectrumIdx++)
         {
             // calculation of the expected RGB values and the white balance coefficients
-            expected_RGB[RGBidx] = spectrums[RGBidx].getData().sum();
-            if (expected_RGB[RGBidx] != 0)
+            expected_RGB[spectrumIdx] = spectrums[spectrumIdx].data().sum();
+            if (expected_RGB[spectrumIdx] != 0)
             {
-                whiteBalanceCoeffs[RGBidx] = 255/expected_RGB[RGBidx];
+                whiteBalanceCoeffs[spectrumIdx] = 255/expected_RGB[spectrumIdx];
             }
 
             // calculation of the RGB values that we reconstruct with the coefficients
-            for (unsigned channelIdx = 0; channelIdx < this->getChannelsNumber(); channelIdx++)
+            for (unsigned channelIdx = 0; channelIdx < m_channels.size(); channelIdx++)
             {
-                reconstructedRGB[RGBidx] = reconstructedRGB[RGBidx] + allCoeffs[RGBidx][channelIdx] * spectralValues[channelIdx];
+                reconstructedRGB[spectrumIdx] = reconstructedRGB[spectrumIdx] + allCoeffs[spectrumIdx][channelIdx] * spectralValues[channelIdx];
             }
 
             // white balance and RGB loss compensation
-            correctionCoeff = whiteBalanceCoeffs[RGBidx] * expected_RGB[RGBidx] / reconstructedRGB[RGBidx];
-            for (unsigned channelIdx = 0; channelIdx < this->getChannelsNumber(); channelIdx++)
+            correctionCoeff = whiteBalanceCoeffs[spectrumIdx] * expected_RGB[spectrumIdx] / reconstructedRGB[spectrumIdx];
+            for (unsigned channelIdx = 0; channelIdx < m_channels.size(); channelIdx++)
             {
 //                allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff; // if the white balance is not already done in the picture
-                allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff * spectralValues[channelIdx] / 255;
+                allCoeffs[spectrumIdx][channelIdx] = allCoeffs[spectrumIdx][channelIdx] * correctionCoeff * spectralValues[channelIdx] / 255;
             }
         }
 
         return allCoeffs;
-
-    }
-
-    cimg_library::CImg<uint8_t> MSImage::imageReconstruction(std::vector<std::vector<double> > reconstructionCoeffs, unsigned channelIdx)
-    {
-        if (channelIdx < reconstructionCoeffs.size())
-        {
-            cimg_library::CImg<uint8_t> resultImage;
-//            // the next line is the initialization at the good size!
-//            resultImage = reconstructionCoeffs[channelIdx][0]*((this->m_channels)[0].getImg());
-//            for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
-//            {
-//                resultImage = resultImage + reconstructionCoeffs[channelIdx][idx]*((this->m_channels)[idx].getImg());
-//            }
-
-            return resultImage;
-        }
     }
 
 
@@ -197,14 +175,14 @@ namespace maracuja
     {
         // init stuff
         std::vector<std::vector<double> > coeffs = initialization(spectra);
-        cimg_library::CImg<uint8_t> result( m_channels[0].getImg()->width(),
-                                            m_channels[0].getImg()->height(),
+        cimg_library::CImg<uint8_t> result( m_channels[0].img().width(),
+                                            m_channels[0].img().height(),
                                             1, spectra.size(), 0 );
 
         // reconstruct the image
         for( int c=0; c<result.spectrum(); c++ )
             for( size_t i=0; i<m_channels.size(); i++ )
-                result.get_shared_channel(c) += coeffs[c][i] * *(m_channels[i].getImg());
+                result.get_shared_channel(c) += coeffs[c][i] * *(m_channels[i].img());
 
         return result;
     }
@@ -286,24 +264,24 @@ namespace maracuja
             tinyxml2::XMLNode* channel = channels->InsertEndChild( doc.NewElement( "Channel" ) );
 
             // add channel id & name
-            appendTextElement( doc, *channel, std::string("Id"), toString(m_channels[i].getId() ) );
-            appendTextElement( doc, *channel, std::string("Name"), m_channels[i].getName() );
+            appendTextElement( doc, *channel, std::string("Id"), toString(m_channels[i].id() ) );
+            appendTextElement( doc, *channel, std::string("Name"), m_channels[i].name() );
 
             // add the filter
             tinyxml2::XMLNode* filter = channel->InsertEndChild( doc.NewElement( "Filter" ) );
-            appendTextElement( doc, *filter, std::string("Start"), toString( m_channels[i].getFilter().getStart() ) );
-            appendTextElement( doc, *filter, std::string("End"), toString( m_channels[i].getFilter().getEnd() ) );
-            appendTextElement( doc, *filter, std::string("Data"), toString( m_channels[i].getFilter().getData() ) );
+            appendTextElement( doc, *filter, std::string("Start"), toString( m_channels[i].filter().start() ) );
+            appendTextElement( doc, *filter, std::string("End"), toString( m_channels[i].filter().end() ) );
+            appendTextElement( doc, *filter, std::string("Data"), toString( m_channels[i].filter().data() ) );
 
             // add the sensor
             tinyxml2::XMLNode* sensor = channel->InsertEndChild( doc.NewElement( "Sensor" ) );
-            appendTextElement( doc, *sensor, std::string("Start"), toString( m_channels[i].getSensor().getStart() ) );
-            appendTextElement( doc, *sensor, std::string("End"), toString( m_channels[i].getSensor().getEnd() ) );
-            appendTextElement( doc, *sensor, std::string("Data"), toString( m_channels[i].getSensor().getData() ) );
+            appendTextElement( doc, *sensor, std::string("Start"), toString( m_channels[i].sensor().start() ) );
+            appendTextElement( doc, *sensor, std::string("End"), toString( m_channels[i].sensor().end() ) );
+            appendTextElement( doc, *sensor, std::string("Data"), toString( m_channels[i].sensor().data() ) );
 
             // save the image
-            std::string channelFilename = baseFilename + "-" + toString( m_channels[i].getId()) + ".png";
-            m_channels[i].getImg()->save_png( channelFilename.c_str() );
+            std::string channelFilename = baseFilename + "-" + toString( m_channels[i].id()) + ".png";
+            m_channels[i].img().save_png( channelFilename.c_str() );
             appendTextElement( doc, *channel, std::string("Image"), channelFilename.substr( channelFilename.find_last_of('/')+1, channelFilename.size()-1 ) );
         }
 

@@ -71,7 +71,7 @@ namespace maracuja
         // TODO Auto-generated destructor stub
     }
 
-    void Spectrum::setValues(double startVal, double endVal, Eigen::VectorXd data)
+    void Spectrum::set(double startVal, double endVal, Eigen::VectorXd data)
     {
         this->m_start = startVal;
         this->m_end = endVal;
@@ -86,28 +86,26 @@ namespace maracuja
     }
 
 
-    double Spectrum::getStart()
+    void Spectrum::operator *( double coeff )
+    {
+        m_data *= coeff;
+    }
+
+
+    double Spectrum::start() const
     {
         return this->m_start;
     }
 
-    double Spectrum::getEnd()
+    double Spectrum::end() const
     {
         return this->m_end;
     }
 
-    Eigen::VectorXd Spectrum::getData()
+    const Eigen::VectorXd& Spectrum::data() const
     {
         return this->m_data;
     }
-
-    Eigen::VectorXd Spectrum::multiplicateSpectrum(double coeff)
-    {
-        Eigen::VectorXd result;
-        result = coeff * this->m_data;
-        return result;
-    }
-
 
     Eigen::VectorXd Spectrum::toEigen( const std::vector<double>& vec )
     {

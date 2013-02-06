@@ -57,12 +57,12 @@ public:
 
     void operator =( const Channel& ch );
 
-    int getId();
-    std::string& getName();
-    Spectrum& getFilter();
-    Spectrum& getSensor();
-//    cimg_library::CImg<uint8_t>* getImg();
-    std::shared_ptr< cimg_library::CImg<uint8_t> > getImg();
+    int id() const;
+    const std::string& name() const;
+    const Spectrum& filter() const;
+    const Spectrum& sensor() const;
+    const cimg_library::CImg<uint8_t>& img() const;
+    cimg_library::CImg<uint8_t>& img();
     void setValues(double id, Spectrum filter, Spectrum sensor, std::string name);
     void setImage(std::shared_ptr<cimg_library::CImg<uint8_t> > image);
 

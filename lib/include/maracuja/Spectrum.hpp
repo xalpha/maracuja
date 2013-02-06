@@ -53,14 +53,14 @@ public:
     Spectrum( double start, double end, const std::vector<double>& data  );
     virtual ~Spectrum();
 
-    void setValues(double startVal, double endVal, Eigen::VectorXd data);
+    void set(double startVal, double endVal, Eigen::VectorXd data);
 
     void operator =( const Spectrum& spec );
+    void operator *( double coeff );
 
-    double getStart();
-    double getEnd();
-    Eigen::VectorXd getData();
-    Eigen::VectorXd multiplicateSpectrum(double coeff);
+    double start() const;
+    double end() const;
+    const Eigen::VectorXd& data() const;
 
 protected:
     Eigen::VectorXd toEigen( const std::vector<double>& vec );

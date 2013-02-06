@@ -78,29 +78,34 @@ namespace maracuja
     }
 
 
-    int Channel::getId()
+    int Channel::id() const
     {
         return this->m_id;
     }
 
-    std::string& Channel::getName()
+    const std::string& Channel::name() const
     {
         return this->m_name;
     }
 
-    Spectrum& Channel::getFilter()
+    const Spectrum& Channel::filter() const
     {
         return this->m_filter;
     }
 
-    Spectrum& Channel::getSensor()
+    const Spectrum& Channel::sensor() const
     {
         return this->m_sensor;
     }
 
-    std::shared_ptr< cimg_library::CImg<uint8_t> > Channel::getImg()
+    const cimg_library::CImg<uint8_t>& Channel::img() const
     {
-        return m_image;
+        return *m_image;
+    }
+
+    cimg_library::CImg<uint8_t>& Channel::img()
+    {
+        return *m_image;
     }
 
     void Channel::setValues(double id, Spectrum filter, Spectrum sensor, std::string name)
@@ -126,17 +131,17 @@ namespace maracuja
         double coeff = 1; // out put of the function
 
         // compensation of the loss, which comes from the filter's use
-        double max = this->m_filter.getData().maxCoeff();
+        double max = this->m_filter.data().maxCoeff();
         if (max != 0)
         {
             coeff = coeff/max;
         }
 
         // compensation of the loss, which comes from the camera sensitivity
-        double coeff_tmp = this->m_filter.getData().adjoint()*(this->m_sensor.getData());
+        double coeff_tmp = this->m_filter.data().adjoint()*(this->m_sensor.data());
         if (coeff_tmp != 0)
         {
-            double sum_filter = this->m_filter.getData().sum();
+            double sum_filter = this->m_filter.data().sum();
             coeff_tmp = sum_filter/coeff_tmp;
         } // coeff_tmp = sum(filter's values) / dot product(filter's values and sensitivity's values)
 

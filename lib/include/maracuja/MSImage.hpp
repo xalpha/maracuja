@@ -53,16 +53,16 @@ namespace maracuja
         public:
             MSImage();
             virtual ~MSImage();
-            int getChannelsNumber();
-            std::vector<Channel> getChannels();
-            Channel getChannel(int channelIdx);
+
+            const std::vector<Channel>& channels() const;
+            std::vector<Channel>& channels();
+
             void init();
             void addChannel(Channel channel);
             void setImage(unsigned channelIdx, std::shared_ptr<cimg_library::CImg<uint8_t> > imageToAdd);
             std::vector<double> coefficientsCalculation(Spectrum spectrum);
             cimg_library::CImg<uint8_t> convolute(Spectrum spectrum);
             std::vector<std::vector<double> > initialization(std::vector<Spectrum> spectrums);
-            cimg_library::CImg<uint8_t> imageReconstruction(std::vector<std::vector<double> > reconstructionCoeffs, unsigned channelIdx);
 
             cimg_library::CImg<uint8_t> reconstruct( const std::vector<maracuja::Spectrum>& spectra );
 
