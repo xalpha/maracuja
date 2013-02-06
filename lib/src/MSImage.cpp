@@ -51,30 +51,36 @@ namespace maracuja
         // TODO Auto-generated destructor stub
     }
 
-    const std::vector<Channel>& MSImage::channels() const
-    {
-        return this->m_channels;
-    }
-
-    std::vector<Channel>& MSImage::channels()
-    {
-        return this->m_channels;
-    }
 
     void MSImage::clear()
     {
         this->m_channels.resize(0);
     }
 
+
     void MSImage::addChannel( const Channel& channel)
     {
         this->m_channels.push_back(channel);
     }
 
+
     void MSImage::setImage(unsigned channelIdx, std::shared_ptr<cimg_library::CImg<uint8_t> > imageToAdd)
     {
         this->m_channels[channelIdx].setImage(imageToAdd);
     }
+
+
+    const std::vector<Channel>& MSImage::channels() const
+    {
+        return this->m_channels;
+    }
+
+
+    std::vector<Channel>& MSImage::channels()
+    {
+        return this->m_channels;
+    }
+
 
     std::vector<double> MSImage::computeCoefficients( const Spectrum& spectrum)
     {
@@ -96,32 +102,15 @@ namespace maracuja
         return coeffs;
     }
 
-    cimg_library::CImg<uint8_t> MSImage::convolute(const Spectrum &spectrum)
-    {
-         // calculation of the multiplicative coefficient for each channel for the considered spectrum
-        std::vector<double> coeffs(0);
-        coeffs = this->computeCoefficients(spectrum);
 
-        // multiplication of the images by the previously calculated coefficients
-        cimg_library::CImg<uint8_t> resultImage;
-        // the next line is the initialization at the good size!
-//        resultImage = coeffs[0]*((this->m_channels)[0].getImg());
-//        for (unsigned idx = 1; idx < this->getChannelsNumber(); idx++)
-//        {
-//            resultImage = resultImage + coeffs[idx]*((this->m_channels)[idx].getImg());
-//        }
-
-        return resultImage;
-    }
-
-    std::vector<std::vector<double> > MSImage::initialization( const std::vector<Spectrum>& spectrums)
+    std::vector<std::vector<double> > MSImage::computeBalancedCoefficients( const std::vector<Spectrum>& spectrums)
     {
         // init the coefficients
         std::vector<std::vector<double> > allCoeffs(spectrums.size());
         for (unsigned idx = 0; idx < spectrums.size(); idx++)
             allCoeffs[idx] = computeCoefficients(spectrums[idx]);
 
-    // white balance for a "white signal" (1 for every wavelength)
+        // white balance for a "white signal" (1 for every wavelength)
 
         // calculation of the theoretical value for each channel
         std::vector<double> spectralValues(m_channels.size());
@@ -130,12 +119,9 @@ namespace maracuja
         {
             spectrumTmp = m_channels[idx].filter().data(); // filter's values
             for (unsigned wavelengthIdx = 0; wavelengthIdx < spectrumTmp.size(); wavelengthIdx++)
-            {
                 spectrumTmp(wavelengthIdx) = spectrumTmp(wavelengthIdx) * m_channels[idx].sensor().data()(wavelengthIdx);
-            }
             spectralValues[idx] = spectrumTmp.sum();
         }
-
 
         std::vector<double> expected_RGB(spectrums.size());
         std::vector<double> whiteBalanceCoeffs(spectrums.size());
@@ -147,41 +133,81 @@ namespace maracuja
             // calculation of the expected RGB values and the white balance coefficients
             expected_RGB[spectrumIdx] = spectrums[spectrumIdx].data().sum();
             if (expected_RGB[spectrumIdx] != 0)
-            {
                 whiteBalanceCoeffs[spectrumIdx] = 255/expected_RGB[spectrumIdx];
-            }
 
             // calculation of the RGB values that we reconstruct with the coefficients
             for (unsigned channelIdx = 0; channelIdx < m_channels.size(); channelIdx++)
-            {
                 reconstructedRGB[spectrumIdx] = reconstructedRGB[spectrumIdx] + allCoeffs[spectrumIdx][channelIdx] * spectralValues[channelIdx];
-            }
 
             // white balance and RGB loss compensation
             correctionCoeff = whiteBalanceCoeffs[spectrumIdx] * expected_RGB[spectrumIdx] / reconstructedRGB[spectrumIdx];
             for (unsigned channelIdx = 0; channelIdx < m_channels.size(); channelIdx++)
-            {
-//                allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff; // if the white balance is not already done in the picture
                 allCoeffs[spectrumIdx][channelIdx] = allCoeffs[spectrumIdx][channelIdx] * correctionCoeff * spectralValues[channelIdx] / 255;
-            }
+                // allCoeffs[RGBidx][channelIdx] = allCoeffs[RGBidx][channelIdx] * correctionCoeff; // if the white balance is not already done in the picture
         }
 
         return allCoeffs;
     }
 
+    cimg_library::CImg<uint8_t> MSImage::convolute(const Spectrum &spectrum)
+    {
+        // calculation of the multiplicative coefficient for each channel for the considered spectrum
+        std::vector<double> coeffs = computeCoefficients(spectrum);
 
-    cimg_library::CImg<uint8_t> MSImage::convolute( const std::vector<maracuja::Spectrum>& spectra )
+        // multiplication of the images by the previously calculated coefficients
+        cimg_library::CImg<uint8_t> result( m_channels[0].img().width(),
+                                            m_channels[0].img().height(),
+                                            1, 1, 0 );
+
+        // reconstruct the image
+        for( size_t i=0; i<m_channels.size(); i++ )
+            result += coeffs[i] * m_channels[i].img();
+
+        return result;
+    }
+
+
+    cimg_library::CImg<uint8_t> MSImage::convolute( const std::vector<maracuja::Spectrum>& spectra, bool balanced )
     {
         // init stuff
-        std::vector<std::vector<double> > coeffs = initialization(spectra);
         cimg_library::CImg<uint8_t> result( m_channels[0].img().width(),
                                             m_channels[0].img().height(),
                                             1, spectra.size(), 0 );
 
-        // reconstruct the image
-        for( int c=0; c<result.spectrum(); c++ )
-            for( size_t i=0; i<m_channels.size(); i++ )
-                result.get_shared_channel(c) += coeffs[c][i] * m_channels[i].img();
+        // compute coefficients and recover the image
+        std::vector<std::vector<double> > coeffs;
+        if( balanced )
+        {
+            // compute balanced coefficients
+            coeffs = computeBalancedCoefficients( spectra );
+
+            // assemble the image
+            for( int c=0; c<result.spectrum(); c++ )
+                for( size_t i=0; i<m_channels.size(); i++ )
+                    result.get_shared_channel(c) += coeffs[c][i] * m_channels[i].img();
+        }
+        else
+        {
+            // compute coefficients
+            coeffs.resize( spectra.size() );
+            for( unsigned s = 0; s < spectra.size(); s++ )
+                coeffs[s] = computeCoefficients( spectra[s] );
+
+            std::vector<cimg_library::CImg<float> > channels(m_channels.size());
+            for( size_t c=0; c<m_channels.size(); c++ )
+                channels[c] = m_channels[c].img();
+
+            // assemble the image
+            cimg_library::CImg<float> resultF( m_channels[0].img().width(),
+                                               m_channels[0].img().height(),
+                                               1, spectra.size(), 0 );
+            for( int c=0; c<result.spectrum(); c++ )
+                for( size_t i=0; i<m_channels.size(); i++ )
+                    resultF.get_shared_channel(c) += coeffs[c][i] * channels[i];
+
+            resultF.normalize( 0, 255 );
+            result = resultF;
+        }
 
         return result;
     }

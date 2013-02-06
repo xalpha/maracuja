@@ -280,6 +280,16 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
+            <widget class="QCheckBox" name="whitebalance">
+             <property name="text">
+              <string>white balance</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="calculation_button">
              <property name="text">
               <string>Calculation</string>

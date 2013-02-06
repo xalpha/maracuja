@@ -375,7 +375,7 @@ void MaracujaMS::on_calculation()
                 RGB.push_back(BSpectrum);
 
                 // compute reconstruct the RGB image
-                m_imageRGB = m_MSImage.convolute( RGB );
+                m_imageRGB = m_MSImage.convolute( RGB, ui->whitebalance->isChecked() );
 
                 // convert image to Qt
                 QImage imageQt;
