@@ -39,7 +39,8 @@
 namespace maracuja
 {
 
-    Channel::Channel()
+    Channel::Channel() :
+        m_image( new cimg_library::CImg<uint8_t>() )
     {
 
     }

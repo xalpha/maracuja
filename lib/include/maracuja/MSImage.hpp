@@ -51,8 +51,11 @@ namespace maracuja
     class MSImage
     {
         public:
-            MSImage();
+            MSImage( size_t channels=10 );
+            MSImage( const MSImage& msi );
             virtual ~MSImage();
+
+            void operator =( const MSImage& msi );
 
             void clear();
             void addChannel( const Channel& channel);

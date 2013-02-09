@@ -41,14 +41,27 @@
 namespace maracuja
 {
 
-    MSImage::MSImage()
+    MSImage::MSImage( size_t channels ) :
+        m_channels( channels )
     {
 
     }
 
 
+    MSImage::MSImage( const MSImage& msi )
+    {
+        *this = msi;
+    }
+
+
     MSImage::~MSImage() {
         // TODO Auto-generated destructor stub
+    }
+
+
+    void MSImage::operator =( const MSImage& msi )
+    {
+        m_channels = msi;
     }
 
 
