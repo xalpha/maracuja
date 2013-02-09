@@ -61,7 +61,7 @@ namespace maracuja
 
     void MSImage::operator =( const MSImage& msi )
     {
-        m_channels = msi;
+        m_channels = msi.m_channels;
     }
 
 
