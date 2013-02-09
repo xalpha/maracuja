@@ -67,7 +67,7 @@ namespace maracuja
             cimg_library::CImg<uint8_t> convolute( const Spectrum& spectrum);
             cimg_library::CImg<uint8_t> convolute( const std::vector<maracuja::Spectrum>& spectra, bool balanced=false );
 
-
+            cimg_library::CImg<uint8_t> rgb( bool whitebalance=true );
 
             void load( const std::string& filename );
             void save( const std::string& filename );
