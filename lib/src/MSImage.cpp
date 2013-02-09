@@ -41,10 +41,10 @@
 namespace maracuja
 {
 
-    MSImage::MSImage( size_t channels ) :
-        m_channels( channels )
+    MSImage::MSImage( size_t channels )
     {
-
+        if( chanels > 0 )
+            m_channels.resize(channels);
     }
 
 
