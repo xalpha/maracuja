@@ -40,6 +40,8 @@ namespace maracuja
 {
 
     Channel::Channel() :
+        m_isConfigured(false),
+        m_hasImage(false),
         m_image( new cimg_library::CImg<uint8_t>() )
     {
 
@@ -61,6 +63,8 @@ namespace maracuja
         m_filter = filter;
         m_sensor = sensor;
         m_image = image;
+        m_isConfigured = true;
+        m_hasImage = true;
     }
 
 
@@ -76,6 +80,8 @@ namespace maracuja
         m_filter = ch.m_filter;
         m_sensor = ch.m_sensor;
         m_image = ch.m_image;
+        m_isConfigured = ch.m_isConfigured;
+        m_hasImage = ch.m_hasImage;
     }
 
 
@@ -104,10 +110,10 @@ namespace maracuja
         return *m_image;
     }
 
-    cimg_library::CImg<uint8_t>& Channel::img()
-    {
-        return *m_image;
-    }
+//    cimg_library::CImg<uint8_t>& Channel::img()
+//    {
+//        return *m_image;
+//    }
 
     void Channel::set(double id, Spectrum filter, Spectrum sensor, std::string name)
     {
@@ -115,12 +121,13 @@ namespace maracuja
         this->m_filter = filter;
         this->m_sensor = sensor;
         this->m_name = name;
-        this->m_image = NULL;
+        m_isConfigured = true;
     }
 
     void Channel::set(std::shared_ptr<cimg_library::CImg<uint8_t> > image)
     {
         this->m_image = image;
+        m_hasImage = true;
     }
 
     double Channel::lossCalculation()
@@ -156,6 +163,15 @@ namespace maracuja
         compensatedImg = compensationCoeff * (*m_image);
         return compensatedImg;
         //this->m_image *= compensationCoeff;
+    }
+
+
+    void Channel::check() const
+    {
+        if( !m_isConfigured )
+            throw std::runtime_error("Channel::check: channel \"" + m_name + "\" is not configured.");
+        if( !m_hasImage )
+            throw std::runtime_error("Channel::check: channel \"" + m_name + "\" has no image.");
     }
 
 

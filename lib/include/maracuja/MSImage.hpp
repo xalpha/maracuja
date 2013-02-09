@@ -76,6 +76,8 @@ namespace maracuja
             void save( const std::string& filename );
 
     protected:
+            void checkChannels();
+
             std::string getElementValue( tinyxml2::XMLNode* node, std::string name );
             void appendTextElement( tinyxml2::XMLDocument& doc, tinyxml2::XMLNode& node, std::string name, std::string val );
 

@@ -43,7 +43,7 @@ namespace maracuja
 
     MSImage::MSImage( size_t channels )
     {
-        if( chanels > 0 )
+        if( channels > 0 )
             m_channels.resize(channels);
     }
 
@@ -97,6 +97,9 @@ namespace maracuja
 
     std::vector<double> MSImage::computeCoefficients( const Spectrum& spectrum)
     {
+        // check all is well
+        checkChannels();
+
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
         std::vector<double> coeffs(m_channels.size());
         double compensationCoeff;
@@ -315,6 +318,9 @@ namespace maracuja
 
     void MSImage::save( const std::string& filename )
     {
+        // check all is well
+        checkChannels();
+
         // init stuff
         tinyxml2::XMLDocument doc;
         std::string baseFilename = filename.substr( 0, filename.find_last_of('.') );
@@ -353,6 +359,18 @@ namespace maracuja
 
         // wrap up
         doc.SaveFile( (filename.substr( 0, filename.find_last_of('.') ) + ".msx").c_str() );
+    }
+
+
+    void MSImage::checkChannels()
+    {
+        // check if theere are any channels
+        if( m_channels.size() == 0 )
+            throw std::runtime_error( "MSImage::checkChannels: NO channels." );
+
+        // check all channels
+        for( size_t i=0; i<m_channels.size(); i++ )
+            m_channels[i].check();
     }
 
 

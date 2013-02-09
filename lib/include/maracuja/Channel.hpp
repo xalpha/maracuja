@@ -62,14 +62,19 @@ public:
     const Spectrum& filter() const;
     const Spectrum& sensor() const;
     const cimg_library::CImg<uint8_t>& img() const;
-    cimg_library::CImg<uint8_t>& img();
+    //cimg_library::CImg<uint8_t>& img();
     void set(double id, Spectrum filter, Spectrum sensor, std::string name);
     void set(std::shared_ptr<cimg_library::CImg<uint8_t> > image);
 
     double lossCalculation();
     cimg_library::CImg<uint8_t> lossCompensation(double compensationCoeff);
 
+    void check() const;
+
 protected:
+    bool m_isConfigured;
+    bool m_hasImage;
+
     int m_id; /// channel id
     std::string m_name; /// channel name
     Spectrum m_filter; /// trasmission spectra of the filter
