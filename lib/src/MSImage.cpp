@@ -34,6 +34,7 @@
 /// \date    Jan 15, 2013
 ///
 
+#include <omp.h>
 
 #include <maracuja/MSImage.hpp>
 
@@ -351,14 +352,18 @@ namespace maracuja
             appendTextElement( doc, *sensor, std::string("End"), toString( m_channels[i].sensor().end() ) );
             appendTextElement( doc, *sensor, std::string("Data"), toString( m_channels[i].sensor().data() ) );
 
-            // save the image
+            // the image
             std::string channelFilename = baseFilename + "-" + toString( m_channels[i].id()) + ".png";
-            m_channels[i].img().save_png( channelFilename.c_str() );
             appendTextElement( doc, *channel, std::string("Image"), channelFilename.substr( channelFilename.find_last_of('/')+1, channelFilename.size()-1 ) );
         }
 
         // wrap up
         doc.SaveFile( (filename.substr( 0, filename.find_last_of('.') ) + ".msx").c_str() );
+
+        // save the images
+//#       pragma omp parallel for
+        for( size_t i=0; i<m_channels.size(); i++ )
+            m_channels[i].img().save_png( (baseFilename + "-" + toString( m_channels[i].id()) + ".png").c_str() );
     }
 
 

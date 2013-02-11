@@ -22,9 +22,21 @@
 #include <QtGui/QApplication>
 #include <MaracujaMS.hpp>
 
+#include <omp.h>
+#include <iostream>
+
 
 int main(int argc, char *argv[])
 {
+//#ifdef OMP_H
+//    std::cout << "omp_get_max_threads: " << omp_get_max_threads() << std::endl;
+//    omp_set_num_threads( omp_get_max_threads() / 2 );
+//    std::cout << "omp_get_num_threads: " << omp_get_max_threads() << std::endl;
+//#endif
+
+
+
+
     QApplication a(argc, argv);
     MaracujaMS w;
     w.show();
