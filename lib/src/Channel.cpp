@@ -58,13 +58,8 @@ namespace maracuja
                       const Spectrum& filter, const Spectrum& sensor,
                       std::shared_ptr< cimg_library::CImg<uint8_t> > image )
     {
-        m_id = id;
-        m_name = name;
-        m_filter = filter;
-        m_sensor = sensor;
-        m_image = image;
-        m_isConfigured = true;
-        m_hasImage = true;
+        set( id, filter, sensor, name );
+        set( image );
     }
 
 
@@ -115,7 +110,7 @@ namespace maracuja
 //        return *m_image;
 //    }
 
-    void Channel::set(double id, Spectrum filter, Spectrum sensor, std::string name)
+    void Channel::set(double id, const Spectrum& filter, const Spectrum& sensor, const std::string& name)
     {
         this->m_id = id;
         this->m_filter = filter;
