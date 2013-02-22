@@ -84,6 +84,12 @@ namespace maracuja
     }
 
 
+    void MSImage::setTimestamp( const std::string& timestamp )
+    {
+        m_timestamp = timestamp;
+    }
+
+
     const std::vector<Channel>& MSImage::channels() const
     {
         return this->m_channels;
@@ -93,6 +99,12 @@ namespace maracuja
     std::vector<Channel>& MSImage::channels()
     {
         return this->m_channels;
+    }
+
+
+    const std::string& MSImage::timestamp() const
+    {
+        return m_timestamp;
     }
 
 
@@ -314,6 +326,9 @@ namespace maracuja
             // add the image
             m_channels.push_back( Channel( id, name, filter, sensor, image ) );
         }
+
+        // read the timestamp
+        m_timestamp = getElementValue( root, "Timestamp" );
     }
 
 
@@ -356,6 +371,9 @@ namespace maracuja
             std::string channelFilename = baseFilename + "-" + toString( m_channels[i].id()) + ".png";
             appendTextElement( doc, *channel, std::string("Image"), channelFilename.substr( channelFilename.find_last_of('/')+1, channelFilename.size()-1 ) );
         }
+
+        // add the timespamp
+        appendTextElement( doc, *root, std::string("Timestamp"), m_timestamp );
 
         // wrap up
         doc.SaveFile( (filename.substr( 0, filename.find_last_of('.') ) + ".msx").c_str() );
