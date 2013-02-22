@@ -60,12 +60,11 @@ namespace maracuja
             void clear();
             void addChannel( const Channel& channel);
             void setImage(unsigned channelIdx, std::shared_ptr<cimg_library::CImg<uint8_t> > imageToAdd);
-            void setTimestamp( const std::string& time, const std::string& date );
+            void setTimestamp( const std::string& timestamp );
 
             const std::vector<Channel>& channels() const;
             std::vector<Channel>& channels();
-            const std::string& time() const;
-            const std::string& date() const;
+            const std::string& timestamp() const;
 
             std::vector<double> computeCoefficients(const Spectrum &spectrum);
             std::vector<std::vector<double> > computeBalancedCoefficients(const std::vector<maracuja::Spectrum> &spectrums);
@@ -86,8 +85,7 @@ namespace maracuja
 
         protected:
             std::vector<Channel> m_channels;
-            std::string m_date;
-            std::string m_time;
+            std::string m_timestamp;
     };
 
 } // end namespace maracuja

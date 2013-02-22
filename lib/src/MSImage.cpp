@@ -84,10 +84,9 @@ namespace maracuja
     }
 
 
-    void MSImage::setTimestamp( const std::string& time, const std::string& date )
+    void MSImage::setTimestamp( const std::string& timestamp )
     {
-        m_time = time;
-        m_date = date;
+        m_timestamp = timestamp;
     }
 
 
@@ -103,15 +102,9 @@ namespace maracuja
     }
 
 
-    const std::string& MSImage::date() const
+    const std::string& MSImage::timestamp() const
     {
-        return m_date;
-    }
-
-
-    const std::string& MSImage::time() const
-    {
-        return m_time;
+        return m_timestamp;
     }
 
 
@@ -335,8 +328,7 @@ namespace maracuja
         }
 
         // read the timestamp
-        m_time = getElementValue( root, "Time" );
-        m_date = getElementValue( root, "Date" );
+        m_timestamp = getElementValue( root, "Timestamp" );
     }
 
 
@@ -381,8 +373,7 @@ namespace maracuja
         }
 
         // add the timespamp
-        appendTextElement( doc, *root, std::string("Time"), m_time );
-        appendTextElement( doc, *root, std::string("Date"), m_date );
+        appendTextElement( doc, *root, std::string("Timestamp"), m_timestamp );
 
         // wrap up
         doc.SaveFile( (filename.substr( 0, filename.find_last_of('.') ) + ".msx").c_str() );
