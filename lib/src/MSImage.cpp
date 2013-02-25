@@ -370,7 +370,7 @@ namespace maracuja
 
             // the image
             std::string channelFilename = baseFilename + "-" + toString( m_channels[i].id()) + ".png";
-            appendTextElement( doc, *channel, std::string("Image"), channelFilename.substr( channelFilename.find_last_of('/')+1, channelFilename.size()-1 ) );
+            appendTextElement( doc, *channel, std::string("Image"), channelFilename.substr( channelFilename.find_last_of('/')+1, channelFilename.size() ) );
         }
 
         // add the timespamp
