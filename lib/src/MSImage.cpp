@@ -369,7 +369,7 @@ namespace maracuja
             appendTextElement( doc, *sensor, std::string("Data"), toString( m_channels[i].sensor().data() ) );
 
             // the image
-            std::string channelFilename = baseFilename + "-" + toString( m_channels[i].id()) + ".png";
+            std::string channelFilename = baseFilename + "-" + toString( m_channels[i].id()) + ".bmp";
             appendTextElement( doc, *channel, std::string("Image"), channelFilename.substr( channelFilename.find_last_of('/')+1, channelFilename.size() ) );
         }
 
@@ -382,7 +382,7 @@ namespace maracuja
         // save the images
 //#       pragma omp parallel for
         for( size_t i=0; i<m_channels.size(); i++ )
-            m_channels[i].img().save_png( (baseFilename + "-" + toString( m_channels[i].id()) + ".png").c_str() );
+            m_channels[i].img().save_bmp( (baseFilename + "-" + toString( m_channels[i].id()) + ".bmp").c_str() );
     }
 
 
