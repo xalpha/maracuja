@@ -30,6 +30,7 @@
 
 #include <maracuja/util.hpp>
 #include <maracuja/MSImage.hpp>
+#include <SSM.hpp>
 
 namespace Ui {
     class MaracujaMS;
@@ -54,9 +55,16 @@ public slots:
     void on_saveRGB();
     void on_loadMS();
     void on_saveMS();
+	void on_load_spectrum1();
+	void on_load_spectrum2();
+	void on_show_spectrum1();
+	void on_show_spectrum2();
+	void on_multiply_spectra();
 
 protected:
     void cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst );
+	void on_load_spectrum(maracuja::Spectrum& spec);
+	void on_show_spectrum(maracuja::Spectrum& spec, int graph);
 
 protected:
     // ui
@@ -66,6 +74,8 @@ protected:
     std::string m_lastDir;
     maracuja::MSImage m_MSImage;
     cimg_library::CImg<uint8_t> m_imageRGB;
+	maracuja::Spectrum a;
+	maracuja::Spectrum b;
 
 };
 

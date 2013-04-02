@@ -1,0 +1,1 @@
+/opt/local/bin/c++    --std=c++0x -fopenmp -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names    CMakeFiles/test.dir/test/test.cpp.o  -o test  libmaracuja.dylib -lm -lc 

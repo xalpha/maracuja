@@ -41,6 +41,7 @@
 #include <maracuja/util.hpp>
 #include <maracuja/Spectrum.hpp>
 #include <maracuja/Channel.hpp>
+#include <maracuja/SpecOps.hpp>
 
 #include <tinyxml2.h>
 

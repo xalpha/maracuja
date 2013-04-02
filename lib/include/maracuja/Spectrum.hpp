@@ -37,7 +37,6 @@
 /// \date    Jan 15, 2013
 ///
 
-
 #include <maracuja/util.hpp>
 
 
@@ -51,15 +50,22 @@ public:
     Spectrum( const Spectrum& spec );
     Spectrum( double start, double end, const Eigen::VectorXd& data  );
     Spectrum( double start, double end, const std::vector<double>& data  );
+	Spectrum( double start, double end, const Eigen::VectorXd& data, double samplerate  );
+    Spectrum( double start, double end, const std::vector<double>& data, double samplerate  );
     virtual ~Spectrum();
 
     void set(double startVal, double endVal, Eigen::VectorXd data);
+	void set(double startVal, double endVal, Eigen::VectorXd data, double samplerate);
+	void calculateSamplerate(const Eigen::VectorXd& wldata);
+	void calculateSamplerate(const std::vector<double>& wldata);
 
     void operator =( const Spectrum& spec );
     void operator *( double coeff );
 
+	double samplerate();
     double start() const;
     double end() const;
+
     const Eigen::VectorXd& data() const;
 
 protected:
@@ -68,6 +74,7 @@ protected:
 protected:
     double m_start; /// begin wavelength of the spectrum definition
     double m_end; /// begin wavelength of the spectrum definition
+	double m_sample_rate; //NEW: distance from one sample to another in nm
     Eigen::VectorXd m_data; /// values of the function through the spectrum
 };
 
