@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MaracujaMS.hpp'
 **
-** Created: Tue Apr 2 12:14:41 2013
+** Created: Wed Apr 3 14:03:03 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MaracujaMS[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -44,6 +44,7 @@ static const uint qt_meta_data_MaracujaMS[] = {
      176,   11,   11,   11, 0x0a,
      196,   11,   11,   11, 0x0a,
      216,   11,   11,   11, 0x0a,
+     238,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -55,7 +56,7 @@ static const char qt_meta_stringdata_MaracujaMS[] = {
     "on_saveRGB()\0on_loadMS()\0on_saveMS()\0"
     "on_load_spectrum1()\0on_load_spectrum2()\0"
     "on_show_spectrum1()\0on_show_spectrum2()\0"
-    "on_multiply_spectra()\0"
+    "on_multiply_spectra()\0on_apply_spectrum2()\0"
 };
 
 void MaracujaMS::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -77,6 +78,7 @@ void MaracujaMS::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->on_show_spectrum1(); break;
         case 11: _t->on_show_spectrum2(); break;
         case 12: _t->on_multiply_spectra(); break;
+        case 13: _t->on_apply_spectrum2(); break;
         default: ;
         }
     }
@@ -115,9 +117,9 @@ int MaracujaMS::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

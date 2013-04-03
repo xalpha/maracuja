@@ -60,6 +60,7 @@ public slots:
 	void on_show_spectrum1();
 	void on_show_spectrum2();
 	void on_multiply_spectra();
+	void on_apply_spectrum2();
 
 protected:
     void cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst );

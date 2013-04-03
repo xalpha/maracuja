@@ -297,6 +297,30 @@ src/SSM.cpp.s:
 	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SSM.cpp.s
 .PHONY : src/SSM.cpp.s
 
+src/SpecOpsTest.o: src/SpecOpsTest.cpp.o
+.PHONY : src/SpecOpsTest.o
+
+# target to build an object file
+src/SpecOpsTest.cpp.o:
+	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o
+.PHONY : src/SpecOpsTest.cpp.o
+
+src/SpecOpsTest.i: src/SpecOpsTest.cpp.i
+.PHONY : src/SpecOpsTest.i
+
+# target to preprocess a source file
+src/SpecOpsTest.cpp.i:
+	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.i
+.PHONY : src/SpecOpsTest.cpp.i
+
+src/SpecOpsTest.s: src/SpecOpsTest.cpp.s
+.PHONY : src/SpecOpsTest.s
+
+# target to generate assembly for a file
+src/SpecOpsTest.cpp.s:
+	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.s
+.PHONY : src/SpecOpsTest.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -352,6 +376,9 @@ help:
 	@echo "... src/SSM.o"
 	@echo "... src/SSM.i"
 	@echo "... src/SSM.s"
+	@echo "... src/SpecOpsTest.o"
+	@echo "... src/SpecOpsTest.i"
+	@echo "... src/SpecOpsTest.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

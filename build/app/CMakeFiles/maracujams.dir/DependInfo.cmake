@@ -10,6 +10,7 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/Users/bumuckl/Studium/IDP/maracuja/build/app/qrc_MaracujaMS.cxx" "/Users/bumuckl/Studium/IDP/maracuja/build/app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o"
   "/Users/bumuckl/Studium/IDP/maracuja/app/src/MaracujaMS.cpp" "/Users/bumuckl/Studium/IDP/maracuja/build/app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.o"
   "/Users/bumuckl/Studium/IDP/maracuja/app/src/SSM.cpp" "/Users/bumuckl/Studium/IDP/maracuja/build/app/CMakeFiles/maracujams.dir/src/SSM.cpp.o"
+  "/Users/bumuckl/Studium/IDP/maracuja/app/src/SpecOpsTest.cpp" "/Users/bumuckl/Studium/IDP/maracuja/build/app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o"
   "/Users/bumuckl/Studium/IDP/maracuja/app/src/main.cpp" "/Users/bumuckl/Studium/IDP/maracuja/build/app/CMakeFiles/maracujams.dir/src/main.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")

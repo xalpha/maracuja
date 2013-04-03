@@ -396,6 +396,13 @@
           </property>
          </widget>
         </item>
+		<item>
+         <widget class="QPushButton" name="apply_spectrum2_to_image_button">
+          <property name="text">
+           <string>Apply Spectrum 2 to Image</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <spacer name="verticalSpacer_3">
           <property name="orientation">

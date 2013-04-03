@@ -96,6 +96,42 @@ ImfArray.h
 CImg.h
 ../lib/extern/cimg/CImg.h
 
+../lib/extern/tinyxml2/tinyxml2.h
+cctype
+-
+climits
+-
+cstdio
+-
+cstring
+-
+cstdarg
+-
+android/log.h
+-
+assert.h
+-
+
+../lib/include/maracuja/Channel.hpp
+memory
+-
+maracuja/util.hpp
+-
+maracuja/Spectrum.hpp
+-
+
+../lib/include/maracuja/MSImage.hpp
+maracuja/util.hpp
+-
+maracuja/Spectrum.hpp
+-
+maracuja/Channel.hpp
+-
+maracuja/SpecOps.hpp
+-
+tinyxml2.h
+-
+
 ../lib/include/maracuja/SpecOps.hpp
 iostream
 -
@@ -1098,11 +1134,9 @@ Eigen/src/Core/util/MKL_support.h
 
 /Users/bumuckl/Software/Libs/Eigen3/Eigen/src/misc/Solve.h
 
-/Users/bumuckl/Studium/IDP/maracuja/lib/src/SpecOps.cpp
-stdlib.h
+/Users/bumuckl/Studium/IDP/maracuja/lib/src/MSImage.cpp
+omp.h
 -
-cmath
--
-maracuja/SpecOps.hpp
+maracuja/MSImage.hpp
 -
 

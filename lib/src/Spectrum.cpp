@@ -56,6 +56,7 @@ namespace maracuja
         m_start = start;
         m_end = end;
         m_data = data;
+		this->calculateSamplerate(data);
     }
 
 
@@ -64,6 +65,7 @@ namespace maracuja
         m_start = start;
         m_end = end;
         m_data = toEigen( data );
+		this->calculateSamplerate(data);
     }
 
 	Spectrum::Spectrum( double start, double end, const Eigen::VectorXd& data, double samplerate  )
@@ -151,7 +153,7 @@ namespace maracuja
 		if (wldata.size() < 2) {
 			this->m_sample_rate = 0.0;
 		} else {
-			this->m_sample_rate = abs(wldata[1] - wldata[0]);
+			this->m_sample_rate = fabs(this->end() - this->start())/wldata.size();
 		}
 	}
 	

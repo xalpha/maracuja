@@ -118,9 +118,32 @@ app/CMakeFiles/maracujams.dir/src/SSM.cpp.o.provides: app/CMakeFiles/maracujams.
 
 app/CMakeFiles/maracujams.dir/src/SSM.cpp.o.provides.build: app/CMakeFiles/maracujams.dir/src/SSM.cpp.o
 
+app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o: app/CMakeFiles/maracujams.dir/flags.make
+app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o: ../app/src/SpecOpsTest.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o"
+	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o -c /Users/bumuckl/Studium/IDP/maracuja/app/src/SpecOpsTest.cpp
+
+app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.i"
+	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/bumuckl/Studium/IDP/maracuja/app/src/SpecOpsTest.cpp > CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.i
+
+app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.s"
+	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/bumuckl/Studium/IDP/maracuja/app/src/SpecOpsTest.cpp -o CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.s
+
+app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.requires:
+.PHONY : app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.requires
+
+app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.provides: app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.requires
+	$(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.provides.build
+.PHONY : app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.provides
+
+app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.provides.build: app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o
+
 app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o: app/CMakeFiles/maracujams.dir/flags.make
 app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o: app/include/moc_MaracujaMS.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o -c /Users/bumuckl/Studium/IDP/maracuja/build/app/include/moc_MaracujaMS.cxx
 
@@ -143,7 +166,7 @@ app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o.provides.build: app/C
 
 app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o: app/CMakeFiles/maracujams.dir/flags.make
 app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o: app/extern/qcustomplot/moc_qcustomplot.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o -c /Users/bumuckl/Studium/IDP/maracuja/build/app/extern/qcustomplot/moc_qcustomplot.cxx
 
@@ -166,7 +189,7 @@ app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o.provides.
 
 app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o: app/CMakeFiles/maracujams.dir/flags.make
 app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o: app/qrc_MaracujaMS.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o -c /Users/bumuckl/Studium/IDP/maracuja/build/app/qrc_MaracujaMS.cxx
 
@@ -189,7 +212,7 @@ app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o.provides.build: app/CMakeFile
 
 app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o: app/CMakeFiles/maracujams.dir/flags.make
 app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o: ../app/extern/qcustomplot/qcustomplot.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o -c /Users/bumuckl/Studium/IDP/maracuja/app/extern/qcustomplot/qcustomplot.cpp
 
@@ -211,24 +234,24 @@ app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o.provides: app
 app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o.provides.build: app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o
 
 app/include/moc_MaracujaMS.cxx: ../app/include/MaracujaMS.hpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating include/moc_MaracujaMS.cxx"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /Developer/Tools/Qt/moc -I/usr/include -F/Library/Frameworks -I/Library/Frameworks/QtGui.framework/Headers -I/Library/Frameworks/QtXml.framework/Headers -I/Library/Frameworks/QtCore.framework/Headers -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB -o /Users/bumuckl/Studium/IDP/maracuja/build/app/include/moc_MaracujaMS.cxx /Users/bumuckl/Studium/IDP/maracuja/app/include/MaracujaMS.hpp
 
 app/extern/qcustomplot/moc_qcustomplot.cxx: ../app/extern/qcustomplot/qcustomplot.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating extern/qcustomplot/moc_qcustomplot.cxx"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /Developer/Tools/Qt/moc -I/usr/include -F/Library/Frameworks -I/Library/Frameworks/QtGui.framework/Headers -I/Library/Frameworks/QtXml.framework/Headers -I/Library/Frameworks/QtCore.framework/Headers -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB -o /Users/bumuckl/Studium/IDP/maracuja/build/app/extern/qcustomplot/moc_qcustomplot.cxx /Users/bumuckl/Studium/IDP/maracuja/app/extern/qcustomplot/qcustomplot.h
 
 app/ui_MaracujaMS.h: ../app/ui/MaracujaMS.ui
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ui_MaracujaMS.h"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /Developer/Tools/Qt/uic -o /Users/bumuckl/Studium/IDP/maracuja/build/app/ui_MaracujaMS.h /Users/bumuckl/Studium/IDP/maracuja/app/ui/MaracujaMS.ui
 
 app/qrc_MaracujaMS.cxx: ../app/res/maracujams.svg
 app/qrc_MaracujaMS.cxx: app/res/MaracujaMS.qrc.depends
 app/qrc_MaracujaMS.cxx: ../app/res/MaracujaMS.qrc
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating qrc_MaracujaMS.cxx"
 	cd /Users/bumuckl/Studium/IDP/maracuja/build/app && /Developer/Tools/Qt/rcc -name MaracujaMS -o /Users/bumuckl/Studium/IDP/maracuja/build/app/qrc_MaracujaMS.cxx /Users/bumuckl/Studium/IDP/maracuja/app/res/MaracujaMS.qrc
 
@@ -237,6 +260,7 @@ maracujams_OBJECTS = \
 "CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.o" \
 "CMakeFiles/maracujams.dir/src/main.cpp.o" \
 "CMakeFiles/maracujams.dir/src/SSM.cpp.o" \
+"CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o" \
 "CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o" \
 "CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o" \
 "CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o" \
@@ -248,6 +272,7 @@ maracujams_EXTERNAL_OBJECTS =
 app/maracujams: app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.o
 app/maracujams: app/CMakeFiles/maracujams.dir/src/main.cpp.o
 app/maracujams: app/CMakeFiles/maracujams.dir/src/SSM.cpp.o
+app/maracujams: app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o
 app/maracujams: app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o
 app/maracujams: app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o
 app/maracujams: app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o
@@ -265,6 +290,7 @@ app/CMakeFiles/maracujams.dir/build: app/maracujams
 app/CMakeFiles/maracujams.dir/requires: app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.o.requires
 app/CMakeFiles/maracujams.dir/requires: app/CMakeFiles/maracujams.dir/src/main.cpp.o.requires
 app/CMakeFiles/maracujams.dir/requires: app/CMakeFiles/maracujams.dir/src/SSM.cpp.o.requires
+app/CMakeFiles/maracujams.dir/requires: app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o.requires
 app/CMakeFiles/maracujams.dir/requires: app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o.requires
 app/CMakeFiles/maracujams.dir/requires: app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o.requires
 app/CMakeFiles/maracujams.dir/requires: app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o.requires

@@ -39,6 +39,7 @@
 #include "ui_MaracujaMS.h"
 #include <MaracujaMS.hpp>
 #include <SSM.hpp>
+#include <SpecOpsTest.hpp>
 
 
 MaracujaMS::MaracujaMS(QWidget *parent) :
@@ -61,6 +62,7 @@ MaracujaMS::MaracujaMS(QWidget *parent) :
 	connect( ui->show_spectrum1_button, SIGNAL(clicked(bool)), this, SLOT(on_show_spectrum1(void)) );
 	connect( ui->show_spectrum2_button, SIGNAL(clicked(bool)), this, SLOT(on_show_spectrum2(void)) );
 	connect( ui->multiply_spectra_button, SIGNAL(clicked(bool)), this, SLOT(on_multiply_spectra(void)) );
+	connect( ui->apply_spectrum2_to_image_button, SIGNAL(clicked(bool)), this, SLOT(on_apply_spectrum2(void)) );
 	
 	ui->view->addGraph();
 	ui->view->addGraph();
@@ -457,6 +459,7 @@ void MaracujaMS::on_load_spectrum(maracuja::Spectrum& spec) {
 			SSM spectrum_file;
 			spectrum_file.parseFile(filename.c_str());
 			Eigen::VectorXd wl = spectrum_file.getWavelengthsasEigen();
+			std::cout << "Amount of Wavelengths: " << wl.size() << std::endl;
 			double samplerate = 1;
 			if (wl.size() < 2) {
 				QMessageBox::critical(this, "Error", QString("Cannot calculate samplerate as the spectrum contains less than two values - using samplerate=1!"));
@@ -469,6 +472,9 @@ void MaracujaMS::on_load_spectrum(maracuja::Spectrum& spec) {
 				std::cout << "WL " << wl[i] << std::endl;
 			} 
 		 	spec.set(spectrum_file.getFirstWavelength(), spectrum_file.getLastWavelength(), spectrum_file.getPeaksasEigen(), samplerate);
+		} else {
+			QMessageBox::critical(this, "Error", QString("Could not load spectrum as it is empty!"));
+			return;
 		}
 
         // update the last dir
@@ -507,7 +513,9 @@ void MaracujaMS::on_show_spectrum(maracuja::Spectrum& spec, int graph) {
 }
 
 void MaracujaMS::on_load_spectrum1() {
-	this->on_load_spectrum(this->a);
+	//this->on_load_spectrum(this->a);
+	SpecOpsTest test;
+	test.OnesOnly(this->a, this->b);
 }
 void MaracujaMS::on_load_spectrum2() {
 	this->on_load_spectrum(this->b);
@@ -524,10 +532,62 @@ void MaracujaMS::on_multiply_spectra() {
 	SpecOps mult = SpecOps(this->a);
 	
 	maracuja::Spectrum* result;
-	result = mult.pairwiseMultiplication(this->b, 5, 0.2);
+	result = mult.pairwiseMultiplication(this->b, 1, 0.2);
+	//result = mult.adaptTo(this->b.start(), this->b.end(), 0.2);
 	
 	ui->view->graph(2)->setPen(QPen(Qt::green));
 	this->on_show_spectrum(*result, 2);
+}
+
+void MaracujaMS::on_apply_spectrum2() {
+	try
+    {
+        if (m_MSImage.channels().size() == 0)
+        {
+            QMessageBox::critical(this, "Warning", QString("You need first to add channels and images."));
+        }
+        else
+        {
+            bool image_missing = false;
+            int checkingIdx = 0;
+            while(!image_missing && checkingIdx < m_MSImage.channels().size())
+            {
+                if (m_MSImage.channels()[checkingIdx].img() == NULL)
+                {
+                    image_missing = true;
+                }
+                else
+                {
+                    checkingIdx++;
+                }
+            }
+            if (image_missing)
+            {
+                QMessageBox::critical(this, "Warning", QString("Image is missing, for at least one channel."));
+            }
+            else
+            {
+                // compute reconstruct the RGB image
+                m_imageRGB = m_MSImage.convolute( this->b );
+
+                // convert image to Qt
+                QImage imageQt;
+                cimg2qimg( m_imageRGB, imageQt );
+
+                // set the image
+                ui->view->setAxisBackground(QPixmap::fromImage(imageQt), true, Qt::IgnoreAspectRatio );
+                ui->view->xAxis->setRange(0, imageQt.width() );
+                ui->view->yAxis->setRange(0, imageQt.height() );
+                ui->view->replot();
+            }
+        }
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
 }
 
 

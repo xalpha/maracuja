@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MaracujaMS.ui'
 **
-** Created: Sat Mar 30 14:37:57 2013
+** Created: Wed Apr 3 14:03:03 2013
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -97,6 +97,7 @@ public:
     QPushButton *load_spectrum2_button;
     QPushButton *show_spectrum2_button;
     QPushButton *multiply_spectra_button;
+    QPushButton *apply_spectrum2_to_image_button;
     QSpacerItem *verticalSpacer_31;
     QStatusBar *statusBar;
 
@@ -373,6 +374,11 @@ public:
 
         verticalLayout_10->addWidget(multiply_spectra_button);
 
+        apply_spectrum2_to_image_button = new QPushButton(tab_4);
+        apply_spectrum2_to_image_button->setObjectName(QString::fromUtf8("apply_spectrum2_to_image_button"));
+
+        verticalLayout_10->addWidget(apply_spectrum2_to_image_button);
+
         verticalSpacer_31 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_10->addItem(verticalSpacer_31);
@@ -426,6 +432,7 @@ public:
         load_spectrum2_button->setText(QApplication::translate("MaracujaMS", "Load Spectrum 2", 0, QApplication::UnicodeUTF8));
         show_spectrum2_button->setText(QApplication::translate("MaracujaMS", "Display Spectrum 2", 0, QApplication::UnicodeUTF8));
         multiply_spectra_button->setText(QApplication::translate("MaracujaMS", "Multiply Spectra", 0, QApplication::UnicodeUTF8));
+        apply_spectrum2_to_image_button->setText(QApplication::translate("MaracujaMS", "Apply Spectrum 2 to Image", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MaracujaMS", "Spectrum", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

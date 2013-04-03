@@ -53,7 +53,8 @@ set( MaracujaMS_INC include/MaracujaMS.hpp )
 set( MaracujaMS_SRC 
     src/MaracujaMS.cpp
     src/main.cpp 
-	src/SSM.cpp )
+	src/SSM.cpp 
+	src/SpecOpsTest.cpp )
 set( MaracujaMS_QT_UI ui/MaracujaMS.ui )
 set( MaracujaMS_QT_RES res/MaracujaMS.qrc )
 

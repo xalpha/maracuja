@@ -2,6 +2,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.o"
   "CMakeFiles/maracujams.dir/src/main.cpp.o"
   "CMakeFiles/maracujams.dir/src/SSM.cpp.o"
+  "CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o"
   "CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o"
   "CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o"
   "CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o"
