@@ -181,18 +181,18 @@ namespace maracuja
 
     cimg_library::CImg<uint8_t> MSImage::convolute(const Spectrum &spectrum)
     {
-		//EXTENSION: convert spectrum inzo the range of of the msimage spectrums
-		Spectrum dirty;
-		dirty.set(spectrum.start(), spectrum.end(), spectrum.data());
-		SpecOps target(dirty);
-		Spectrum* adapted_spectrum;
-		double new_start = this->m_channels[0].filter().start();
-		double new_end = this->m_channels[0].filter().end();
-		double samplerate = fabs(new_end - new_start)/(this->m_channels[0].filter().data().size());
-		adapted_spectrum = target.adaptTo(new_start, new_end, samplerate);
+        //EXTENSION: convert spectrum inzo the range of of the msimage spectrums
+        SpecOps target(spectrum);
+        Spectrum* adapted_spectrum;
+        adapted_spectrum = target.adaptTo(this->m_channels[0].filter(), true);
+		
+        /*Eigen::VectorXd data = adapted_spectrum->data();
+        for (int i=0; i< data.size(); i++) {
+            std::cout << "New Key: " << adapted_spectrum->start() + i*adapted_spectrum->samplerate() << "; New Value: " << data[i] << std::endl;
+        }*/
 		
         // calculation of the multiplicative coefficient for each channel for the considered spectrum
-		std::vector<double> coeffs = computeCoefficients(*adapted_spectrum);
+        std::vector<double> coeffs = computeCoefficients(*adapted_spectrum);
         //std::vector<double> coeffs = computeCoefficients(spectrum);
 
         // multiplication of the images by the previously calculated coefficients

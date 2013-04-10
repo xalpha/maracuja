@@ -1,5 +1,5 @@
 # Hashes of file build rules.
-f6615dc129c1cd2e423caa30bdf6908a app/extern/qcustomplot/moc_qcustomplot.cxx
-20799328aba6a904038be75ff5368068 app/include/moc_MaracujaMS.cxx
-0808d2cb28c69ac5a9de1086d5181fdd app/qrc_MaracujaMS.cxx
-b035e8cde2895361eeff1bd23bf884b5 app/ui_MaracujaMS.h
+37027ac722b899cf20daabe59d82dec6 app/extern/qcustomplot/moc_qcustomplot.cxx
+77f9af2d2e3e3e60796d49d338db6a73 app/include/moc_MaracujaMS.cxx
+d2e3b6cc119a04f4ff5c7c11a650f80b app/qrc_MaracujaMS.cxx
+f551adb1e2eb19e03cb7ac70c32b2cfa app/ui_MaracujaMS.h

@@ -1,84 +1,90 @@
-Determining if the Q_WS_X11 exist failed with the following output:
-Change Dir: /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp
-
-Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
-/usr/local/Cellar/cmake/2.8.6/bin/cmake -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o
-/opt/local/bin/c++    -F/Library/Frameworks    -o CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o -c /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
-/Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function 'int main()':
-/Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:25: error: 'Q_WS_X11' was not declared in this scope
-   cmakeRequireSymbol(0,&Q_WS_X11);
-                         ^
-make[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o] Error 1
-make: *** [cmTryCompileExec/fast] Error 2
-
-File /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
-/* */
-#include <QtCore/qglobal.h>
-
-void cmakeRequireSymbol(int dummy,...){(void)dummy;}
-int main()
-{
-#ifndef Q_WS_X11
-  cmakeRequireSymbol(0,&Q_WS_X11);
-#endif
-  return 0;
-}
-
 Determining if the Q_WS_WIN exist failed with the following output:
-Change Dir: /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp
+Change Dir: /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
-/usr/local/Cellar/cmake/2.8.6/bin/cmake -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o
-/opt/local/bin/c++    -F/Library/Frameworks    -o CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o -c /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
-/Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function 'int main()':
-/Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:25: error: 'Q_WS_WIN' was not declared in this scope
-   cmakeRequireSymbol(0,&Q_WS_WIN);
-                         ^
-make[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o] Error 1
-make: *** [cmTryCompileExec/fast] Error 2
+Run Build Command:/usr/bin/make "cmTryCompileExec1825349082/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1825349082.dir/build.make CMakeFiles/cmTryCompileExec1825349082.dir/build
+make[1]: Betrete Verzeichnis '/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1825349082.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec1825349082.dir/CheckSymbolExists.cxx.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In Funktion »int main(int, char**)«:
+/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: Fehler: »Q_WS_WIN« wurde in diesem Gültigkeitsbereich nicht definiert
+make[1]: *** [CMakeFiles/cmTryCompileExec1825349082.dir/CheckSymbolExists.cxx.o] Fehler 1
+make[1]: Verlasse Verzeichnis '/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec1825349082/fast] Fehler 2
 
-File /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+File /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
 /* */
 #include <QtCore/qglobal.h>
 
-void cmakeRequireSymbol(int dummy,...){(void)dummy;}
-int main()
+int main(int argc, char** argv)
 {
+  (void)argv;
 #ifndef Q_WS_WIN
-  cmakeRequireSymbol(0,&Q_WS_WIN);
-#endif
+  return ((int*)(&Q_WS_WIN))[argc];
+#else
+  (void)argc;
   return 0;
+#endif
 }
 
 Determining if the Q_WS_QWS exist failed with the following output:
-Change Dir: /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp
+Change Dir: /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
-/usr/local/Cellar/cmake/2.8.6/bin/cmake -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o
-/opt/local/bin/c++    -F/Library/Frameworks    -o CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o -c /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
-/Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function 'int main()':
-/Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:25: error: 'Q_WS_QWS' was not declared in this scope
-   cmakeRequireSymbol(0,&Q_WS_QWS);
-                         ^
-make[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckSymbolExists.cxx.o] Error 1
-make: *** [cmTryCompileExec/fast] Error 2
+Run Build Command:/usr/bin/make "cmTryCompileExec938072502/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec938072502.dir/build.make CMakeFiles/cmTryCompileExec938072502.dir/build
+make[1]: Betrete Verzeichnis '/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec938072502.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec938072502.dir/CheckSymbolExists.cxx.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In Funktion »int main(int, char**)«:
+/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: Fehler: »Q_WS_QWS« wurde in diesem Gültigkeitsbereich nicht definiert
+make[1]: *** [CMakeFiles/cmTryCompileExec938072502.dir/CheckSymbolExists.cxx.o] Fehler 1
+make[1]: Verlasse Verzeichnis '/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec938072502/fast] Fehler 2
 
-File /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+File /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
 /* */
 #include <QtCore/qglobal.h>
 
-void cmakeRequireSymbol(int dummy,...){(void)dummy;}
-int main()
+int main(int argc, char** argv)
 {
+  (void)argv;
 #ifndef Q_WS_QWS
-  cmakeRequireSymbol(0,&Q_WS_QWS);
-#endif
+  return ((int*)(&Q_WS_QWS))[argc];
+#else
+  (void)argc;
   return 0;
+#endif
+}
+
+Determining if the Q_WS_MAC exist failed with the following output:
+Change Dir: /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2429609122/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2429609122.dir/build.make CMakeFiles/cmTryCompileExec2429609122.dir/build
+make[1]: Betrete Verzeichnis '/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2429609122.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec2429609122.dir/CheckSymbolExists.cxx.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In Funktion »int main(int, char**)«:
+/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: Fehler: »Q_WS_MAC« wurde in diesem Gültigkeitsbereich nicht definiert
+make[1]: *** [CMakeFiles/cmTryCompileExec2429609122.dir/CheckSymbolExists.cxx.o] Fehler 1
+make[1]: Verlasse Verzeichnis '/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec2429609122/fast] Fehler 2
+
+File /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_MAC
+  return ((int*)(&Q_WS_MAC))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
 }
 

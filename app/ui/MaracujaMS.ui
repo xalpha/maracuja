@@ -363,6 +363,13 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="hide_spectrum1_button">
+             <property name="text">
+              <string>Hide Spectrum 1</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -386,7 +393,21 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="hide_spectrum2_button">
+             <property name="text">
+              <string>Hide Spectrum 2</string>
+             </property>
+            </widget>
+           </item>
           </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="on_add_dummy_spectra_button">
+          <property name="text">
+           <string>Dummy Data for Spectrum 1,2</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -396,7 +417,14 @@
           </property>
          </widget>
         </item>
-		<item>
+        <item>
+         <widget class="QPushButton" name="apply_spectrum1_to_image_button">
+          <property name="text">
+           <string>Apply Spectrum1 to Image</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="apply_spectrum2_to_image_button">
           <property name="text">
            <string>Apply Spectrum 2 to Image</string>

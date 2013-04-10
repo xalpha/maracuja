@@ -1,0 +1,3 @@
+/home/bumuckl/IDP/maracuja/ubuild/lib/CMakeFiles/maracuja.dir
+/home/bumuckl/IDP/maracuja/ubuild/app/CMakeFiles/maracujams.dir
+/home/bumuckl/IDP/maracuja/ubuild/lib/CMakeFiles/test.dir

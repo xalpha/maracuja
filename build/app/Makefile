@@ -8,7 +8,7 @@ default_target: all
 #=============================================================================
 # Special targets provided by cmake.
 
-# Disable implicit rules so canoncical targets will work.
+# Disable implicit rules so canonical targets will work.
 .SUFFIXES:
 
 # Remove some rules from gmake that .SUFFIXES does not remove.
@@ -30,27 +30,27 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/2.8.6/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/ccmake
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/bumuckl/Studium/IDP/maracuja
+CMAKE_SOURCE_DIR = /home/bumuckl/Arbeitsfläche/IDP/maracuja
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/bumuckl/Studium/IDP/maracuja/build
+CMAKE_BINARY_DIR = /home/bumuckl/Arbeitsfläche/IDP/maracuja/build
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/2.8.6/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -60,19 +60,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -82,7 +82,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -101,7 +101,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -110,14 +110,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles /Users/bumuckl/Studium/IDP/maracuja/build/app/CMakeFiles/progress.marks
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles 0
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/app/CMakeFiles/progress.marks
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/clean
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,22 +126,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/preinstall
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/preinstall
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 app/CMakeFiles/maracujams.dir/rule:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/CMakeFiles/maracujams.dir/rule
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 app/CMakeFiles/maracujams.dir/rule
 .PHONY : app/CMakeFiles/maracujams.dir/rule
 
 # Convenience name for target.
@@ -150,7 +150,7 @@ maracujams: app/CMakeFiles/maracujams.dir/rule
 
 # fast build rule for target.
 maracujams/fast:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/build
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/build
 .PHONY : maracujams/fast
 
 extern/qcustomplot/moc_qcustomplot.o: extern/qcustomplot/moc_qcustomplot.cxx.o
@@ -158,7 +158,7 @@ extern/qcustomplot/moc_qcustomplot.o: extern/qcustomplot/moc_qcustomplot.cxx.o
 
 # target to build an object file
 extern/qcustomplot/moc_qcustomplot.cxx.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.o
 .PHONY : extern/qcustomplot/moc_qcustomplot.cxx.o
 
 extern/qcustomplot/moc_qcustomplot.i: extern/qcustomplot/moc_qcustomplot.cxx.i
@@ -166,7 +166,7 @@ extern/qcustomplot/moc_qcustomplot.i: extern/qcustomplot/moc_qcustomplot.cxx.i
 
 # target to preprocess a source file
 extern/qcustomplot/moc_qcustomplot.cxx.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.i
 .PHONY : extern/qcustomplot/moc_qcustomplot.cxx.i
 
 extern/qcustomplot/moc_qcustomplot.s: extern/qcustomplot/moc_qcustomplot.cxx.s
@@ -174,7 +174,7 @@ extern/qcustomplot/moc_qcustomplot.s: extern/qcustomplot/moc_qcustomplot.cxx.s
 
 # target to generate assembly for a file
 extern/qcustomplot/moc_qcustomplot.cxx.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/moc_qcustomplot.cxx.s
 .PHONY : extern/qcustomplot/moc_qcustomplot.cxx.s
 
 extern/qcustomplot/qcustomplot.o: extern/qcustomplot/qcustomplot.cpp.o
@@ -182,7 +182,7 @@ extern/qcustomplot/qcustomplot.o: extern/qcustomplot/qcustomplot.cpp.o
 
 # target to build an object file
 extern/qcustomplot/qcustomplot.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.o
 .PHONY : extern/qcustomplot/qcustomplot.cpp.o
 
 extern/qcustomplot/qcustomplot.i: extern/qcustomplot/qcustomplot.cpp.i
@@ -190,7 +190,7 @@ extern/qcustomplot/qcustomplot.i: extern/qcustomplot/qcustomplot.cpp.i
 
 # target to preprocess a source file
 extern/qcustomplot/qcustomplot.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.i
 .PHONY : extern/qcustomplot/qcustomplot.cpp.i
 
 extern/qcustomplot/qcustomplot.s: extern/qcustomplot/qcustomplot.cpp.s
@@ -198,7 +198,7 @@ extern/qcustomplot/qcustomplot.s: extern/qcustomplot/qcustomplot.cpp.s
 
 # target to generate assembly for a file
 extern/qcustomplot/qcustomplot.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/extern/qcustomplot/qcustomplot.cpp.s
 .PHONY : extern/qcustomplot/qcustomplot.cpp.s
 
 include/moc_MaracujaMS.o: include/moc_MaracujaMS.cxx.o
@@ -206,7 +206,7 @@ include/moc_MaracujaMS.o: include/moc_MaracujaMS.cxx.o
 
 # target to build an object file
 include/moc_MaracujaMS.cxx.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.o
 .PHONY : include/moc_MaracujaMS.cxx.o
 
 include/moc_MaracujaMS.i: include/moc_MaracujaMS.cxx.i
@@ -214,7 +214,7 @@ include/moc_MaracujaMS.i: include/moc_MaracujaMS.cxx.i
 
 # target to preprocess a source file
 include/moc_MaracujaMS.cxx.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.i
 .PHONY : include/moc_MaracujaMS.cxx.i
 
 include/moc_MaracujaMS.s: include/moc_MaracujaMS.cxx.s
@@ -222,7 +222,7 @@ include/moc_MaracujaMS.s: include/moc_MaracujaMS.cxx.s
 
 # target to generate assembly for a file
 include/moc_MaracujaMS.cxx.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/include/moc_MaracujaMS.cxx.s
 .PHONY : include/moc_MaracujaMS.cxx.s
 
 qrc_MaracujaMS.o: qrc_MaracujaMS.cxx.o
@@ -230,7 +230,7 @@ qrc_MaracujaMS.o: qrc_MaracujaMS.cxx.o
 
 # target to build an object file
 qrc_MaracujaMS.cxx.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.o
 .PHONY : qrc_MaracujaMS.cxx.o
 
 qrc_MaracujaMS.i: qrc_MaracujaMS.cxx.i
@@ -238,7 +238,7 @@ qrc_MaracujaMS.i: qrc_MaracujaMS.cxx.i
 
 # target to preprocess a source file
 qrc_MaracujaMS.cxx.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.i
 .PHONY : qrc_MaracujaMS.cxx.i
 
 qrc_MaracujaMS.s: qrc_MaracujaMS.cxx.s
@@ -246,7 +246,7 @@ qrc_MaracujaMS.s: qrc_MaracujaMS.cxx.s
 
 # target to generate assembly for a file
 qrc_MaracujaMS.cxx.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/qrc_MaracujaMS.cxx.s
 .PHONY : qrc_MaracujaMS.cxx.s
 
 src/MaracujaMS.o: src/MaracujaMS.cpp.o
@@ -254,7 +254,7 @@ src/MaracujaMS.o: src/MaracujaMS.cpp.o
 
 # target to build an object file
 src/MaracujaMS.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.o
 .PHONY : src/MaracujaMS.cpp.o
 
 src/MaracujaMS.i: src/MaracujaMS.cpp.i
@@ -262,7 +262,7 @@ src/MaracujaMS.i: src/MaracujaMS.cpp.i
 
 # target to preprocess a source file
 src/MaracujaMS.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.i
 .PHONY : src/MaracujaMS.cpp.i
 
 src/MaracujaMS.s: src/MaracujaMS.cpp.s
@@ -270,7 +270,7 @@ src/MaracujaMS.s: src/MaracujaMS.cpp.s
 
 # target to generate assembly for a file
 src/MaracujaMS.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/MaracujaMS.cpp.s
 .PHONY : src/MaracujaMS.cpp.s
 
 src/SSM.o: src/SSM.cpp.o
@@ -278,7 +278,7 @@ src/SSM.o: src/SSM.cpp.o
 
 # target to build an object file
 src/SSM.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SSM.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SSM.cpp.o
 .PHONY : src/SSM.cpp.o
 
 src/SSM.i: src/SSM.cpp.i
@@ -286,7 +286,7 @@ src/SSM.i: src/SSM.cpp.i
 
 # target to preprocess a source file
 src/SSM.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SSM.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SSM.cpp.i
 .PHONY : src/SSM.cpp.i
 
 src/SSM.s: src/SSM.cpp.s
@@ -294,7 +294,7 @@ src/SSM.s: src/SSM.cpp.s
 
 # target to generate assembly for a file
 src/SSM.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SSM.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SSM.cpp.s
 .PHONY : src/SSM.cpp.s
 
 src/SpecOpsTest.o: src/SpecOpsTest.cpp.o
@@ -302,7 +302,7 @@ src/SpecOpsTest.o: src/SpecOpsTest.cpp.o
 
 # target to build an object file
 src/SpecOpsTest.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.o
 .PHONY : src/SpecOpsTest.cpp.o
 
 src/SpecOpsTest.i: src/SpecOpsTest.cpp.i
@@ -310,7 +310,7 @@ src/SpecOpsTest.i: src/SpecOpsTest.cpp.i
 
 # target to preprocess a source file
 src/SpecOpsTest.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.i
 .PHONY : src/SpecOpsTest.cpp.i
 
 src/SpecOpsTest.s: src/SpecOpsTest.cpp.s
@@ -318,7 +318,7 @@ src/SpecOpsTest.s: src/SpecOpsTest.cpp.s
 
 # target to generate assembly for a file
 src/SpecOpsTest.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/SpecOpsTest.cpp.s
 .PHONY : src/SpecOpsTest.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -326,7 +326,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/main.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -334,7 +334,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/main.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -342,7 +342,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/main.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f app/CMakeFiles/maracujams.dir/build.make app/CMakeFiles/maracujams.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -393,6 +393,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

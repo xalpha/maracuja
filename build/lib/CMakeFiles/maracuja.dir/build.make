@@ -4,7 +4,7 @@
 #=============================================================================
 # Special targets provided by cmake.
 
-# Disable implicit rules so canoncical targets will work.
+# Disable implicit rules so canonical targets will work.
 .SUFFIXES:
 
 # Remove some rules from gmake that .SUFFIXES does not remove.
@@ -26,19 +26,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/2.8.6/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/ccmake
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/bumuckl/Studium/IDP/maracuja
+CMAKE_SOURCE_DIR = /home/bumuckl/Arbeitsfläche/IDP/maracuja
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/bumuckl/Studium/IDP/maracuja/build
+CMAKE_BINARY_DIR = /home/bumuckl/Arbeitsfläche/IDP/maracuja/build
 
 # Include any dependencies generated for this target.
 include lib/CMakeFiles/maracuja.dir/depend.make
@@ -49,19 +49,39 @@ include lib/CMakeFiles/maracuja.dir/progress.make
 # Include the compile flags for this target's objects.
 include lib/CMakeFiles/maracuja.dir/flags.make
 
+lib/Headers/MSImage.hpp: ../lib/include/maracuja/MSImage.hpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Copying OS X content lib/Headers/MSImage.hpp"
+	$(CMAKE_COMMAND) -E copy /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/include/maracuja/MSImage.hpp lib/Headers/MSImage.hpp
+
+lib/Headers/Spectrum.hpp: ../lib/include/maracuja/Spectrum.hpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Copying OS X content lib/Headers/Spectrum.hpp"
+	$(CMAKE_COMMAND) -E copy /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/include/maracuja/Spectrum.hpp lib/Headers/Spectrum.hpp
+
+lib/Headers/Channel.hpp: ../lib/include/maracuja/Channel.hpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Copying OS X content lib/Headers/Channel.hpp"
+	$(CMAKE_COMMAND) -E copy /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/include/maracuja/Channel.hpp lib/Headers/Channel.hpp
+
+lib/Headers/SpecOps.hpp: ../lib/include/maracuja/SpecOps.hpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Copying OS X content lib/Headers/SpecOps.hpp"
+	$(CMAKE_COMMAND) -E copy /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/include/maracuja/SpecOps.hpp lib/Headers/SpecOps.hpp
+
+lib/Headers/util.hpp: ../lib/include/maracuja/util.hpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Copying OS X content lib/Headers/util.hpp"
+	$(CMAKE_COMMAND) -E copy /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/include/maracuja/util.hpp lib/Headers/util.hpp
+
 lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o: lib/CMakeFiles/maracuja.dir/flags.make
 lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o: ../lib/src/MSImage.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/MSImage.cpp.o -c /Users/bumuckl/Studium/IDP/maracuja/lib/src/MSImage.cpp
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/MSImage.cpp.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/MSImage.cpp
 
 lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maracuja.dir/src/MSImage.cpp.i"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/bumuckl/Studium/IDP/maracuja/lib/src/MSImage.cpp > CMakeFiles/maracuja.dir/src/MSImage.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/MSImage.cpp > CMakeFiles/maracuja.dir/src/MSImage.cpp.i
 
 lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maracuja.dir/src/MSImage.cpp.s"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/bumuckl/Studium/IDP/maracuja/lib/src/MSImage.cpp -o CMakeFiles/maracuja.dir/src/MSImage.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/MSImage.cpp -o CMakeFiles/maracuja.dir/src/MSImage.cpp.s
 
 lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o.requires:
 .PHONY : lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o.requires
@@ -74,17 +94,17 @@ lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o.provides.build: lib/CMakeFiles/mar
 
 lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o: lib/CMakeFiles/maracuja.dir/flags.make
 lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o: ../lib/src/Spectrum.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/Spectrum.cpp.o -c /Users/bumuckl/Studium/IDP/maracuja/lib/src/Spectrum.cpp
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/Spectrum.cpp.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/Spectrum.cpp
 
 lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maracuja.dir/src/Spectrum.cpp.i"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/bumuckl/Studium/IDP/maracuja/lib/src/Spectrum.cpp > CMakeFiles/maracuja.dir/src/Spectrum.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/Spectrum.cpp > CMakeFiles/maracuja.dir/src/Spectrum.cpp.i
 
 lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maracuja.dir/src/Spectrum.cpp.s"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/bumuckl/Studium/IDP/maracuja/lib/src/Spectrum.cpp -o CMakeFiles/maracuja.dir/src/Spectrum.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/Spectrum.cpp -o CMakeFiles/maracuja.dir/src/Spectrum.cpp.s
 
 lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o.requires:
 .PHONY : lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o.requires
@@ -97,17 +117,17 @@ lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o.provides.build: lib/CMakeFiles/ma
 
 lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o: lib/CMakeFiles/maracuja.dir/flags.make
 lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o: ../lib/src/Channel.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/Channel.cpp.o -c /Users/bumuckl/Studium/IDP/maracuja/lib/src/Channel.cpp
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/Channel.cpp.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/Channel.cpp
 
 lib/CMakeFiles/maracuja.dir/src/Channel.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maracuja.dir/src/Channel.cpp.i"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/bumuckl/Studium/IDP/maracuja/lib/src/Channel.cpp > CMakeFiles/maracuja.dir/src/Channel.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/Channel.cpp > CMakeFiles/maracuja.dir/src/Channel.cpp.i
 
 lib/CMakeFiles/maracuja.dir/src/Channel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maracuja.dir/src/Channel.cpp.s"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/bumuckl/Studium/IDP/maracuja/lib/src/Channel.cpp -o CMakeFiles/maracuja.dir/src/Channel.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/Channel.cpp -o CMakeFiles/maracuja.dir/src/Channel.cpp.s
 
 lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o.requires:
 .PHONY : lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o.requires
@@ -120,17 +140,17 @@ lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o.provides.build: lib/CMakeFiles/mar
 
 lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o: lib/CMakeFiles/maracuja.dir/flags.make
 lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o: ../lib/src/SpecOps.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/SpecOps.cpp.o -c /Users/bumuckl/Studium/IDP/maracuja/lib/src/SpecOps.cpp
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/src/SpecOps.cpp.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/SpecOps.cpp
 
 lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maracuja.dir/src/SpecOps.cpp.i"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/bumuckl/Studium/IDP/maracuja/lib/src/SpecOps.cpp > CMakeFiles/maracuja.dir/src/SpecOps.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/SpecOps.cpp > CMakeFiles/maracuja.dir/src/SpecOps.cpp.i
 
 lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maracuja.dir/src/SpecOps.cpp.s"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/bumuckl/Studium/IDP/maracuja/lib/src/SpecOps.cpp -o CMakeFiles/maracuja.dir/src/SpecOps.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/src/SpecOps.cpp -o CMakeFiles/maracuja.dir/src/SpecOps.cpp.s
 
 lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o.requires:
 .PHONY : lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o.requires
@@ -143,17 +163,17 @@ lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o.provides.build: lib/CMakeFiles/mar
 
 lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o: lib/CMakeFiles/maracuja.dir/flags.make
 lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o: ../lib/extern/tinyxml2/tinyxml2.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o -c /Users/bumuckl/Studium/IDP/maracuja/lib/extern/tinyxml2/tinyxml2.cpp
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o -c /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/extern/tinyxml2/tinyxml2.cpp
 
 lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.i"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/bumuckl/Studium/IDP/maracuja/lib/extern/tinyxml2/tinyxml2.cpp > CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/extern/tinyxml2/tinyxml2.cpp > CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.i
 
 lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.s"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/bumuckl/Studium/IDP/maracuja/lib/extern/tinyxml2/tinyxml2.cpp -o CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib/extern/tinyxml2/tinyxml2.cpp -o CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.s
 
 lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o.requires:
 .PHONY : lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o.requires
@@ -175,18 +195,23 @@ maracuja_OBJECTS = \
 # External object files for target maracuja
 maracuja_EXTERNAL_OBJECTS =
 
-lib/libmaracuja.dylib: lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o
-lib/libmaracuja.dylib: lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o
-lib/libmaracuja.dylib: lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o
-lib/libmaracuja.dylib: lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o
-lib/libmaracuja.dylib: lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o
-lib/libmaracuja.dylib: lib/CMakeFiles/maracuja.dir/build.make
-lib/libmaracuja.dylib: lib/CMakeFiles/maracuja.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library libmaracuja.dylib"
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/maracuja.dir/link.txt --verbose=$(VERBOSE)
+lib/libmaracuja.so: lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o
+lib/libmaracuja.so: lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o
+lib/libmaracuja.so: lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o
+lib/libmaracuja.so: lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o
+lib/libmaracuja.so: lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o
+lib/libmaracuja.so: lib/CMakeFiles/maracuja.dir/build.make
+lib/libmaracuja.so: lib/CMakeFiles/maracuja.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library libmaracuja.so"
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/maracuja.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-lib/CMakeFiles/maracuja.dir/build: lib/libmaracuja.dylib
+lib/CMakeFiles/maracuja.dir/build: lib/libmaracuja.so
+lib/CMakeFiles/maracuja.dir/build: lib/Headers/Channel.hpp
+lib/CMakeFiles/maracuja.dir/build: lib/Headers/MSImage.hpp
+lib/CMakeFiles/maracuja.dir/build: lib/Headers/SpecOps.hpp
+lib/CMakeFiles/maracuja.dir/build: lib/Headers/Spectrum.hpp
+lib/CMakeFiles/maracuja.dir/build: lib/Headers/util.hpp
 .PHONY : lib/CMakeFiles/maracuja.dir/build
 
 lib/CMakeFiles/maracuja.dir/requires: lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o.requires
@@ -197,10 +222,10 @@ lib/CMakeFiles/maracuja.dir/requires: lib/CMakeFiles/maracuja.dir/extern/tinyxml
 .PHONY : lib/CMakeFiles/maracuja.dir/requires
 
 lib/CMakeFiles/maracuja.dir/clean:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build/lib && $(CMAKE_COMMAND) -P CMakeFiles/maracuja.dir/cmake_clean.cmake
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib && $(CMAKE_COMMAND) -P CMakeFiles/maracuja.dir/cmake_clean.cmake
 .PHONY : lib/CMakeFiles/maracuja.dir/clean
 
 lib/CMakeFiles/maracuja.dir/depend:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/bumuckl/Studium/IDP/maracuja /Users/bumuckl/Studium/IDP/maracuja/lib /Users/bumuckl/Studium/IDP/maracuja/build /Users/bumuckl/Studium/IDP/maracuja/build/lib /Users/bumuckl/Studium/IDP/maracuja/build/lib/CMakeFiles/maracuja.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bumuckl/Arbeitsfläche/IDP/maracuja /home/bumuckl/Arbeitsfläche/IDP/maracuja/lib /home/bumuckl/Arbeitsfläche/IDP/maracuja/build /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib/CMakeFiles/maracuja.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : lib/CMakeFiles/maracuja.dir/depend
 

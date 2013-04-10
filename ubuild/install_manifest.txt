@@ -1,0 +1,11 @@
+/usr/local/lib/libmaracuja.so
+/usr/local/include/maracuja/MSImage.hpp
+/usr/local/include/maracuja/Spectrum.hpp
+/usr/local/include/maracuja/Channel.hpp
+/usr/local/include/maracuja/SpecOps.hpp
+/usr/local/include/maracuja/util.hpp
+/usr/local/share/Maracuja.cmake
+/usr/local/share/Maracuja-debug.cmake
+/usr/local/share/FindMaracuja.cmake
+/usr/local/include/CImg.h
+/usr/local/include/tinyxml2.h

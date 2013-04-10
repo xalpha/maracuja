@@ -56,7 +56,7 @@ namespace maracuja
         m_start = start;
         m_end = end;
         m_data = data;
-		this->calculateSamplerate(data);
+        this->calculateSamplerate(data);
     }
 
 
@@ -65,7 +65,7 @@ namespace maracuja
         m_start = start;
         m_end = end;
         m_data = toEigen( data );
-		this->calculateSamplerate(data);
+        this->calculateSamplerate(data);
     }
 
 	Spectrum::Spectrum( double start, double end, const Eigen::VectorXd& data, double samplerate  )
@@ -73,7 +73,7 @@ namespace maracuja
         m_start = start;
         m_end = end;
         m_data = data;
-		m_sample_rate = samplerate;
+        m_sample_rate = samplerate;
     }
 
 
@@ -82,7 +82,7 @@ namespace maracuja
         m_start = start;
         m_end = end;
         m_data = toEigen( data );
-		m_sample_rate = samplerate;
+        m_sample_rate = samplerate;
     }
 
 
@@ -95,6 +95,7 @@ namespace maracuja
         this->m_start = startVal;
         this->m_end = endVal;
         this->m_data = data;
+        this->calculateSamplerate(data);
     }
 
 	void Spectrum::set(double startVal, double endVal, Eigen::VectorXd data, double samplerate)
@@ -102,7 +103,7 @@ namespace maracuja
         this->m_start = startVal;
         this->m_end = endVal;
         this->m_data = data;
-		this->m_sample_rate = samplerate;
+        this->m_sample_rate = samplerate;
     }
 
     void Spectrum::operator =( const Spectrum& spec )
@@ -129,7 +130,7 @@ namespace maracuja
         return this->m_end;
     }
 
-	double Spectrum::samplerate()
+	double Spectrum::samplerate() const
     {
         return this->m_sample_rate;
     }
@@ -149,17 +150,18 @@ namespace maracuja
     }
 
 	void Spectrum::calculateSamplerate(const Eigen::VectorXd& wldata)
-	{
-		if (wldata.size() < 2) {
-			this->m_sample_rate = 0.0;
-		} else {
-			this->m_sample_rate = fabs(this->end() - this->start())/wldata.size();
-		}
-	}
+	   {
+		      if (wldata.size() < 2) {
+			         this->m_sample_rate = 0.0;
+		      } else {
+			         this->m_sample_rate = fabs(this->end() - this->start())/wldata.size();
+		      }
+		      
+	   }
 	
 	void Spectrum::calculateSamplerate(const std::vector<double>& wldata)
-	{
-		this->calculateSamplerate(this->toEigen(wldata));
-	}
+	   {
+		      this->calculateSamplerate(this->toEigen(wldata));
+	   }
 
 } // end namespace maracuja

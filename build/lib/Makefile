@@ -8,7 +8,7 @@ default_target: all
 #=============================================================================
 # Special targets provided by cmake.
 
-# Disable implicit rules so canoncical targets will work.
+# Disable implicit rules so canonical targets will work.
 .SUFFIXES:
 
 # Remove some rules from gmake that .SUFFIXES does not remove.
@@ -30,27 +30,27 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/2.8.6/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.6/bin/ccmake
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/bumuckl/Studium/IDP/maracuja
+CMAKE_SOURCE_DIR = /home/bumuckl/Arbeitsfläche/IDP/maracuja
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/bumuckl/Studium/IDP/maracuja/build
+CMAKE_BINARY_DIR = /home/bumuckl/Arbeitsfläche/IDP/maracuja/build
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/2.8.6/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -60,19 +60,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -82,7 +82,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -101,7 +101,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/2.8.6/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -110,14 +110,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles /Users/bumuckl/Studium/IDP/maracuja/build/lib/CMakeFiles/progress.marks
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/bumuckl/Studium/IDP/maracuja/build/CMakeFiles 0
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib/CMakeFiles/progress.marks
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bumuckl/Arbeitsfläche/IDP/maracuja/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/clean
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,22 +126,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 lib/CMakeFiles/maracuja.dir/rule:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/maracuja.dir/rule
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/maracuja.dir/rule
 .PHONY : lib/CMakeFiles/maracuja.dir/rule
 
 # Convenience name for target.
@@ -150,12 +150,12 @@ maracuja: lib/CMakeFiles/maracuja.dir/rule
 
 # fast build rule for target.
 maracuja/fast:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/build
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/build
 .PHONY : maracuja/fast
 
 # Convenience name for target.
 lib/CMakeFiles/test.dir/rule:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/test.dir/rule
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/test.dir/rule
 .PHONY : lib/CMakeFiles/test.dir/rule
 
 # Convenience name for target.
@@ -164,7 +164,7 @@ test: lib/CMakeFiles/test.dir/rule
 
 # fast build rule for target.
 test/fast:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/build
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/build
 .PHONY : test/fast
 
 extern/tinyxml2/tinyxml2.o: extern/tinyxml2/tinyxml2.cpp.o
@@ -172,7 +172,7 @@ extern/tinyxml2/tinyxml2.o: extern/tinyxml2/tinyxml2.cpp.o
 
 # target to build an object file
 extern/tinyxml2/tinyxml2.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.o
 .PHONY : extern/tinyxml2/tinyxml2.cpp.o
 
 extern/tinyxml2/tinyxml2.i: extern/tinyxml2/tinyxml2.cpp.i
@@ -180,7 +180,7 @@ extern/tinyxml2/tinyxml2.i: extern/tinyxml2/tinyxml2.cpp.i
 
 # target to preprocess a source file
 extern/tinyxml2/tinyxml2.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.i
 .PHONY : extern/tinyxml2/tinyxml2.cpp.i
 
 extern/tinyxml2/tinyxml2.s: extern/tinyxml2/tinyxml2.cpp.s
@@ -188,7 +188,7 @@ extern/tinyxml2/tinyxml2.s: extern/tinyxml2/tinyxml2.cpp.s
 
 # target to generate assembly for a file
 extern/tinyxml2/tinyxml2.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/extern/tinyxml2/tinyxml2.cpp.s
 .PHONY : extern/tinyxml2/tinyxml2.cpp.s
 
 src/Channel.o: src/Channel.cpp.o
@@ -196,7 +196,7 @@ src/Channel.o: src/Channel.cpp.o
 
 # target to build an object file
 src/Channel.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Channel.cpp.o
 .PHONY : src/Channel.cpp.o
 
 src/Channel.i: src/Channel.cpp.i
@@ -204,7 +204,7 @@ src/Channel.i: src/Channel.cpp.i
 
 # target to preprocess a source file
 src/Channel.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Channel.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Channel.cpp.i
 .PHONY : src/Channel.cpp.i
 
 src/Channel.s: src/Channel.cpp.s
@@ -212,7 +212,7 @@ src/Channel.s: src/Channel.cpp.s
 
 # target to generate assembly for a file
 src/Channel.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Channel.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Channel.cpp.s
 .PHONY : src/Channel.cpp.s
 
 src/MSImage.o: src/MSImage.cpp.o
@@ -220,7 +220,7 @@ src/MSImage.o: src/MSImage.cpp.o
 
 # target to build an object file
 src/MSImage.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.o
 .PHONY : src/MSImage.cpp.o
 
 src/MSImage.i: src/MSImage.cpp.i
@@ -228,7 +228,7 @@ src/MSImage.i: src/MSImage.cpp.i
 
 # target to preprocess a source file
 src/MSImage.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.i
 .PHONY : src/MSImage.cpp.i
 
 src/MSImage.s: src/MSImage.cpp.s
@@ -236,7 +236,7 @@ src/MSImage.s: src/MSImage.cpp.s
 
 # target to generate assembly for a file
 src/MSImage.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/MSImage.cpp.s
 .PHONY : src/MSImage.cpp.s
 
 src/SpecOps.o: src/SpecOps.cpp.o
@@ -244,7 +244,7 @@ src/SpecOps.o: src/SpecOps.cpp.o
 
 # target to build an object file
 src/SpecOps.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.o
 .PHONY : src/SpecOps.cpp.o
 
 src/SpecOps.i: src/SpecOps.cpp.i
@@ -252,7 +252,7 @@ src/SpecOps.i: src/SpecOps.cpp.i
 
 # target to preprocess a source file
 src/SpecOps.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.i
 .PHONY : src/SpecOps.cpp.i
 
 src/SpecOps.s: src/SpecOps.cpp.s
@@ -260,7 +260,7 @@ src/SpecOps.s: src/SpecOps.cpp.s
 
 # target to generate assembly for a file
 src/SpecOps.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/SpecOps.cpp.s
 .PHONY : src/SpecOps.cpp.s
 
 src/Spectrum.o: src/Spectrum.cpp.o
@@ -268,7 +268,7 @@ src/Spectrum.o: src/Spectrum.cpp.o
 
 # target to build an object file
 src/Spectrum.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.o
 .PHONY : src/Spectrum.cpp.o
 
 src/Spectrum.i: src/Spectrum.cpp.i
@@ -276,7 +276,7 @@ src/Spectrum.i: src/Spectrum.cpp.i
 
 # target to preprocess a source file
 src/Spectrum.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.i
 .PHONY : src/Spectrum.cpp.i
 
 src/Spectrum.s: src/Spectrum.cpp.s
@@ -284,7 +284,7 @@ src/Spectrum.s: src/Spectrum.cpp.s
 
 # target to generate assembly for a file
 src/Spectrum.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/maracuja.dir/build.make lib/CMakeFiles/maracuja.dir/src/Spectrum.cpp.s
 .PHONY : src/Spectrum.cpp.s
 
 test/test.o: test/test.cpp.o
@@ -292,7 +292,7 @@ test/test.o: test/test.cpp.o
 
 # target to build an object file
 test/test.cpp.o:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/test/test.cpp.o
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/test/test.cpp.o
 .PHONY : test/test.cpp.o
 
 test/test.i: test/test.cpp.i
@@ -300,7 +300,7 @@ test/test.i: test/test.cpp.i
 
 # target to preprocess a source file
 test/test.cpp.i:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/test/test.cpp.i
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/test/test.cpp.i
 .PHONY : test/test.cpp.i
 
 test/test.s: test/test.cpp.s
@@ -308,7 +308,7 @@ test/test.s: test/test.cpp.s
 
 # target to generate assembly for a file
 test/test.cpp.s:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/test/test.cpp.s
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(MAKE) -f lib/CMakeFiles/test.dir/build.make lib/CMakeFiles/test.dir/test/test.cpp.s
 .PHONY : test/test.cpp.s
 
 # Help Target
@@ -354,6 +354,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/bumuckl/Studium/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/bumuckl/Arbeitsfläche/IDP/maracuja/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

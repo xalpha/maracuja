@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Resource object code
 **
-** Created: Sat Mar 30 14:13:03 2013
-**      by: The Resource Compiler for Qt version 4.8.4
+** Created: Mon Apr 8 14:38:48 2013
+**      by: The Resource Compiler for Qt version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,7 +10,7 @@
 #include <QtCore/qglobal.h>
 
 static const unsigned char qt_resource_data[] = {
-  // /Users/bumuckl/Studium/IDP/maracuja/app/res/maracujams.svg
+  // /home/bumuckl/Arbeitsfläche/IDP/maracuja/app/res/maracujams.svg
   0x0,0x0,0x23,0xf5,
   0x0,
   0x2,0xbe,0xcf,0x78,0x9c,0xed,0x7d,0x6d,0x73,0xe3,0x38,0x92,0xe6,0xf7,0xf9,0x15,

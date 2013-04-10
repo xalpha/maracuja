@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MaracujaMS.ui'
 **
-** Created: Wed Apr 3 14:03:03 2013
-**      by: Qt User Interface Compiler version 4.8.4
+** Created: Mon Apr 8 14:38:48 2013
+**      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/

@@ -12,13 +12,6 @@ if( NOT WIN32 )
     set( BUILD_SHARED_LIBS TRUE )
 endif()
 
-if(NOT EIGEN3_INCLUDE_DIR)
-	set(EIGEN3_INCLUDE_DIR /Users/bumuckl/Software/Libs/Eigen3)
-endif()
-
-set(QT_INCLUDE_DIR /Library/Frameworks)
-set(QT_QMAKE_EXECUTABLE /usr/bin/qmake)
-
 # add lib and app
 add_subdirectory( lib )
 add_subdirectory( app )
