@@ -71,8 +71,8 @@ public:
     std::vector<Channel<T,Ti> >& channels();
     const std::string& timestamp() const;
 
-    std::vector<double> computeCoefficients(const Spectrum<T> &spectrum);
-    std::vector<std::vector<double> > computeBalancedCoefficients(const std::vector<Spectrum<T> > &spectrums);
+    std::vector<T> computeCoefficients(const Spectrum<T> &spectrum);
+    std::vector<std::vector<T> > computeBalancedCoefficients(const std::vector<Spectrum<T> > &spectrums);
 
     Image convolute( const Spectrum<T>& spectrum);
     Image convolute( const std::vector<Spectrum<T> >& spectra, bool balanced=false );
@@ -177,19 +177,19 @@ inline const std::string& MSImage<T,Ti>::timestamp() const
 
 
 template <typename T, typename Ti>
-inline std::vector<double> MSImage<T,Ti>::computeCoefficients( const Spectrum<T>& spectrum)
+inline std::vector<T> MSImage<T,Ti>::computeCoefficients( const Spectrum<T>& spectrum)
 {
     // check all is well
     checkChannels();
 
     // calculation of the multiplicative coefficient for each channel for the considered spectrum
-    std::vector<double> coeffs(m_channels.size());
-    double compensationCoeff;
+    std::vector<T> coeffs(m_channels.size());
+    T compensationCoeff;
     for (unsigned idx = 0; idx < m_channels.size(); idx++)
     {
-        double dp;
-        Eigen::VectorXd spectralData = spectrum.data();
-        Eigen::VectorXd filter_i = m_channels[idx].filter().data();
+        T dp;
+        VectorX spectralData = spectrum.data();
+        VectorX filter_i = m_channels[idx].filter().data();
         coeffs[idx] = spectralData.adjoint()*(filter_i);
         coeffs[idx] = coeffs[idx]/filter_i.sum();
         compensationCoeff = m_channels[idx].lossCalculation();
@@ -202,7 +202,7 @@ inline std::vector<double> MSImage<T,Ti>::computeCoefficients( const Spectrum<T>
 
 
 template <typename T, typename Ti>
-inline std::vector<std::vector<double> > MSImage<T,Ti>::computeBalancedCoefficients( const std::vector<Spectrum<T> >& spectrums)
+inline std::vector<std::vector<T> > MSImage<T,Ti>::computeBalancedCoefficients( const std::vector<Spectrum<T> >& spectrums)
 {
     // init the coefficients
     std::vector<std::vector<T> > allCoeffs(spectrums.size());
