@@ -69,8 +69,8 @@ public:
     void set(double id, const Spectrum<T>& filter, const Spectrum<T>& sensor, const std::string& name);
     void set(std::shared_ptr<Image> image);
 
-    double lossCalculation();
-    Image lossCompensation(double compensationCoeff);
+    T lossCalculation();
+    Image lossCompensation(T compensationCoeff);
 
     void check() const;
 
@@ -110,8 +110,8 @@ inline Channel<T,Ti>::Channel( const Channel& ch )
 
 template <typename T, typename Ti>
 inline Channel<T,Ti>::Channel( int id, const std::string& name,
-                  const Spectrum& filter, const Spectrum& sensor,
-                  std::shared_ptr<Image> image )
+                               const Spectrum<T>& filter, const Spectrum<T>& sensor,
+                               std::shared_ptr<Channel<T,Ti>::Image> image )
 {
     set( id, filter, sensor, name );
     set( image );
@@ -152,28 +152,28 @@ inline const std::string& Channel<T,Ti>::name() const
 
 
 template <typename T, typename Ti>
-inline const Spectrum& Channel<T,Ti>::filter() const
+inline const Spectrum<T>& Channel<T,Ti>::filter() const
 {
     return m_filter;
 }
 
 
 template <typename T, typename Ti>
-inline const Spectrum& Channel<T,Ti>::sensor() const
+inline const Spectrum<T>& Channel<T,Ti>::sensor() const
 {
     return m_sensor;
 }
 
 
 template <typename T, typename Ti>
-inline const cimg_library::CImg<uint8_t>& Channel<T,Ti>::image() const
+inline const typename Channel<T,Ti>::Image& Channel<T,Ti>::image() const
 {
     return *m_image;
 }
 
 
 template <typename T, typename Ti>
-inline void Channel<T,Ti>::set(double id, const Spectrum& filter, const Spectrum& sensor, const std::string& name)
+inline void Channel<T,Ti>::set(double id, const Spectrum<T>& filter, const Spectrum<T>& sensor, const std::string& name)
 {
     m_id = id;
     m_filter = filter;
@@ -184,33 +184,33 @@ inline void Channel<T,Ti>::set(double id, const Spectrum& filter, const Spectrum
 
 
 template <typename T, typename Ti>
-inline void Channel<T,Ti>::set(std::shared_ptr<cimg_library::CImg<uint8_t> > image)
+inline void Channel<T,Ti>::set(std::shared_ptr<Channel<T,Ti>::Image> image)
 {
     m_image = image;
     m_hasImage = true;
 }
 
 template <typename T, typename Ti>
-inline double Channel<T,Ti>::lossCalculation()
+inline T Channel<T,Ti>::lossCalculation()
 {
     // this function returns a multiplicative coefficient,
     // which compensate the loss due to the filter
     // and the loss due to the sensitivity
 
-    double coeff = 1; // out put of the function
+    T coeff = 1; // out put of the function
 
     // compensation of the loss, which comes from the filter's use
-    double max = m_filter.data().maxCoeff();
+    T max = m_filter.data().maxCoeff();
     if (max != 0)
     {
         coeff = coeff/max;
     }
 
     // compensation of the loss, which comes from the camera sensitivity
-    double coeff_tmp = m_filter.data().adjoint()*(m_sensor.data());
+    T coeff_tmp = m_filter.data().adjoint()*(m_sensor.data());
     if (coeff_tmp != 0)
     {
-        double sum_filter = m_filter.data().sum();
+        T sum_filter = m_filter.data().sum();
         coeff_tmp = sum_filter/coeff_tmp;
     } // coeff_tmp = sum(filter's values) / dot product(filter's values and sensitivity's values)
 
@@ -220,9 +220,9 @@ inline double Channel<T,Ti>::lossCalculation()
 
 
 template <typename T, typename Ti>
-inline cimg_library::CImg<uint8_t> Channel<T,Ti>::lossCompensation(double compensationCoeff)
+inline typename Channel<T,Ti>::Image Channel<T,Ti>::lossCompensation(T compensationCoeff)
 {
-    cimg_library::CImg<uint8_t> compensatedImg;
+    Image compensatedImg;
     compensatedImg = compensationCoeff * (*m_image);
     return compensatedImg;
     //m_image *= compensationCoeff;

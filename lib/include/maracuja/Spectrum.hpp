@@ -53,11 +53,11 @@ public:
 public:
     Spectrum();
     Spectrum( const Spectrum& spec );
-    Spectrum( double start, double end, const VectorX& data  );
-    Spectrum( double start, double end, const std::vector<T>& data  );
+    Spectrum( T start, T end, const VectorX& data  );
+    Spectrum( T start, T end, const std::vector<T>& data  );
     virtual ~Spectrum();
 
-    void set(double startVal, double endVal, const VectorX& data);
+    void set(T startVal, T endVal, const VectorX& data);
 
     void operator =( const Spectrum& spec );
     void operator *( double coeff );
@@ -70,8 +70,8 @@ protected:
     VectorX toEigen( const std::vector<T>& vec );
 
 protected:
-    double m_start; /// begin wavelength of the spectrum definition
-    double m_end; /// begin wavelength of the spectrum definition
+    T m_start; /// begin wavelength of the spectrum definition
+    T m_end; /// begin wavelength of the spectrum definition
     VectorX m_data; /// values of the function through the spectrum
 };
 
@@ -87,14 +87,14 @@ inline Spectrum<T>::Spectrum()
 
 
 template <typename T>
-inline Spectrum<T>::Spectrum( const Spectrum& spec )
+inline Spectrum<T>::Spectrum( const Spectrum<T>& spec )
 {
     *this = spec;
 }
 
 
 template <typename T>
-inline Spectrum<T>::Spectrum( double start, double end, const Eigen::VectorXd& data  )
+inline Spectrum<T>::Spectrum( T start, T end, const Spectrum<T>::VectorX& data  )
 {
     m_start = start;
     m_end = end;
@@ -103,7 +103,7 @@ inline Spectrum<T>::Spectrum( double start, double end, const Eigen::VectorXd& d
 
 
 template <typename T>
-inline Spectrum<T>::Spectrum( double start, double end, const std::vector<double>& data  )
+inline Spectrum<T>::Spectrum( T start, T end, const std::vector<T>& data  )
 {
     m_start = start;
     m_end = end;
@@ -119,12 +119,13 @@ inline Spectrum<T>::~Spectrum()
 
 
 template <typename T>
-inline void Spectrum<T>::set(double startVal, double endVal, Eigen::VectorXd data)
+inline void Spectrum<T>::set(T startVal, T endVal, const typename Spectrum<T>::VectorX& data)
 {
     m_start = startVal;
     m_end = endVal;
     m_data = data;
 }
+
 
 template <typename T>
 inline void Spectrum<T>::operator =( const Spectrum& spec )
@@ -136,7 +137,7 @@ inline void Spectrum<T>::operator =( const Spectrum& spec )
 
 
 template <typename T>
-inline voidSpectrum<T>::operator *( double coeff )
+inline void Spectrum<T>::operator *( double coeff )
 {
     m_data *= coeff;
 }
@@ -157,16 +158,16 @@ inline double Spectrum<T>::end() const
 
 
 template <typename T>
-inline const Spectrum<T>::VectorX& Spectrum<T>::data() const
+inline const typename Spectrum<T>::VectorX& Spectrum<T>::data() const
 {
     return m_data;
 }
 
 
 template <typename T>
-inline Spectrum<T>::VectorX Spectrum<T>::toEigen( const std::vector<double>& vec )
+inline typename Spectrum<T>::VectorX Spectrum<T>::toEigen( const std::vector<T>& vec )
 {
-    Eigen::VectorXd result = Eigen::VectorXd::Zero(vec.size());
+    VectorX result = Eigen::VectorXd::Zero(vec.size());
     for( size_t i=0; i<vec.size(); i++ )
         result(i) = vec[i];
 

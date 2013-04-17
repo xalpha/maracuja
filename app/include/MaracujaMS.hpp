@@ -64,7 +64,7 @@ protected:
 
     // data
     std::string m_lastDir;
-    maracuja::MSImage m_MSImage;
+    maracuja::MSImage<double,uint8_t> m_MSImage;
     cimg_library::CImg<uint8_t> m_imageRGB;
 
 };
