@@ -28,7 +28,7 @@ void SpecOpsTest::OnesOnly(maracuja::Spectrum &a, maracuja::Spectrum &b) {
 }
 
 void SpecOpsTest::RandomARandomBEqualSize(maracuja::Spectrum &a, maracuja::Spectrum &b) {
-    int span = 1000;
+    int span = 20;
     double start = 199.0;
     double end = 800.0;
 	

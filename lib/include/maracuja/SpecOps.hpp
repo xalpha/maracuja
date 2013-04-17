@@ -55,11 +55,13 @@ class SpecOps
 		
 		double interpolateLinearAt(double x);
 		double interpolateCubicAt(double x);
+		double areaLinear();
+		double areaLinear(const maracuja::Spectrum &spec);
 		
 		maracuja::Spectrum getSpectrum() const;
 		maracuja::Spectrum* pairwiseMultiplication(const maracuja::Spectrum&);
 		maracuja::Spectrum* pairwiseMultiplication(const maracuja::Spectrum&, int normalization_type, double samplerate);
-		maracuja::Spectrum* adaptTo(double new_start, double new_end, double samplerate, bool normalize);
+		maracuja::Spectrum* adaptTo(double new_start, double new_end, double samplerate, bool normalize, double r_area);
 		maracuja::Spectrum* adaptTo(const maracuja::Spectrum&, bool normalize);
 		
 		void normalization_longify(double &new_start, double &new_end, const maracuja::Spectrum&);

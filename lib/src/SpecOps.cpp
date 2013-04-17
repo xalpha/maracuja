@@ -36,6 +36,7 @@
 
 #include <stdlib.h>
 #include <cmath>
+#include <algorithm>
 #include <maracuja/SpecOps.hpp>
 
 namespace maracuja
@@ -107,7 +108,7 @@ maracuja::Spectrum* SpecOps::pairwiseMultiplication(const maracuja::Spectrum& sp
 }
 
 
-maracuja::Spectrum* SpecOps::adaptTo(double new_start, double new_end, double samplerate, bool normalize) {
+maracuja::Spectrum* SpecOps::adaptTo(double new_start, double new_end, double samplerate, bool normalize, double r_area) {
 	maracuja::Spectrum* result = new maracuja::Spectrum();
 	
 	int size = (int) (new_end - new_start)/samplerate + 1;
@@ -122,9 +123,19 @@ maracuja::Spectrum* SpecOps::adaptTo(double new_start, double new_end, double sa
 	}
 	
 	if (normalize) {
-		for (int i=0; i<size; i++) {
-			data[i] = data[i] / peak;
-		}
+        std::cout << "Area of reference spectrum: " << r_area << std::endl;
+        double s_area = this->areaLinear();
+        
+        if (s_area != 0) {
+            double coeff = (r_area/s_area);
+            std::cout << "Area before adaptation: " << s_area << std::endl;
+            std::cout << "Coefficient: " << r_area/s_area << std::endl;
+        
+            for (int i=0; i<size; i++) {
+                //data[i] = data[i] / peak;
+                data[i] = data[i] * coeff;
+            }
+        }
 	}
 	
 	result->set(new_start, new_end, data, samplerate);
@@ -134,7 +145,31 @@ maracuja::Spectrum* SpecOps::adaptTo(double new_start, double new_end, double sa
 
 maracuja::Spectrum* SpecOps::adaptTo(const maracuja::Spectrum &spec, bool normalize) {
 	double samplerate = fabs(spec.end() - spec.start())/(spec.data().size() - 1);
-	this->adaptTo(spec.start(), spec.end(), samplerate, normalize);
+	double r_area = this->areaLinear(spec);
+	this->adaptTo(spec.start(), spec.end(), samplerate, normalize, r_area);
+}
+
+
+double SpecOps::areaLinear(const maracuja::Spectrum &spec) {
+	double result;
+	Eigen::VectorXd data = spec.data();
+	
+	if (data.size() <= 1) {
+		return 0.0;
+	}
+	
+	for (int i=0; i<data.size() - 1; i++) {
+		result = 0.5 * spec.samplerate() * (std::min(data[i], data[i+1]) + std::max(data[i], data[i+1]));
+	}
+	
+	return result;
+
+}
+
+
+double SpecOps::areaLinear() {
+    return this->areaLinear(this->s);
+        
 }
 
 

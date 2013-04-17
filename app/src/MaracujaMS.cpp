@@ -575,8 +575,10 @@ void MaracujaMS::on_multiply_spectra() {
     maracuja::SpecOps mult = maracuja::SpecOps(this->a);
 	
     maracuja::Spectrum* result;
-    result = mult.pairwiseMultiplication(this->b, 1, 0.2);
+    //result = mult.pairwiseMultiplication(this->b, 1, 0.2);
     //result = mult.adaptTo(this->b.start(), this->b.end(), 0.2);
+    result = mult.adaptTo(this->b, true);
+    std::cout << "Area afterwards: " << mult.areaLinear(*result) << std::endl;
 	
     ui->view->graph(2)->setPen(QPen(Qt::green));
     this->on_show_spectrum(*result, 2);
@@ -584,7 +586,7 @@ void MaracujaMS::on_multiply_spectra() {
 
 void MaracujaMS::on_add_dummy_spectra() {
     SpecOpsTest test;
-    test.emptyARandomB(this->a, this->b);
+    test.RandomARandomBEqualSize(this->a, this->b);
     this->a_is_available = true;
     this->b_is_available = true;
     QMessageBox::information(this, "Success", QString("Dummy data successfully applied. You may now display and multiply spectra."));

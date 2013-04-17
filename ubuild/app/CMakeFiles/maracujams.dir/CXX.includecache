@@ -276,20 +276,6 @@ SSM.hpp
 SpecOpsTest.hpp
 -
 
-/home/bumuckl/IDP/maracuja/app/src/SpecOpsTest.cpp
-iostream
--
-stdexcept
--
-cmath
--
-stdlib.h
--
-time.h
--
-SpecOpsTest.hpp
--
-
 /usr/include/eigen3/Eigen/Cholesky
 Core
 /usr/include/eigen3/Eigen/Core
