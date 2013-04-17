@@ -1,3 +1,0 @@
-/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib/CMakeFiles/maracuja.dir
-/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/app/CMakeFiles/maracujams.dir
-/home/bumuckl/Arbeitsfläche/IDP/maracuja/build/lib/CMakeFiles/test.dir

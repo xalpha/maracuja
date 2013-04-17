@@ -1,1 +1,0 @@
-/usr/bin/c++    --std=c++0x -fopenmp -g     CMakeFiles/test.dir/test/test.cpp.o  -o test -rdynamic libmaracuja.so -lm -lc -Wl,-rpath,/home/bumuckl/IDP/maracuja/ubuild/lib 

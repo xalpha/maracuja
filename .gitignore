@@ -1,5 +1,5 @@
-./build
-./ubuild
+build/
+ubuild/
 .DS_Store
 .DS_Store?
 ._*
