@@ -44,31 +44,134 @@
 namespace maracuja
 {
 
+template <typename T>
 class Spectrum
 {
 public:
+    typedef Eigen::Matrix<T,Eigen::Dynamic,1> VectorX;
+
+public:
     Spectrum();
     Spectrum( const Spectrum& spec );
-    Spectrum( double start, double end, const Eigen::VectorXd& data  );
-    Spectrum( double start, double end, const std::vector<double>& data  );
+    Spectrum( double start, double end, const VectorX& data  );
+    Spectrum( double start, double end, const std::vector<T>& data  );
     virtual ~Spectrum();
 
-    void set(double startVal, double endVal, Eigen::VectorXd data);
+    void set(double startVal, double endVal, const VectorX& data);
 
     void operator =( const Spectrum& spec );
     void operator *( double coeff );
 
     double start() const;
     double end() const;
-    const Eigen::VectorXd& data() const;
+    const VectorX& data() const;
 
 protected:
-    Eigen::VectorXd toEigen( const std::vector<double>& vec );
+    VectorX toEigen( const std::vector<T>& vec );
 
 protected:
     double m_start; /// begin wavelength of the spectrum definition
     double m_end; /// begin wavelength of the spectrum definition
-    Eigen::VectorXd m_data; /// values of the function through the spectrum
+    VectorX m_data; /// values of the function through the spectrum
 };
+
+
+/////
+// Implementation
+///
+template <typename T>
+inline Spectrum<T>::Spectrum()
+{
+    // TODO: find something insteresting to do here
+}
+
+
+template <typename T>
+inline Spectrum<T>::Spectrum( const Spectrum& spec )
+{
+    *this = spec;
+}
+
+
+template <typename T>
+inline Spectrum<T>::Spectrum( double start, double end, const Eigen::VectorXd& data  )
+{
+    m_start = start;
+    m_end = end;
+    m_data = data;
+}
+
+
+template <typename T>
+inline Spectrum<T>::Spectrum( double start, double end, const std::vector<double>& data  )
+{
+    m_start = start;
+    m_end = end;
+    m_data = toEigen( data );
+}
+
+
+template <typename T>
+inline Spectrum<T>::~Spectrum()
+{
+    // TODO Auto-generated destructor stub
+}
+
+
+template <typename T>
+inline void Spectrum<T>::set(double startVal, double endVal, Eigen::VectorXd data)
+{
+    m_start = startVal;
+    m_end = endVal;
+    m_data = data;
+}
+
+template <typename T>
+inline void Spectrum<T>::operator =( const Spectrum& spec )
+{
+    m_start = spec.m_start;
+    m_end = spec.m_end;
+    m_data = spec.m_data;
+}
+
+
+template <typename T>
+inline voidSpectrum<T>::operator *( double coeff )
+{
+    m_data *= coeff;
+}
+
+
+template <typename T>
+inline double Spectrum<T>::start() const
+{
+    return m_start;
+}
+
+
+template <typename T>
+inline double Spectrum<T>::end() const
+{
+    return m_end;
+}
+
+
+template <typename T>
+inline const Spectrum<T>::VectorX& Spectrum<T>::data() const
+{
+    return m_data;
+}
+
+
+template <typename T>
+inline Spectrum<T>::VectorX Spectrum<T>::toEigen( const std::vector<double>& vec )
+{
+    Eigen::VectorXd result = Eigen::VectorXd::Zero(vec.size());
+    for( size_t i=0; i<vec.size(); i++ )
+        result(i) = vec[i];
+
+    return result;
+}
+
 
 } // end namespace maracuja
