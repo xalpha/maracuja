@@ -123,13 +123,10 @@ maracuja::Spectrum* SpecOps::adaptTo(double new_start, double new_end, double sa
 	}
 	
 	if (normalize) {
-        std::cout << "Area of reference spectrum: " << r_area << std::endl;
         double s_area = this->areaLinear();
         
         if (s_area != 0) {
             double coeff = (r_area/s_area);
-            std::cout << "Area before adaptation: " << s_area << std::endl;
-            std::cout << "Coefficient: " << r_area/s_area << std::endl;
         
             for (int i=0; i<size; i++) {
                 //data[i] = data[i] / peak;
@@ -151,7 +148,7 @@ maracuja::Spectrum* SpecOps::adaptTo(const maracuja::Spectrum &spec, bool normal
 
 
 double SpecOps::areaLinear(const maracuja::Spectrum &spec) {
-	double result;
+	double result = 0.0;
 	Eigen::VectorXd data = spec.data();
 	
 	if (data.size() <= 1) {
@@ -159,7 +156,8 @@ double SpecOps::areaLinear(const maracuja::Spectrum &spec) {
 	}
 	
 	for (int i=0; i<data.size() - 1; i++) {
-		result = 0.5 * spec.samplerate() * (std::min(data[i], data[i+1]) + std::max(data[i], data[i+1]));
+		result += 0.5 * spec.samplerate() * (std::min(data[i], data[i+1]) + std::max(data[i], data[i+1]));
+		//std::cout << "At area " << i << ": 0.5 * " << spec.samplerate() << " * (" << std::min(data[i], data[i+1]) << " + " << std::max(data[i], data[i+1]) << ") = " << result << std::endl;
 	}
 	
 	return result;
@@ -195,7 +193,7 @@ double SpecOps::interpolateLinearAt(double x) {
 		return data[0];
 	}
 	if (this->s.end() == this->s.start()) {
-	    return data[0];    
+	    return data[0];
 	}
 	if (this->s.samplerate() == 0){
        return data[0];	

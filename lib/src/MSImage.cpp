@@ -181,10 +181,10 @@ namespace maracuja
 
     cimg_library::CImg<uint8_t> MSImage::convolute(const Spectrum &spectrum)
     {
-        //EXTENSION: convert spectrum inzo the range of of the msimage spectrums
+        //EXTENSION: convert spectrum into the range of of the msimage spectrums
         SpecOps target(spectrum);
         Spectrum* adapted_spectrum;
-        adapted_spectrum = target.adaptTo(this->m_channels[0].filter(), true);
+        adapted_spectrum = target.adaptTo(this->m_channels[4].filter(), true);
 		
         /*Eigen::VectorXd data = adapted_spectrum->data();
         for (int i=0; i< data.size(); i++) {

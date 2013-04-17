@@ -132,7 +132,12 @@ namespace maracuja
 
 	double Spectrum::samplerate() const
     {
-        return this->m_sample_rate;
+         if (this->m_sample_rate != 0) return this->m_sample_rate;
+         if (this->data().size() < 2) {
+			         return 0.0;
+		      } else {
+			         return fabs(this->end() - this->start())/this->data().size();
+		      }
     }
 
     const Eigen::VectorXd& Spectrum::data() const

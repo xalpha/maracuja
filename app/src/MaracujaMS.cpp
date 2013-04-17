@@ -578,7 +578,6 @@ void MaracujaMS::on_multiply_spectra() {
     //result = mult.pairwiseMultiplication(this->b, 1, 0.2);
     //result = mult.adaptTo(this->b.start(), this->b.end(), 0.2);
     result = mult.adaptTo(this->b, true);
-    std::cout << "Area afterwards: " << mult.areaLinear(*result) << std::endl;
 	
     ui->view->graph(2)->setPen(QPen(Qt::green));
     this->on_show_spectrum(*result, 2);

@@ -74,7 +74,7 @@ protected:
 protected:
     double m_start; /// begin wavelength of the spectrum definition
     double m_end; /// begin wavelength of the spectrum definition
-	double m_sample_rate; //NEW: distance from one sample to another in nm
+	  double m_sample_rate = 0.0; //NEW: distance from one sample to another in nm
     Eigen::VectorXd m_data; /// values of the function through the spectrum
 };
 
