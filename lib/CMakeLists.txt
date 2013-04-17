@@ -38,9 +38,7 @@ list( APPEND Maracuja_INC
     include/maracuja/Channel.hpp
     include/maracuja/util.hpp )
 list( APPEND Maracuja_SRC
-    src/MSImage.cpp
-    src/Spectrum.cpp
-    src/Channel.cpp )
+    src/MSImage.cpp )
 
 # external dependencies of maracuja
 list( APPEND Maracuja_EXTERN_INC

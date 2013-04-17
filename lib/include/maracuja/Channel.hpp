@@ -44,14 +44,18 @@
 namespace maracuja
 {
 
+template <typename T, typename Ti>
 class Channel
 {
+public:
+    typedef cimg_library::CImg<Ti> Image;
+
 public:
     Channel();
     Channel( const Channel& ch );
     Channel( int id, const std::string& name,
-             const Spectrum& filter, const Spectrum& sensor,
-             std::shared_ptr< cimg_library::CImg<uint8_t> > image );
+             const Spectrum<T>& filter, const Spectrum<T>& sensor,
+             std::shared_ptr<Image> image );
 
     virtual ~Channel();
 
@@ -59,15 +63,14 @@ public:
 
     int id() const;
     const std::string& name() const;
-    const Spectrum& filter() const;
-    const Spectrum& sensor() const;
-    const cimg_library::CImg<uint8_t>& img() const;
-    //cimg_library::CImg<uint8_t>& img();
-    void set(double id, const Spectrum& filter, const Spectrum& sensor, const std::string& name);
-    void set(std::shared_ptr<cimg_library::CImg<uint8_t> > image);
+    const Spectrum<T>& filter() const;
+    const Spectrum<T>& sensor() const;
+    const Image& image() const;
+    void set(double id, const Spectrum<T>& filter, const Spectrum<T>& sensor, const std::string& name);
+    void set(std::shared_ptr<Image> image);
 
     double lossCalculation();
-    cimg_library::CImg<uint8_t> lossCompensation(double compensationCoeff);
+    Image lossCompensation(double compensationCoeff);
 
     void check() const;
 
@@ -77,10 +80,163 @@ protected:
 
     int m_id; /// channel id
     std::string m_name; /// channel name
-    Spectrum m_filter; /// trasmission spectra of the filter
-    Spectrum m_sensor; /// sensitivity spectra of the sensor
-    std::shared_ptr< cimg_library::CImg<uint8_t> > m_image;
+    Spectrum<T> m_filter; /// trasmission spectra of the filter
+    Spectrum<T> m_sensor; /// sensitivity spectra of the sensor
+    std::shared_ptr<Image> m_image;
 
 };
+
+
+/////
+// Implementation
+///
+
+template <typename T, typename Ti>
+inline Channel<T,Ti>::Channel() :
+    m_isConfigured(false),
+    m_hasImage(false),
+    m_image( new Image() )
+{
+
+}
+
+
+template <typename T, typename Ti>
+inline Channel<T,Ti>::Channel( const Channel& ch )
+{
+    *this = ch;
+}
+
+
+template <typename T, typename Ti>
+inline Channel<T,Ti>::Channel( int id, const std::string& name,
+                  const Spectrum& filter, const Spectrum& sensor,
+                  std::shared_ptr<Image> image )
+{
+    set( id, filter, sensor, name );
+    set( image );
+}
+
+
+template <typename T, typename Ti>
+inline Channel<T,Ti>::~Channel() {
+    // TODO Auto-generated destructor stub
+}
+
+
+template <typename T, typename Ti>
+inline void Channel<T,Ti>::operator =( const Channel& ch )
+{
+    m_id = ch.m_id;
+    m_name = ch.m_name;
+    m_filter = ch.m_filter;
+    m_sensor = ch.m_sensor;
+    m_image = ch.m_image;
+    m_isConfigured = ch.m_isConfigured;
+    m_hasImage = ch.m_hasImage;
+}
+
+
+template <typename T, typename Ti>
+inline int Channel<T,Ti>::id() const
+{
+    return m_id;
+}
+
+
+template <typename T, typename Ti>
+inline const std::string& Channel<T,Ti>::name() const
+{
+    return m_name;
+}
+
+
+template <typename T, typename Ti>
+inline const Spectrum& Channel<T,Ti>::filter() const
+{
+    return m_filter;
+}
+
+
+template <typename T, typename Ti>
+inline const Spectrum& Channel<T,Ti>::sensor() const
+{
+    return m_sensor;
+}
+
+
+template <typename T, typename Ti>
+inline const cimg_library::CImg<uint8_t>& Channel<T,Ti>::image() const
+{
+    return *m_image;
+}
+
+
+template <typename T, typename Ti>
+inline void Channel<T,Ti>::set(double id, const Spectrum& filter, const Spectrum& sensor, const std::string& name)
+{
+    m_id = id;
+    m_filter = filter;
+    m_sensor = sensor;
+    m_name = name;
+    m_isConfigured = true;
+}
+
+
+template <typename T, typename Ti>
+inline void Channel<T,Ti>::set(std::shared_ptr<cimg_library::CImg<uint8_t> > image)
+{
+    m_image = image;
+    m_hasImage = true;
+}
+
+template <typename T, typename Ti>
+inline double Channel<T,Ti>::lossCalculation()
+{
+    // this function returns a multiplicative coefficient,
+    // which compensate the loss due to the filter
+    // and the loss due to the sensitivity
+
+    double coeff = 1; // out put of the function
+
+    // compensation of the loss, which comes from the filter's use
+    double max = m_filter.data().maxCoeff();
+    if (max != 0)
+    {
+        coeff = coeff/max;
+    }
+
+    // compensation of the loss, which comes from the camera sensitivity
+    double coeff_tmp = m_filter.data().adjoint()*(m_sensor.data());
+    if (coeff_tmp != 0)
+    {
+        double sum_filter = m_filter.data().sum();
+        coeff_tmp = sum_filter/coeff_tmp;
+    } // coeff_tmp = sum(filter's values) / dot product(filter's values and sensitivity's values)
+
+    coeff = coeff * coeff_tmp;
+    return coeff;
+}
+
+
+template <typename T, typename Ti>
+inline cimg_library::CImg<uint8_t> Channel<T,Ti>::lossCompensation(double compensationCoeff)
+{
+    cimg_library::CImg<uint8_t> compensatedImg;
+    compensatedImg = compensationCoeff * (*m_image);
+    return compensatedImg;
+    //m_image *= compensationCoeff;
+}
+
+
+template <typename T, typename Ti>
+inline void Channel<T,Ti>::check() const
+{
+    if( !m_isConfigured )
+        throw std::runtime_error("Channel<T,Ti>::check: channel \"" + m_name + "\" is not configured.");
+    if( !m_hasImage )
+        throw std::runtime_error("Channel<T,Ti>::check: channel \"" + m_name + "\" has no image.");
+}
+
 
 } // end namespace maracuja
