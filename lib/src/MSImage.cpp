@@ -184,7 +184,7 @@ namespace maracuja
         //EXTENSION: convert spectrum into the range of of the msimage spectrums
         SpecOps target(spectrum);
         Spectrum* adapted_spectrum;
-        adapted_spectrum = target.adaptTo(this->m_channels[4].filter(), true);
+        adapted_spectrum = target.adaptTo(m_channels[4].filter(), true);
 		
         /*Eigen::VectorXd data = adapted_spectrum->data();
         for (int i=0; i< data.size(); i++) {
@@ -197,6 +197,28 @@ namespace maracuja
 
         // multiplication of the images by the previously calculated coefficients
         cimg_library::CImg<uint8_t> result( m_channels[0].img().width(),
+                                            m_channels[0].img().height(),
+                                            1, 1, 0 );
+
+        // reconstruct the image
+        for( size_t i=0; i<m_channels.size(); i++ )
+            result += coeffs[i] * m_channels[i].img();
+
+        return result;
+    }
+    
+    
+    cimg_library::CImg<double> MSImage::convolute_double(const Spectrum &spectrum)
+    {
+        //EXTENSION: convert spectrum into the range of of the msimage spectrums
+        SpecOps target(spectrum);
+        Spectrum* adapted_spectrum;
+        adapted_spectrum = target.adaptTo(m_channels[4].filter(), true);
+		
+        std::vector<double> coeffs = computeCoefficients(*adapted_spectrum);
+
+        // multiplication of the images by the previously calculated coefficients
+        cimg_library::CImg<double> result( m_channels[0].img().width(),
                                             m_channels[0].img().height(),
                                             1, 1, 0 );
 

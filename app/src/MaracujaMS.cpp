@@ -67,10 +67,19 @@ MaracujaMS::MaracujaMS(QWidget *parent) :
     connect( ui->on_add_dummy_spectra_button, SIGNAL(clicked(bool)), this, SLOT(on_add_dummy_spectra(void)) );
     connect( ui->apply_spectrum2_to_image_button, SIGNAL(clicked(bool)), this, SLOT(on_apply_spectrum2(void)) );
     connect( ui->apply_spectrum1_to_image_button, SIGNAL(clicked(bool)), this, SLOT(on_apply_spectrum1(void)) );
+    connect( ui->filter_toggle_filter_spectrum, SIGNAL(clicked(bool)), this, SLOT(on_toggle_filter_spectrum(void)) );
+    connect( ui->filter_toggle_sensor_spectrum, SIGNAL(clicked(bool)), this, SLOT(on_toggle_sensor_spectrum(void)) );
+    connect( ui->filter_toggle_sensor_filter_convolution, SIGNAL(clicked(bool)), this, SLOT(on_toggle_filter_sensor_convolution(void)) );
+    connect( ui->filter_apply_filter, SIGNAL(clicked(bool)), this, SLOT(on_apply_filter(void)) );	  
+    connect( ui->filter_apply_sensor, SIGNAL(clicked(bool)), this, SLOT(on_apply_sensor(void)) );	
+    connect( ui->filter_apply_both, SIGNAL(clicked(bool)), this, SLOT(on_apply_both(void)) );	 
 	   
 	   ui->view->addGraph();
 	   ui->view->addGraph();
 	   ui->view->addGraph();
+	   ui->view->addGraph(); //reserved for filter spectrum
+	   ui->view->addGraph(); //reserved for sensor spectrum
+	   ui->view->addGraph(); //reserved for filter-sensor convolution spectrum
 }
 
 
@@ -632,7 +641,7 @@ void MaracujaMS::on_apply_spectrum(maracuja::Spectrum& spec) {
                 ui->view->yAxis->setRange(0, imageQt.height() );
                 ui->view->replot();
 
-				try
+				/*try
 			    {
 			        std::string filename = QFileDialog::getSaveFileName(this, "Save Segmented Image", m_lastDir.c_str(), "Images (*.bmp *.png *.xpm *.jpg *.tif *.tiff)").toStdString();
 			        if( filename.size() > 0 )
@@ -646,7 +655,7 @@ void MaracujaMS::on_apply_spectrum(maracuja::Spectrum& spec) {
 			        ui->statusBar->showMessage( QString( e.what() ), 5000 );
 			        std::cerr << e.what() << std::endl;
 			        QMessageBox::critical(this, "Error", QString( e.what() ) );
-			    }
+			    }*/
 			
             }
         }
@@ -681,6 +690,245 @@ void MaracujaMS::on_apply_spectrum2() {
 }
 
 
+void MaracujaMS::on_toggle_filter_spectrum() {
+    try
+    {
+        if (m_MSImage.channels().size() > 0)
+        {
+            unsigned readIdx = 0;
+            while (QString(m_MSImage.channels()[readIdx].name().c_str()) != ui->channel_choice->currentText() && readIdx < m_MSImage.channels().size())
+            {
+                readIdx++;
+            }
+            if( m_MSImage.channels()[readIdx].img() == NULL ) // there is no image for the channel
+            {
+                QMessageBox::critical(this, "Warning", QString("No image is loaded for the current channel."));
+            }
+            else
+            {   
+                if (this->filter_on){
+                    this->on_hide_spectrum(3);
+                    this->filter_on = false;
+                } else {
+                    ui->view->graph(3)->setPen(QPen(Qt::blue));
+                    this->on_show_spectrum(m_MSImage.channels()[readIdx].filter(), 3);
+                    this->filter_on = true;
+                }
+            }
+        }
+        else
+        {
+            QMessageBox::critical(this, "Warning", QString("You need first to add a channel and an image."));
+        }
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
+
+}
+
+
+void MaracujaMS::on_toggle_sensor_spectrum() {
+    try
+    {
+        if (m_MSImage.channels().size() > 0)
+        {
+            unsigned readIdx = 0;
+            while (QString(m_MSImage.channels()[readIdx].name().c_str()) != ui->channel_choice->currentText() && readIdx < m_MSImage.channels().size())
+            {
+                readIdx++;
+            }
+            if( m_MSImage.channels()[readIdx].img() == NULL ) // there is no image for the channel
+            {
+                QMessageBox::critical(this, "Warning", QString("No image is loaded for the current channel."));
+            }
+            else
+            {   
+                if (this->sensor_on){
+                    this->on_hide_spectrum(4);
+                    this->sensor_on = false;
+                } else {
+                    ui->view->graph(4)->setPen(QPen(Qt::green));
+                    this->on_show_spectrum(m_MSImage.channels()[readIdx].sensor(), 4);
+                    this->sensor_on = true;
+                }
+            }
+        }
+        else
+        {
+            QMessageBox::critical(this, "Warning", QString("You need first to add a channel and an image."));
+        }
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
+
+}
+
+
+void MaracujaMS::on_toggle_filter_sensor_convolution() {
+    try
+    {
+        if (m_MSImage.channels().size() > 0)
+        {
+            unsigned readIdx = 0;
+            while (QString(m_MSImage.channels()[readIdx].name().c_str()) != ui->channel_choice->currentText() && readIdx < m_MSImage.channels().size())
+            {
+                readIdx++;
+            }
+            if( m_MSImage.channels()[readIdx].img() == NULL ) // there is no image for the channel
+            {
+                QMessageBox::critical(this, "Warning", QString("No image is loaded for the current channel."));
+            }
+            else
+            {   
+                if (this->filter_sensor_on){
+                    this->on_hide_spectrum(5);
+                    this->filter_sensor_on = false;
+                } else {
+                    maracuja::Spectrum filter = m_MSImage.channels()[readIdx].filter();
+                    maracuja::Spectrum sensor = m_MSImage.channels()[readIdx].sensor();    
+    
+                    maracuja::SpecOps specops(filter);
+                    maracuja::Spectrum* testspec = specops.pairwiseMultiplication(sensor);            
+            
+                    ui->view->graph(5)->setPen(QPen(Qt::yellow));
+                    this->on_show_spectrum(*testspec, 5);
+                    this->filter_sensor_on = true;
+                }
+            }
+        }
+        else
+        {
+            QMessageBox::critical(this, "Warning", QString("You need first to add a channel and an image."));
+        }
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
+
+}
+
+
+void MaracujaMS::on_apply_filter() {
+    try
+    {
+        if (m_MSImage.channels().size() > 0)
+        {
+            unsigned readIdx = 0;
+            while (QString(m_MSImage.channels()[readIdx].name().c_str()) != ui->channel_choice->currentText() && readIdx < m_MSImage.channels().size())
+            {
+                readIdx++;
+            }
+            if( m_MSImage.channels()[readIdx].img() == NULL ) // there is no image for the channel
+            {
+                QMessageBox::critical(this, "Warning", QString("No image is loaded for the current channel."));
+            }
+            else
+            {   
+                maracuja::Spectrum filter = m_MSImage.channels()[readIdx].filter();
+                this->on_apply_spectrum(filter);
+            }
+        }
+        else
+        {
+            QMessageBox::critical(this, "Warning", QString("You need first to add a channel and an image."));
+        }
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
+
+}
+
+
+void MaracujaMS::on_apply_sensor() {
+    try
+    {
+        if (m_MSImage.channels().size() > 0)
+        {
+            unsigned readIdx = 0;
+            while (QString(m_MSImage.channels()[readIdx].name().c_str()) != ui->channel_choice->currentText() && readIdx < m_MSImage.channels().size())
+            {
+                readIdx++;
+            }
+            if( m_MSImage.channels()[readIdx].img() == NULL ) // there is no image for the channel
+            {
+                QMessageBox::critical(this, "Warning", QString("No image is loaded for the current channel."));
+            }
+            else
+            {   
+                maracuja::Spectrum sensor = m_MSImage.channels()[readIdx].sensor();
+                this->on_apply_spectrum(sensor);
+            }
+        }
+        else
+        {
+            QMessageBox::critical(this, "Warning", QString("You need first to add a channel and an image."));
+        }
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
+
+}
+
+
+void MaracujaMS::on_apply_both() {
+    try
+    {
+        if (m_MSImage.channels().size() > 0)
+        {
+            unsigned readIdx = 0;
+            while (QString(m_MSImage.channels()[readIdx].name().c_str()) != ui->channel_choice->currentText() && readIdx < m_MSImage.channels().size())
+            {
+                readIdx++;
+            }
+            if( m_MSImage.channels()[readIdx].img() == NULL ) // there is no image for the channel
+            {
+                QMessageBox::critical(this, "Warning", QString("No image is loaded for the current channel."));
+            }
+            else
+            {   
+                maracuja::Spectrum filter = m_MSImage.channels()[readIdx].filter();
+                maracuja::Spectrum sensor = m_MSImage.channels()[readIdx].sensor();    
+    
+                maracuja::SpecOps specops(filter);
+                maracuja::Spectrum* testspec = specops.pairwiseMultiplication(sensor);
+                    
+                this->on_apply_spectrum(*testspec);
+            }
+        }
+        else
+        {
+            QMessageBox::critical(this, "Warning", QString("You need first to add a channel and an image."));
+        }
+    }
+    catch( std::exception &e )
+    {
+        ui->statusBar->showMessage( QString( e.what() ), 5000 );
+        std::cerr << e.what() << std::endl;
+        QMessageBox::critical(this, "Error", QString( e.what() ) );
+    }
+
+}
+
+
 void MaracujaMS::cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst )
 {
     if( src.spectrum() == 3 )
@@ -694,3 +942,17 @@ void MaracujaMS::cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst 
     else
         dst = QImage( src.data(), src.width(), src.height(), QImage::Format_Indexed8 );
 }
+
+/*void MaracujaMS::cimg2qimg( const cimg_library::CImg<double>& src, QImage& dst )
+{
+    if( src.spectrum() == 3 )
+    {
+        dst = QImage(src.width(), src.height(), QImage::Format_RGB888);
+        cimg_forXY( src, x, y )
+            {
+               dst.setPixel( x, y, qRgb(src( x, y, 0 ), src( x, y, 1 ), src( x, y, 2 ) ) );
+            }
+    }
+    else
+        dst = QImage( src.data(), src.width(), src.height(), QImage::Format_Indexed8 );
+}*/

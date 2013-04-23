@@ -99,7 +99,13 @@ maracuja::Spectrum* SpecOps::pairwiseMultiplication(const maracuja::Spectrum& sp
 	//yep, this loop can be shrinked to only one, but performance is not a hassle right now
 	Eigen::VectorXd resulting_vector = Eigen::VectorXd::Zero(size);
 	for (int i=0; i<size; i++) {
-		resulting_vector[i] = a[i]*b[i];
+	    /*if (a[i] == 0.0) {
+	        resulting_vector[i] = b[i];
+	    } else if (b[i] == 0.0) {
+	        resulting_vector[i] = a[i];
+	    } else {*/
+	        resulting_vector[i] = a[i]*b[i];
+	    //} 
 	}
 	
 	result->set(new_start, new_end, resulting_vector, samplerate);

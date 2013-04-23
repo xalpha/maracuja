@@ -71,6 +71,7 @@ namespace maracuja
             std::vector<std::vector<double> > computeBalancedCoefficients(const std::vector<maracuja::Spectrum> &spectrums);
 
             cimg_library::CImg<uint8_t> convolute( const Spectrum& spectrum);
+            cimg_library::CImg<double> convolute_double( const Spectrum& spectrum);
             cimg_library::CImg<uint8_t> convolute( const std::vector<maracuja::Spectrum>& spectra, bool balanced=false );
 
             cimg_library::CImg<uint8_t> rgb( bool whitebalance=true );
