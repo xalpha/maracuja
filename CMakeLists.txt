@@ -14,4 +14,4 @@ endif()
 
 # add lib and app
 add_subdirectory( lib )
-add_subdirectory( app )
+#add_subdirectory( app )

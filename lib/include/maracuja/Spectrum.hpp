@@ -37,7 +37,6 @@
 /// \date    Jan 15, 2013
 ///
 
-
 #include <maracuja/util.hpp>
 
 
@@ -55,23 +54,30 @@ public:
     Spectrum( const Spectrum& spec );
     Spectrum( T start, T end, const VectorX& data  );
     Spectrum( T start, T end, const std::vector<T>& data  );
+    Spectrum( T start, T end, T samplerate );
     virtual ~Spectrum();
 
-    void set(T startVal, T endVal, const VectorX& data);
-
     void operator =( const Spectrum& spec );
-    void operator *( double coeff );
+    void operator *( T coeff );
 
-    double start() const;
-    double end() const;
+    T start() const;
+    T end() const;
+    T samplerate() const;
     const VectorX& data() const;
+
+    void resample( T start, T end );
+    void resample( T samplerate );
+    void resample( T start, T end, T samplerate );
 
 protected:
     VectorX toEigen( const std::vector<T>& vec );
+    T calculateSamplerate( T start, T end, size_t count );
+    size_t calculateCoefficients( T start, T end, T samplerate );
 
 protected:
     T m_start; /// begin wavelength of the spectrum definition
     T m_end; /// begin wavelength of the spectrum definition
+    T m_sample_rate = 0.0; /// distance from one sample to another in nm
     VectorX m_data; /// values of the function through the spectrum
 };
 
@@ -99,6 +105,7 @@ inline Spectrum<T>::Spectrum( T start, T end, const Spectrum<T>::VectorX& data  
     m_start = start;
     m_end = end;
     m_data = data;
+    m_sample_rate = calculateSamplerate( m_start, m_end, m_data.size() );
 }
 
 
@@ -108,6 +115,7 @@ inline Spectrum<T>::Spectrum( T start, T end, const std::vector<T>& data  )
     m_start = start;
     m_end = end;
     m_data = toEigen( data );
+    m_sample_rate = calculateSamplerate( m_start, m_end, m_data.size() );
 }
 
 
@@ -119,39 +127,31 @@ inline Spectrum<T>::~Spectrum()
 
 
 template <typename T>
-inline void Spectrum<T>::set(T startVal, T endVal, const typename Spectrum<T>::VectorX& data)
-{
-    m_start = startVal;
-    m_end = endVal;
-    m_data = data;
-}
-
-
-template <typename T>
 inline void Spectrum<T>::operator =( const Spectrum& spec )
 {
     m_start = spec.m_start;
     m_end = spec.m_end;
+    m_sample_rate = spec.m_sample_rate;
     m_data = spec.m_data;
 }
 
 
 template <typename T>
-inline void Spectrum<T>::operator *( double coeff )
+inline void Spectrum<T>::operator *( T coeff )
 {
     m_data *= coeff;
 }
 
 
 template <typename T>
-inline double Spectrum<T>::start() const
+inline T Spectrum<T>::start() const
 {
     return m_start;
 }
 
 
 template <typename T>
-inline double Spectrum<T>::end() const
+inline T Spectrum<T>::end() const
 {
     return m_end;
 }
@@ -172,6 +172,44 @@ inline typename Spectrum<T>::VectorX Spectrum<T>::toEigen( const std::vector<T>&
         result(i) = vec[i];
 
     return result;
+}
+
+
+template <typename T>
+inline T Spectrum<T>::calculateSamplerate( T start, T end, size_t count )
+{
+    if( count == 0 )
+        return static_cast<T>(0);
+    else
+        return fabs( end - start ) / static_cast<T>(count);
+}
+
+
+template <typename T>
+inline size_t Spectrum<T>::calculateCoefficients( T start, T end, T samplerate )
+{
+    return static_cast<size_t>( iround( fabs(end-start) / samplerate ) );
+}
+
+
+template <typename T>
+inline T Spectrum<T>::resample( T start, T end )
+{
+    // TODO
+}
+
+
+template <typename T>
+inline T Spectrum<T>::resample( T samplerate )
+{
+    // TODO
+}
+
+
+template <typename T>
+inline T Spectrum<T>::resample( T start, T end, T samplerate )
+{
+    // TODO
 }
 
 

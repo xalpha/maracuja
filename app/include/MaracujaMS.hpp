@@ -30,6 +30,7 @@
 
 #include <maracuja/util.hpp>
 #include <maracuja/MSImage.hpp>
+#include <SSM.hpp>
 
 namespace Ui {
     class MaracujaMS;
@@ -54,9 +55,32 @@ public slots:
     void on_saveRGB();
     void on_loadMS();
     void on_saveMS();
+    
+    void on_load_spectrum1();
+    void on_load_spectrum2();
+    void on_show_spectrum1();
+    void on_show_spectrum2();
+    void on_hide_spectrum1();
+    void on_hide_spectrum2();
+    void on_apply_spectrum1();
+    void on_apply_spectrum2();
+    void on_apply_filter();
+    void on_apply_sensor();
+    void on_apply_both();
+    void on_toggle_filter_spectrum();
+    void on_toggle_sensor_spectrum();
+    void on_toggle_filter_sensor_convolution();
+    
+    void on_multiply_spectra();
+    void on_add_dummy_spectra();
 
 protected:
     void cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst );
+    //void cimg2qimg( const cimg_library::CImg<double>& src, QImage& dst );
+    void on_load_spectrum(maracuja::Spectrum& spec, bool& available);
+    void on_show_spectrum(const maracuja::Spectrum& spec, int graph);
+    void on_apply_spectrum(maracuja::Spectrum&);
+    void on_hide_spectrum(int);
 
 protected:
     // ui
@@ -66,6 +90,13 @@ protected:
     std::string m_lastDir;
     maracuja::MSImage<double,uint8_t> m_MSImage;
     cimg_library::CImg<uint8_t> m_imageRGB;
+    maracuja::Spectrum a;
+    maracuja::Spectrum b;
+    bool a_is_available = false;
+    bool b_is_available = false;
+    bool filter_on = false;
+    bool sensor_on = false;
+    bool filter_sensor_on = false;
 
 };
 

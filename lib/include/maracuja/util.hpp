@@ -112,6 +112,21 @@ inline std::string toString( const std::vector<T>& vec )
 }
 
 
+/////
+// Nice rounding function
+///
+template <typename T>
+inline T round(T val)
+{
+    return (val > 0.0) ? std::floor(val + 0.5) : std::ceil(val - 0.5);
+}
+template <typename T>
+inline int iround(T val)
+{
+    return (val > 0.0) ? std::floor(val + 0.5) : std::ceil(val - 0.5);
+}
+
+
 } // end namespace maracuja
 
 
