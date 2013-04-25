@@ -33,7 +33,7 @@
 ///
 /// \details this is base container for curve values
 ///
-/// \author  Alexandru Duliu, Anne-Claire Morvan
+/// \author  Alexandru Duliu, Anne-Claire Morvan, Christoph Baur
 /// \date    Jan 15, 2013
 ///
 
@@ -59,6 +59,9 @@ public:
 
     void operator =( const Spectrum& spec );
     void operator *( T coeff );
+
+    Spectrum operator *( const Spectrum& spec );
+    Spectrum operator +( const Spectrum& spec );
 
     T start() const;
     T end() const;
@@ -141,6 +144,20 @@ template <typename T>
 inline void Spectrum<T>::operator *( T coeff )
 {
     m_data *= coeff;
+}
+
+
+template <typename T>
+inline Spectrum<T> Spectrum<T>::operator *( const Spectrum& spec )
+{
+    // TODO
+}
+
+
+template <typename T>
+inline Spectrum<T> Spectrum<T>::operator +( const Spectrum& spec )
+{
+    // TODO
 }
 
 

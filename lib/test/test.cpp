@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <iostream>
-#include <Eigen/Core>
+#include <maracuja/util.hpp>
 //#include <maracuja/MSImage.hpp>
 
 
@@ -314,11 +314,45 @@
 
 int main( int argc, char** argv )
 {
+//    cimg_library::CImg<uint8_t> image( "len_std.jpg" );
+
+//    cimg_library::CImg<uint8_t> imageResize0 = image.get_resize( 512, 512, -100, -100, 0 );
+////    cimg_library::CImg<uint8_t> imageResize1 = image.get_resize( 512, 512, -100, -100, 1 );
+////    cimg_library::CImg<uint8_t> imageResize2 = image.get_resize( 512, 512, -100, -100, 2 );
+////    cimg_library::CImg<uint8_t> imageResize3 = image.get_resize( 512, 512, -100, -100, 3 );
+////    cimg_library::CImg<uint8_t> imageResize4 = image.get_resize( 512, 512, -100, -100, 4 );
+////    cimg_library::CImg<uint8_t> imageResize5 = image.get_resize( 512, 512, -100, -100, 5 );
+
+//    imageResize0.save( "lena_resize0.jpg" );
+////    imageResize1.save( "lena_resize1.jpg" );
+////    imageResize2.save( "lena_resize2.jpg" );
+////    imageResize3.save( "lena_resize3.jpg" );
+////    imageResize4.save( "lena_resize4.jpg" );
+////    imageResize5.save( "lena_resize5.jpg" );
+
+////    cimg_library::CImg<uint8_t> imageResize = image.get_resize( 512, 512, -100, -100, 0, 0, 0.5f, 0.5f );
+////    imageResize.save( "lena_resize.jpg" );
+
+//    cimg_library::CImg<float> imageResizeSE, imageResizeNW, imageResizeResult;
+
+//    imageResizeSE = image.get_resize( 512, 512, -100, -100, 0, 0, 0.501f, 0.501f );
+//    imageResizeNW = image.get_resize( 512, 512, -100, -100, 0, 0, 0.499f, 0.499f );
+
+//    imageResizeResult = (imageResizeSE - imageResizeNW) ;
+//    imageResizeResult += 0.5f;
+//    imageResizeResult.save( "lena_resizeResult001.jpg" );
+
+//    imageResizeSE = image.get_resize( 512, 512, -100, -100, 0, 0, 0.5001f, 0.5001f );
+//    imageResizeNW = image.get_resize( 512, 512, -100, -100, 0, 0, 0.4999f, 0.4999f );
+//    imageResizeResult = (imageResizeSE - imageResizeNW) ;
+//    imageResizeResult += 0.5f;
+//    imageResizeResult.save( "lena_resizeResult0001.jpg" );
+
     Eigen::VectorXd a(100);
     for( size_t i=0; i<100; i++ )
         a(i) = static_cast<double>(i);
     Eigen::VectorXd b=a;
     Eigen::VectorXd c=a.array()*b.array();
 
-    std::cout << c << std::endl;
+    return 0;
 }
