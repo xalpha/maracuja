@@ -73,6 +73,8 @@ public:
     void resample( T start, T end, T samplerate );
     void resample( const Spectrum<T>& spec );
 
+	double area();
+
 protected:
     VectorX toEigen( const std::vector<T>& vec );
     T calculateSamplerate( T start, T end, size_t count );
@@ -151,6 +153,9 @@ template <typename T>
 inline Spectrum<T> Spectrum<T>::operator *( const Spectrum& spec )
 {
     // TODO
+	// Take start, end and samplerate from left operand (this)
+	// resample operand on the right side
+	// Go
 }
 
 
@@ -213,7 +218,7 @@ inline size_t Spectrum<T>::calculateCoefficients( T start, T end, T samplerate )
 template <typename T>
 inline void Spectrum<T>::resample( T start, T end )
 {
-    // TODO
+	resample( start, end, this->m_samplerate );
 }
 
 
@@ -238,7 +243,20 @@ inline void Spectrum<T>::resample( T samplerate )
 template <typename T>
 inline void Spectrum<T>::resample( T start, T end, T samplerate )
 {
-    // TODO
+	// get the new size of the image
+    int count = 1 + static_cast<int>((end - start) / samplerate);
+
+    // convert to CImg and resample using bicubic interpolation
+    cimg_library::CImg<T> img( m_data.data(), m_data.size(), 1, 1, 1, false );
+    img.resize( count, -100, -100, -100, 5 );
+
+    // write results
+	m_start = start;
+	m_end = end;
+    m_data = Spectrum<T>::VectorX::Zero(count);
+    for( int i=0; i<count; i++ )
+        m_data(i) = img.data()[i];
+    m_sample_rate = samplerate;
 }
 
 
@@ -246,6 +264,20 @@ template <typename T>
 inline void Spectrum<T>::resample( const Spectrum<T>& spec )
 {
     resample( spec.m_start, spec.m_end, spec.m_sample_rate );
+}
+
+template <typename T>
+inline double Spectrum<T>::area() {
+	double result = 0.0;
+	
+	if (m_data.size() <= 1) {
+		return 0.0;
+	}
+	
+	for (int i=0; i<m_data.size() - 1; i++)
+		result += 0.5 * static_cast<double>(m_samplerate) * (std::min(static_cast<double>(m_data[i]), static_cast<double>(m_data[i+1])) + std::max(static_cast<double>(m_data[i]), static_cast<double>(m_data[i+1])));
+	
+	return result;
 }
 
 
