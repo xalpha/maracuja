@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <iostream>
 #include <maracuja/util.hpp>
-//#include <maracuja/MSImage.hpp>
+#include <maracuja/MSImage.hpp>
 
 
 //template <typename T, typename Ti>

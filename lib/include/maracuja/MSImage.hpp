@@ -41,7 +41,6 @@
 #include <maracuja/util.hpp>
 #include <maracuja/Spectrum.hpp>
 #include <maracuja/Channel.hpp>
-#include <maracuja/SpecOps.hpp>
 
 #include <tinyxml2.h>
 
@@ -252,17 +251,20 @@ inline std::vector<std::vector<T> > MSImage<T,Ti>::computeBalancedCoefficients( 
 template <typename T, typename Ti>
 inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute(const Spectrum<T> &spectrum)
 {
+	// resample spectrum to fit the size of the reference spectrum
+	//spectrum.resample(m_channels[0].filter());
+	
     // calculation of the multiplicative coefficient for each channel for the considered spectrum
     std::vector<T> coeffs = computeCoefficients(spectrum);
 
     // multiplication of the images by the previously calculated coefficients
-    Image result( m_channels[0].img().width(),
-                  m_channels[0].img().height(),
+    Image result( m_channels[0].image().width(),
+                  m_channels[0].image().height(),
                   1, 1, 0 );
 
     // reconstruct the image
     for( size_t i=0; i<m_channels.size(); i++ )
-        result += coeffs[i] * m_channels[i].img();
+        result += coeffs[i] * m_channels[i].image();
 
     return result;
 }
@@ -299,7 +301,6 @@ inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute( const std::vector
         for( size_t c=0; c<m_channels.size(); c++ )
             channels[c] = m_channels[c].image();
 
-<<<<<<< HEAD
         // assemble the image
         cimg_library::CImg<T> resultF( m_channels[0].image().width(),
                                        m_channels[0].image().height(),
@@ -307,11 +308,6 @@ inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute( const std::vector
         for( int c=0; c<result.spectrum(); c++ )
             for( size_t i=0; i<m_channels.size(); i++ )
                 resultF.get_shared_channel(c) += coeffs[c][i] * channels[i];
-=======
-            cimg_library::CImg<uint8_t> convolute( const Spectrum& spectrum);
-            cimg_library::CImg<double> convolute_double( const Spectrum& spectrum);
-            cimg_library::CImg<uint8_t> convolute( const std::vector<maracuja::Spectrum>& spectra, bool balanced=false );
->>>>>>> 7e5d767fa2382cab1d58a83ca459c777749a7de5
 
         resultF.normalize( 0, 255 );
         result = resultF;

@@ -17,17 +17,17 @@ SpecOpsTest::SpecOpsTest() {
 	srand(time(NULL));
 }
 
-void SpecOpsTest::OnesOnly(maracuja::Spectrum &a, maracuja::Spectrum &b) {
+void SpecOpsTest::OnesOnly(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b) {
     int span = 1000;
     double start = 199.0;
     double end = 800.0;
 	
     Eigen::VectorXd vec = Eigen::VectorXd::Ones(span);
-    a.set(start, end, vec, (fabs(end-start)/span) );
-    b.set(start, end, vec, (fabs(end-start)/span) );
+    a.set(start, end, vec );
+    b.set(start, end, vec );
 }
 
-void SpecOpsTest::RandomARandomBEqualSize(maracuja::Spectrum &a, maracuja::Spectrum &b) {
+void SpecOpsTest::RandomARandomBEqualSize(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b) {
     int span = 20;
     double start = 199.0;
     double end = 800.0;
@@ -44,7 +44,7 @@ void SpecOpsTest::RandomARandomBEqualSize(maracuja::Spectrum &a, maracuja::Spect
     
 };
 
-void SpecOpsTest::RandomARandomBDifferentSize(maracuja::Spectrum &a, maracuja::Spectrum &b) {
+void SpecOpsTest::RandomARandomBDifferentSize(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b) {
     double start_a = 199.0;
     double end_a = 800.0;
     int span_a = (int) end_a - start_a;
@@ -66,7 +66,7 @@ void SpecOpsTest::RandomARandomBDifferentSize(maracuja::Spectrum &a, maracuja::S
     
 }
 
-void SpecOpsTest::emptyARandomB(maracuja::Spectrum &a, maracuja::Spectrum &b) {
+void SpecOpsTest::emptyARandomB(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b) {
     int span = 1000;
     double start = 199.0;
     double end = 800.0;
@@ -81,7 +81,7 @@ void SpecOpsTest::emptyARandomB(maracuja::Spectrum &a, maracuja::Spectrum &b) {
     b.set(start, end, vec_b);
 }
 
-void SpecOpsTest::emptyBRandomA(maracuja::Spectrum &a, maracuja::Spectrum &b) {
+void SpecOpsTest::emptyBRandomA(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b) {
     
 }
 
