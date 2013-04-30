@@ -163,9 +163,10 @@ inline Spectrum<T> Spectrum<T>::operator *( const Spectrum& spec )
 	Spectrum<T>::VectorX data_l(m_data);
 	Spectrum<T>::VectorX data_r(r.data());
 	
-	data_l *= data_r;
+	for ( int i=0; i<data_l.size(); i++ )
+		data_l[i] *= data_r[i];
 	
-	result = new Spectrum<T>( m_start, m_end, data_l );
+	result = new Spectrum<T>( m_start, m_end, m_data );
 	return *result;
 }
 
@@ -182,7 +183,8 @@ inline Spectrum<T> Spectrum<T>::operator +( const Spectrum& spec )
 	Spectrum<T>::VectorX data_l(m_data);
 	Spectrum<T>::VectorX data_r(r.data());
 	
-	data_l += data_r;
+	for ( int i=0; i<data_l.size(); i++ )
+		data_l[i] += data_r[i];
 	
 	result = new Spectrum<T>( m_start, m_end, data_l );
 	return *result;
@@ -284,7 +286,7 @@ template <typename T>
 inline void Spectrum<T>::resample( T start, T end, T samplerate )
 {
 	// build appropriate data vector
-	int tmp_count = 1 + static_cast<int>((end - start) / m_sample_rate);
+	int tmp_count = static_cast<int>((end - start) / m_sample_rate);
 	Spectrum<T>::VectorX tmp_data = Spectrum<T>::VectorX::Zero(tmp_count);
 	
 	for (int i=0; i<tmp_count; i++) {
@@ -294,7 +296,7 @@ inline void Spectrum<T>::resample( T start, T end, T samplerate )
 	}
 	
 	// get the new size of the image
-    int count = 1 + static_cast<int>((end - start) / samplerate);
+    int count = static_cast<int>((end - start) / samplerate);
 
     // convert to CImg and resample using bicubic interpolation
     cimg_library::CImg<T> img( tmp_data.data(), tmp_data.size(), 1, 1, 1, false );

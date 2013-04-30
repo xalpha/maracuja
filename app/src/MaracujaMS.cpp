@@ -583,10 +583,12 @@ void MaracujaMS::on_multiply_spectra() {
         return;
     }
 	
-    maracuja::Spectrum<double> result = a * b;
+    //maracuja::Spectrum<double> result = a * b;
     //result = mult.pairwiseMultiplication(this->b, 1, 0.2);
     //result = mult.adaptTo(this->b.start(), this->b.end(), 0.2);
     //result = mult.adaptTo(this->b, true);
+	maracuja::Spectrum<double> result = a;
+	result.resample(m_MSImage.channels()[4].filter());
 	
     ui->view->graph(2)->setPen(QPen(Qt::green));
     this->on_show_spectrum(result, 2);

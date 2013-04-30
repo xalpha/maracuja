@@ -37,7 +37,7 @@
 /// \date    Jan 15, 2013
 ///
 
-
+#include <iostream>
 #include <maracuja/util.hpp>
 #include <maracuja/Spectrum.hpp>
 #include <maracuja/Channel.hpp>
@@ -190,6 +190,8 @@ inline std::vector<T> MSImage<T,Ti>::computeCoefficients( const Spectrum<T>& spe
         T dp;
         VectorX spectralData = spectrum.data();
         VectorX filter_i = m_channels[idx].filter().data();
+		std::cout << "Size of spectrum after resampling: " << spectrum.data().size() << std::endl;
+		std::cout << "Size of reference spectrum: " << m_channels[idx].filter().data().size() << std::endl;
         coeffs[idx] = spectralData.adjoint()*(filter_i);
         coeffs[idx] = coeffs[idx]/filter_i.sum();
         compensationCoeff = m_channels[idx].lossCalculation();
@@ -252,10 +254,11 @@ template <typename T, typename Ti>
 inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute(const Spectrum<T> &spectrum)
 {
 	// resample spectrum to fit the size of the reference spectrum
-	//spectrum.resample(m_channels[0].filter());
+	Spectrum<T> tmp = spectrum;
+	tmp.resample(m_channels[0].filter());
 	
     // calculation of the multiplicative coefficient for each channel for the considered spectrum
-    std::vector<T> coeffs = computeCoefficients(spectrum);
+    std::vector<T> coeffs = computeCoefficients(tmp);
 
     // multiplication of the images by the previously calculated coefficients
     Image result( m_channels[0].image().width(),
