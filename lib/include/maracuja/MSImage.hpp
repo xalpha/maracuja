@@ -190,13 +190,14 @@ inline std::vector<T> MSImage<T,Ti>::computeCoefficients( const Spectrum<T>& spe
         T dp;
         VectorX spectralData = spectrum.data();
         Spectrum<T> tmp = m_channels[idx].filter();
-        //tmp.normalize();
         VectorX filter_i = tmp.data();
         coeffs[idx] = spectralData.adjoint()*(filter_i);
         coeffs[idx] = coeffs[idx]/filter_i.sum();
+        std::cout << "coeff " << idx << ": " << coeffs[idx] << std::endl;
         compensationCoeff = m_channels[idx].lossCalculation();
         // compensation of the losses due to the filter and the camera sensitivity for each channel
         coeffs[idx] = coeffs[idx] * compensationCoeff;
+        std::cout << "coeff " << idx << " after compensation: " << coeffs[idx] << std::endl;
     }
 
     return coeffs;
@@ -266,7 +267,7 @@ inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute(const Spectrum<T> 
 	   // resample spectrum to fit the size of the reference spectrum
     Spectrum<T> tmp = spectrum;
     tmp.resample(ref);
-    tmp.adaptArea(ref.area());
+    //tmp.adaptArea(ref.area());
 	
     // calculation of the multiplicative coefficient for each channel for the considered spectrum
     std::vector<T> coeffs = computeCoefficients(tmp);
@@ -277,8 +278,12 @@ inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute(const Spectrum<T> 
                   1, 1, 0 );
 
     // reconstruct the image
-    for( size_t i=0; i<m_channels.size(); i++ )
+    for( size_t i=0; i<m_channels.size(); i++ ) {
+        std::cout << "Channel " << i << " Max Pixel value: " << m_channels[i].image().max() << std::endl;
         result += coeffs[i] * m_channels[i].image();
+    }
+    std::cout << "Max Pixel value: " << result.max() << std::endl; 
+        
 
     return result;
 }
