@@ -189,9 +189,9 @@ inline std::vector<T> MSImage<T,Ti>::computeCoefficients( const Spectrum<T>& spe
     {
         T dp;
         VectorX spectralData = spectrum.data();
-        VectorX filter_i = m_channels[idx].filter().data();
-		std::cout << "Size of spectrum after resampling: " << spectrum.data().size() << std::endl;
-		std::cout << "Size of reference spectrum: " << m_channels[idx].filter().data().size() << std::endl;
+        Spectrum<T> tmp = m_channels[idx].filter();
+        //tmp.normalize();
+        VectorX filter_i = tmp.data();
         coeffs[idx] = spectralData.adjoint()*(filter_i);
         coeffs[idx] = coeffs[idx]/filter_i.sum();
         compensationCoeff = m_channels[idx].lossCalculation();
@@ -253,9 +253,20 @@ inline std::vector<std::vector<T> > MSImage<T,Ti>::computeBalancedCoefficients( 
 template <typename T, typename Ti>
 inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute(const Spectrum<T> &spectrum)
 {
-	// resample spectrum to fit the size of the reference spectrum
-	Spectrum<T> tmp = spectrum;
-	tmp.resample(m_channels[0].filter());
+    Spectrum<T> ref = m_channels[4].filter();
+    /*Spectrum<T> filter = m_channels[0].filter();
+    Spectrum<T> sensor = m_channels[0].sensor();
+    Spectrum<T> ref = filter * sensor;
+    for (int i=1; i<m_channels.size(); i++) {
+        filter = m_channels[i].filter();
+        sensor = m_channels[i].sensor();
+        ref = ref + (filter * sensor);
+    }*/
+    
+	   // resample spectrum to fit the size of the reference spectrum
+    Spectrum<T> tmp = spectrum;
+    tmp.resample(ref);
+    tmp.adaptArea(ref.area());
 	
     // calculation of the multiplicative coefficient for each channel for the considered spectrum
     std::vector<T> coeffs = computeCoefficients(tmp);

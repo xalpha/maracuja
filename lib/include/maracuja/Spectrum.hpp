@@ -76,6 +76,7 @@ public:
     void resample( const Spectrum<T>& spec );
 
 	void normalize();
+	void adaptArea(double ref_area);
 
 	double area();
 
@@ -346,6 +347,19 @@ inline double Spectrum<T>::area() {
 		result += 0.5 * static_cast<double>(m_sample_rate) * (std::min(static_cast<double>(m_data[i]), static_cast<double>(m_data[i+1])) + std::max(static_cast<double>(m_data[i]), static_cast<double>(m_data[i+1])));
 	
 	return result;
+}
+
+
+template <typename T>
+inline void Spectrum<T>::adaptArea(double ref_area) {
+    double s_area = area();
+        
+    if (s_area != 0) {
+        double coeff = (ref_area/s_area);
+        
+        for (int i=0; i<m_data.size(); i++)
+            m_data[i] *= coeff;
+    }
 }
 
 

@@ -587,9 +587,10 @@ void MaracujaMS::on_multiply_spectra() {
     //result = mult.pairwiseMultiplication(this->b, 1, 0.2);
     //result = mult.adaptTo(this->b.start(), this->b.end(), 0.2);
     //result = mult.adaptTo(this->b, true);
-	maracuja::Spectrum<double> result = a;
-	result.resample(m_MSImage.channels()[4].filter());
-	
+	   maracuja::Spectrum<double> result = a;
+	   result.resample(m_MSImage.channels()[4].filter());
+    result.normalize();	   
+	   
     ui->view->graph(2)->setPen(QPen(Qt::green));
     this->on_show_spectrum(result, 2);
 }
@@ -797,7 +798,7 @@ void MaracujaMS::on_toggle_filter_sensor_convolution() {
                     maracuja::Spectrum<double> filter = m_MSImage.channels()[readIdx].filter();
                     maracuja::Spectrum<double> sensor = m_MSImage.channels()[readIdx].sensor();    
     
-                    maracuja::Spectrum<double> testspec = filter * sensor;
+                    maracuja::Spectrum<double> testspec = filter + sensor;
           			
                     ui->view->graph(5)->setPen(QPen(Qt::yellow));
                     this->on_show_spectrum(testspec, 5);
@@ -838,6 +839,16 @@ void MaracujaMS::on_apply_filter() {
             {   
                 maracuja::Spectrum<double> filter = m_MSImage.channels()[readIdx].filter();
                 this->on_apply_spectrum(filter);
+                
+                maracuja::Spectrum<double> ref = m_MSImage.channels()[4].filter();
+    
+            	   // resample spectrum to fit the size of the reference spectrum
+                maracuja::Spectrum<double> tmp = filter;
+                tmp.resample(ref);
+                tmp.adaptArea(ref.area());
+                
+                ui->view->graph(5)->setPen(QPen(Qt::red));
+                this->on_show_spectrum(tmp, 5);
             }
         }
         else
@@ -909,7 +920,7 @@ void MaracujaMS::on_apply_both() {
                 maracuja::Spectrum<double> filter = m_MSImage.channels()[readIdx].filter();
                 maracuja::Spectrum<double> sensor = m_MSImage.channels()[readIdx].sensor();    
     
-                maracuja::Spectrum<double> testspec = filter * sensor;
+                maracuja::Spectrum<double> testspec = filter + sensor;
                     
                 this->on_apply_spectrum(testspec);
             }
