@@ -68,10 +68,17 @@ public:
     T samplerate() const;
     const VectorX& data() const;
 
+	void set(T start, T end, const VectorX& data );
+
     void resample( T start, T end );
     void resample( T samplerate );
     void resample( T start, T end, T samplerate );
     void resample( const Spectrum<T>& spec );
+
+	void normalize();
+	void adaptArea(double ref_area);
+
+	double area();
 
 protected:
     VectorX toEigen( const std::vector<T>& vec );
@@ -122,7 +129,6 @@ inline Spectrum<T>::Spectrum( T start, T end, const std::vector<T>& data  )
     m_sample_rate = calculateSamplerate( m_start, m_end, m_data.size() );
 }
 
-
 template <typename T>
 inline Spectrum<T>::~Spectrum()
 {
@@ -150,14 +156,39 @@ inline void Spectrum<T>::operator *( T coeff )
 template <typename T>
 inline Spectrum<T> Spectrum<T>::operator *( const Spectrum& spec )
 {
-    // TODO
+	Spectrum<T>* result;
+	
+	Spectrum<T> r = spec;
+	r.resample( m_start, m_end, m_sample_rate );
+	
+	Spectrum<T>::VectorX data_l(m_data);
+	Spectrum<T>::VectorX data_r(r.data());
+	
+	for ( int i=0; i<data_l.size(); i++ )
+		data_l[i] *= data_r[i];
+	
+	result = new Spectrum<T>( m_start, m_end, m_data );
+	return *result;
 }
 
 
 template <typename T>
 inline Spectrum<T> Spectrum<T>::operator +( const Spectrum& spec )
 {
-    // TODO
+	//To investigate: does Spectrum<T> foo += spec work?
+	Spectrum<T>* result;
+	
+	Spectrum<T> r = spec;
+	r.resample( m_start, m_end, m_sample_rate );
+	
+	Spectrum<T>::VectorX data_l(m_data);
+	Spectrum<T>::VectorX data_r(r.data());
+	
+	for ( int i=0; i<data_l.size(); i++ )
+		data_l[i] += data_r[i];
+	
+	result = new Spectrum<T>( m_start, m_end, data_l );
+	return *result;
 }
 
 
@@ -179,6 +210,13 @@ template <typename T>
 inline const typename Spectrum<T>::VectorX& Spectrum<T>::data() const
 {
     return m_data;
+}
+
+
+template <typename T>
+inline T Spectrum<T>::samplerate() const
+{
+    return m_sample_rate;
 }
 
 
@@ -211,9 +249,19 @@ inline size_t Spectrum<T>::calculateCoefficients( T start, T end, T samplerate )
 
 
 template <typename T>
+inline void Spectrum<T>::set( T start, T end, const Spectrum<T>::VectorX& data )
+{
+	m_start = start;
+	m_end = end;
+	m_data = data;
+	m_sample_rate = calculateSamplerate( m_start, m_end, m_data.size() );
+}
+
+
+template <typename T>
 inline void Spectrum<T>::resample( T start, T end )
 {
-    // TODO
+	resample( start, end, m_sample_rate );
 }
 
 
@@ -238,7 +286,30 @@ inline void Spectrum<T>::resample( T samplerate )
 template <typename T>
 inline void Spectrum<T>::resample( T start, T end, T samplerate )
 {
-    // TODO
+	// build appropriate data vector
+	int tmp_count = static_cast<int>((end - start) / m_sample_rate);
+	Spectrum<T>::VectorX tmp_data = Spectrum<T>::VectorX::Zero(tmp_count);
+	
+	for (int i=0; i<tmp_count; i++) {
+		if (start + i >= m_start && start + i <= m_end) {
+			tmp_data[i] = m_data[i]; 
+		}
+	}
+	
+	// get the new size of the image
+    int count = static_cast<int>((end - start) / samplerate);
+
+    // convert to CImg and resample using bicubic interpolation
+    cimg_library::CImg<T> img( tmp_data.data(), tmp_data.size(), 1, 1, 1, false );
+    img.resize( count, -100, -100, -100, 5 );
+
+    // write results
+	m_start = start;
+	m_end = end;
+    m_data = Spectrum<T>::VectorX::Zero(count);
+    for( int i=0; i<count; i++ )
+        m_data(i) = img.data()[i];
+    m_sample_rate = samplerate;
 }
 
 
@@ -246,6 +317,49 @@ template <typename T>
 inline void Spectrum<T>::resample( const Spectrum<T>& spec )
 {
     resample( spec.m_start, spec.m_end, spec.m_sample_rate );
+}
+
+
+template <typename T>
+inline void Spectrum<T>::normalize() {
+	//find the peak of this spectrum
+	T peak = static_cast<T>(0);
+	for ( int i=0; i<m_data.size(); i++ ) {
+		if (m_data[i] > peak) {
+			peak = m_data[i];
+		}
+	}
+	
+	//multiply every entry of m_data with the kehrwert of peak
+	m_data *= static_cast<T>(1)/peak;
+}
+
+
+template <typename T>
+inline double Spectrum<T>::area() {
+	double result = 0.0;
+	
+	if (m_data.size() <= 1) {
+		return 0.0;
+	}
+	
+	for (int i=0; i<m_data.size() - 1; i++)
+		result += 0.5 * static_cast<double>(m_sample_rate) * (std::min(static_cast<double>(m_data[i]), static_cast<double>(m_data[i+1])) + std::max(static_cast<double>(m_data[i]), static_cast<double>(m_data[i+1])));
+	
+	return result;
+}
+
+
+template <typename T>
+inline void Spectrum<T>::adaptArea(double ref_area) {
+    double s_area = area();
+        
+    if (s_area != 0) {
+        double coeff = (ref_area/s_area);
+        
+        for (int i=0; i<m_data.size(); i++)
+            m_data[i] *= coeff;
+    }
 }
 
 

@@ -37,11 +37,10 @@
 /// \date    Jan 15, 2013
 ///
 
-
+#include <iostream>
 #include <maracuja/util.hpp>
 #include <maracuja/Spectrum.hpp>
 #include <maracuja/Channel.hpp>
-#include <maracuja/SpecOps.hpp>
 
 #include <tinyxml2.h>
 
@@ -190,12 +189,15 @@ inline std::vector<T> MSImage<T,Ti>::computeCoefficients( const Spectrum<T>& spe
     {
         T dp;
         VectorX spectralData = spectrum.data();
-        VectorX filter_i = m_channels[idx].filter().data();
+        Spectrum<T> tmp = m_channels[idx].filter();
+        VectorX filter_i = tmp.data();
         coeffs[idx] = spectralData.adjoint()*(filter_i);
         coeffs[idx] = coeffs[idx]/filter_i.sum();
+        std::cout << "coeff " << idx << ": " << coeffs[idx] << std::endl;
         compensationCoeff = m_channels[idx].lossCalculation();
         // compensation of the losses due to the filter and the camera sensitivity for each channel
         coeffs[idx] = coeffs[idx] * compensationCoeff;
+        std::cout << "coeff " << idx << " after compensation: " << coeffs[idx] << std::endl;
     }
 
     return coeffs;
@@ -252,17 +254,36 @@ inline std::vector<std::vector<T> > MSImage<T,Ti>::computeBalancedCoefficients( 
 template <typename T, typename Ti>
 inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute(const Spectrum<T> &spectrum)
 {
+    Spectrum<T> ref = m_channels[4].filter();
+    /*Spectrum<T> filter = m_channels[0].filter();
+    Spectrum<T> sensor = m_channels[0].sensor();
+    Spectrum<T> ref = filter * sensor;
+    for (int i=1; i<m_channels.size(); i++) {
+        filter = m_channels[i].filter();
+        sensor = m_channels[i].sensor();
+        ref = ref + (filter * sensor);
+    }*/
+    
+	   // resample spectrum to fit the size of the reference spectrum
+    Spectrum<T> tmp = spectrum;
+    tmp.resample(ref);
+    //tmp.adaptArea(ref.area());
+	
     // calculation of the multiplicative coefficient for each channel for the considered spectrum
-    std::vector<T> coeffs = computeCoefficients(spectrum);
+    std::vector<T> coeffs = computeCoefficients(tmp);
 
     // multiplication of the images by the previously calculated coefficients
-    Image result( m_channels[0].img().width(),
-                  m_channels[0].img().height(),
+    Image result( m_channels[0].image().width(),
+                  m_channels[0].image().height(),
                   1, 1, 0 );
 
     // reconstruct the image
-    for( size_t i=0; i<m_channels.size(); i++ )
-        result += coeffs[i] * m_channels[i].img();
+    for( size_t i=0; i<m_channels.size(); i++ ) {
+        std::cout << "Channel " << i << " Max Pixel value: " << m_channels[i].image().max() << std::endl;
+        result += coeffs[i] * m_channels[i].image();
+    }
+    std::cout << "Max Pixel value: " << result.max() << std::endl; 
+        
 
     return result;
 }
@@ -299,7 +320,6 @@ inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute( const std::vector
         for( size_t c=0; c<m_channels.size(); c++ )
             channels[c] = m_channels[c].image();
 
-<<<<<<< HEAD
         // assemble the image
         cimg_library::CImg<T> resultF( m_channels[0].image().width(),
                                        m_channels[0].image().height(),
@@ -307,11 +327,6 @@ inline typename MSImage<T,Ti>::Image MSImage<T,Ti>::convolute( const std::vector
         for( int c=0; c<result.spectrum(); c++ )
             for( size_t i=0; i<m_channels.size(); i++ )
                 resultF.get_shared_channel(c) += coeffs[c][i] * channels[i];
-=======
-            cimg_library::CImg<uint8_t> convolute( const Spectrum& spectrum);
-            cimg_library::CImg<double> convolute_double( const Spectrum& spectrum);
-            cimg_library::CImg<uint8_t> convolute( const std::vector<maracuja::Spectrum>& spectra, bool balanced=false );
->>>>>>> 7e5d767fa2382cab1d58a83ca459c777749a7de5
 
         resultF.normalize( 0, 255 );
         result = resultF;

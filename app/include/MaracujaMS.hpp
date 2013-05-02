@@ -75,11 +75,11 @@ public slots:
     void on_add_dummy_spectra();
 
 protected:
-    void cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst );
-    //void cimg2qimg( const cimg_library::CImg<double>& src, QImage& dst );
-    void on_load_spectrum(maracuja::Spectrum& spec, bool& available);
-    void on_show_spectrum(const maracuja::Spectrum& spec, int graph);
-    void on_apply_spectrum(maracuja::Spectrum&);
+    //void cimg2qimg( const cimg_library::CImg<uint8_t>& src, QImage& dst );
+    void cimg2qimg( const cimg_library::CImg<float>& src, QImage& dst );
+    void on_load_spectrum(maracuja::Spectrum<double>& spec, bool& available);
+    void on_show_spectrum(const maracuja::Spectrum<double>& spec, int graph);
+    void on_apply_spectrum(maracuja::Spectrum<double>&);
     void on_hide_spectrum(int);
 
 protected:
@@ -88,10 +88,10 @@ protected:
 
     // data
     std::string m_lastDir;
-    maracuja::MSImage<double,uint8_t> m_MSImage;
-    cimg_library::CImg<uint8_t> m_imageRGB;
-    maracuja::Spectrum a;
-    maracuja::Spectrum b;
+    maracuja::MSImage<double,float> m_MSImage;
+    cimg_library::CImg<float> m_imageRGB;
+    maracuja::Spectrum<double> a;
+    maracuja::Spectrum<double> b;
     bool a_is_available = false;
     bool b_is_available = false;
     bool filter_on = false;

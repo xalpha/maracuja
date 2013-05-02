@@ -36,7 +36,6 @@ list( APPEND Maracuja_INC
     include/maracuja/MSImage.hpp
     include/maracuja/Spectrum.hpp
     include/maracuja/Channel.hpp
-	include/maracuja/SpecOps.hpp
     include/maracuja/util.hpp )
 list( APPEND Maracuja_SRC
 	src/SpecOps.cpp )

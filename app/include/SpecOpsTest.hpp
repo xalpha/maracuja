@@ -33,11 +33,11 @@ class SpecOpsTest
   		
 		SpecOpsTest();
 		
-		void OnesOnly(maracuja::Spectrum &a, maracuja::Spectrum &b);
-		void RandomARandomBEqualSize(maracuja::Spectrum &a, maracuja::Spectrum &b);
-		void RandomARandomBDifferentSize(maracuja::Spectrum &a, maracuja::Spectrum &b);
-		void emptyARandomB(maracuja::Spectrum &a, maracuja::Spectrum &b);
-		void emptyBRandomA(maracuja::Spectrum &a, maracuja::Spectrum &b);
+		void OnesOnly(maracuja::Spectrum<double> &a, maracuja::Spectrum<double>  &b);
+		void RandomARandomBEqualSize(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b);
+		void RandomARandomBDifferentSize(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b);
+		void emptyARandomB(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b);
+		void emptyBRandomA(maracuja::Spectrum<double>  &a, maracuja::Spectrum<double>  &b);
 		
 	protected:
 		
